@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d162nbk23ntiy"]
+
+[ext_resource type="Shader" path="res://Materiais/vegetacao/folhaArvore.gdshader" id="1_7eff1"]
+[ext_resource type="Texture2D" uid="uid://1pmew5bnorxa" path="res://texturas/vegetacao/folhaCanada.png" id="2_0ykm0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7eff1")
+shader_parameter/transmission = Color(0, 0, 0, 1)
+shader_parameter/albedo_color = Color(0.792969, 0.792969, 0.792969, 1)
+shader_parameter/backlight = Color(0, 0, 0, 1)
+shader_parameter/sway_speed = 5.0
+shader_parameter/sway_strength = 0.09
+shader_parameter/sway_phase_len = 8.0
+shader_parameter/texture_albedo = ExtResource("2_0ykm0")
+shader_parameter/texture_backlight = ExtResource("2_0ykm0")

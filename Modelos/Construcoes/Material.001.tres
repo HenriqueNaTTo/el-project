@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bu2fo11uqfa3m"]
+
+[ext_resource type="Texture2D" uid="uid://b7ba60orxpjfc" path="res://Modelos/Construcoes/casaBasica_Arvores-EL_pixel_art_small (2).png" id="1_uog3o"]
+
+[resource]
+resource_name = "Material.001"
+cull_mode = 2
+albedo_texture = ExtResource("1_uog3o")
+roughness = 0.5
+texture_filter = 2

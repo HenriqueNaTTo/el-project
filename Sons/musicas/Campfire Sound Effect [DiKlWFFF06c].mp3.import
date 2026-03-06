@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://xgwyva54abfi"
+path="res://.godot/imported/Campfire Sound Effect [DiKlWFFF06c].mp3-cfce3e93de159836c749884318691859.mp3str"
+
+[deps]
+
+source_file="res://Sons/musicas/Campfire Sound Effect [DiKlWFFF06c].mp3"
+dest_files=["res://.godot/imported/Campfire Sound Effect [DiKlWFFF06c].mp3-cfce3e93de159836c749884318691859.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

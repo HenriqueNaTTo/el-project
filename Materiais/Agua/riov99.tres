@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="RiverShaderSettings" load_steps=11 format=3 uid="uid://ctii8332h7cd8"]
+
+[ext_resource type="Shader" path="res://Materiais/Agua/shaderAguaV99.gdshader" id="1_yebwy"]
+[ext_resource type="Texture2D" uid="uid://cjq0cx6myh0bn" path="res://texturas/agua/normalv99.tres" id="2_lr315"]
+[ext_resource type="Texture2D" uid="uid://chj7j1qu0883m" path="res://texturas/Sky_LowPoly_01_Day_a.png" id="3_3bdlc"]
+[ext_resource type="Script" path="res://addons/waterways_net/Data/RiverShaderSettings.cs" id="4_3hsak"]
+
+[sub_resource type="Gradient" id="Gradient_xf6bk"]
+offsets = PackedFloat32Array(0.346369, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cbpbu"]
+frequency = 0.0155
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vki23"]
+seamless = true
+color_ramp = SubResource("Gradient_xf6bk")
+noise = SubResource("FastNoiseLite_cbpbu")
+
+[sub_resource type="Gradient" id="Gradient_705at"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ayh0t"]
+frequency = 0.0164
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2itbk"]
+seamless = true
+color_ramp = SubResource("Gradient_705at")
+noise = SubResource("FastNoiseLite_ayh0t")
+
+[resource]
+script = ExtResource("4_3hsak")
+MatShaderType = 2
+MatCustomShader = ExtResource("1_yebwy")
+mat_normal_map_1 = ExtResource("2_lr315")
+mat_normal_map_2 = ExtResource("2_lr315")
+mat_foam_direction = Vector2(1, 0.5)
+mat_foam_speed = 0.005
+mat_foam_scale = 2.0
+mat_foam_sharpness = 0.5
+mat_foam_amount = 0.1
+mat_foam_texture = SubResource("NoiseTexture2D_vki23")
+mat_shallow_color = Color(0, 0.578125, 0.492265, 1)
+mat_deep_color = Color(0, 0.320312, 0.272323, 1)
+mat_depth_fade_distance = 11.45
+mat_transparency = 0.8
+mat_wave1_direction = Vector2(0, -1)
+mat_wave1_speed = 0.06
+mat_wave1_scale = 1.0
+mat_wave2_direction = Vector2(0, -0.4)
+mat_wave2_speed = 0.03
+mat_wave2_scale = 1.5
+mat_noise_scale = 10.0
+mat_wave_height = 0.3
+mat_refraction_strength = 0.03
+mat_roughness = 0.2
+mat_reflection_strength = 1.0
+mat_noise_texture = SubResource("NoiseTexture2D_2itbk")
+mat_reflection_texture = ExtResource("3_3bdlc")
+LodLod0Distance = 50.0
+_selectedShader = 1

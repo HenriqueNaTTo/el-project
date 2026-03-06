@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c6ue2rtsp3fe8"]
+
+[resource]
+resource_name = "TRONCO"
+cull_mode = 2
+albedo_color = Color(0.659084, 0.18972, 0, 1)

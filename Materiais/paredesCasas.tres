@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dkl1alotkkrjx"]
+
+[ext_resource type="Texture2D" uid="uid://dv8h6dw3162sn" path="res://texturas/Culto/Concrete_01_Grey_1.png" id="1_w28b8"]
+[ext_resource type="Texture2D" uid="uid://b4lsg0o743hqv" path="res://texturas/Culto/normalCimentoCasas.png" id="2_ruwai"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_w28b8")
+normal_enabled = true
+normal_texture = ExtResource("2_ruwai")

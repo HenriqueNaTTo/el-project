@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cclpkv2yllb1b"]
+
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="1_gh3l2"]
+
+[resource]
+font = ExtResource("1_gh3l2")
+font_size = 32
+shadow_size = 5
+shadow_color = Color(0.36523882, 0.38039216, 0.3775358, 1)
+shadow_offset = Vector2(0, 0)

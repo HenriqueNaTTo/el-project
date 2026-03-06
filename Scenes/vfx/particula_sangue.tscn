@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://b06c23xvmpnfq"]
+
+[ext_resource type="Script" uid="uid://c4idcbko5g1c" path="res://Scripts/particula_sangue.gd" id="1_ybujr"]
+[ext_resource type="Texture2D" uid="uid://bkg32hbjfqc55" path="res://Interface/fundoMaior.png" id="2_ybujr"]
+
+[sub_resource type="Curve" id="Curve_pcyl7"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.715415, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ke5bi"]
+_data = [Vector2(0, 0.597826), 0.0, 0.0, 0, 0, Vector2(1, 0.92391294), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_p5fip"]
+curve_x = SubResource("Curve_pcyl7")
+curve_y = SubResource("Curve_ke5bi")
+
+[sub_resource type="Curve" id="Curve_pm04g"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.27272725, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5760869), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sy6xq"]
+curve = SubResource("Curve_pm04g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ybujr"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape_scale = Vector3(1, 2.235, 1)
+emission_shape = 2
+emission_sphere_radius = 0.5
+angle_min = -89.99999
+angle_max = 90.000015
+directional_velocity_min = 0.9999839
+directional_velocity_max = 1.9999839
+directional_velocity_curve = SubResource("CurveXYZTexture_p5fip")
+gravity = Vector3(0, -3, 0)
+radial_accel_min = 0.54999775
+radial_accel_max = 0.54999775
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_sy6xq")
+collision_mode = 1
+collision_friction = 0.1
+collision_bounce = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_prpdh"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.66, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ke5bi"]
+material = SubResource("StandardMaterial3D_prpdh")
+
+[node name="particulaSangue" type="Node3D"]
+script = ExtResource("1_ybujr")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29, 0)
+cast_shadow = 0
+emitting = false
+amount = 12
+lifetime = 1.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_ybujr")
+draw_pass_1 = SubResource("QuadMesh_ke5bi")
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12000036, -0.95000005, 0.029999733)
+size = Vector3(7.7599998, 5.64, 8.059999)
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.76, 0)
+texture_albedo = ExtResource("2_ybujr")
+lower_fade = 0.009055657
+distance_fade_enabled = true

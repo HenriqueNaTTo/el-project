@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://3riejx0hcss1"
+path="res://.godot/imported/Two Steps From Hell - Decimator Extended [4BV4oWmhAyI].mp3-38c2f74efa65f2a586bde25375cd5d26.mp3str"
+
+[deps]
+
+source_file="res://Sons/musicas/Two Steps From Hell - Decimator Extended [4BV4oWmhAyI].mp3"
+dest_files=["res://.godot/imported/Two Steps From Hell - Decimator Extended [4BV4oWmhAyI].mp3-38c2f74efa65f2a586bde25375cd5d26.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

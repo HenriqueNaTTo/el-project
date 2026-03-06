@@ -1,0 +1,165 @@
+[gd_scene load_steps=15 format=3 uid="uid://s45jw170gqbr"]
+
+[ext_resource type="Texture2D" uid="uid://dbev1tdh2oa6n" path="res://Interface/fundoMaiorv2.png" id="1_onee1"]
+[ext_resource type="Script" uid="uid://cbj3x7lormrfs" path="res://Interface/scripts/selecionar_level.gd" id="1_xli5r"]
+[ext_resource type="Texture2D" uid="uid://dliyuk3htmv6s" path="res://Interface/fundoLevel1Normal.png" id="2_xli5r"]
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="3_5v74e"]
+[ext_resource type="Texture2D" uid="uid://0s1suhpb5eqk" path="res://Interface/fundoLevel1.png" id="3_gwc87"]
+[ext_resource type="Texture2D" uid="uid://bi568kwy7rb6g" path="res://Interface/FundoBtnInteracao.png" id="4_gwc87"]
+[ext_resource type="Texture2D" uid="uid://cr45vw5mn3v1m" path="res://Interface/fundoLevel2Normal.png" id="4_rn8bv"]
+[ext_resource type="Script" uid="uid://dqdls732ptky0" path="res://Interface/scripts/level_1_click.gd" id="6_gwc87"]
+[ext_resource type="Texture2D" uid="uid://ct288xelxjf2s" path="res://Interface/fundoLevel2.png" id="8_lg2dv"]
+[ext_resource type="Script" uid="uid://bpda4gem3r8nv" path="res://Interface/scripts/level_2_click.gd" id="9_7ej1c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l3k1"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.08627451, 0.08235294, 0.12941177, 0.65882355)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_yb8lr"]
+font = ExtResource("3_5v74e")
+font_size = 24
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yb8lr"]
+texture = ExtResource("4_gwc87")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2l3k1"]
+texture = ExtResource("4_gwc87")
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[node name="selecionarLevel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xli5r")
+level_1_texture = ExtResource("2_xli5r")
+mouse_level_1_texture = ExtResource("3_gwc87")
+level_2_texture = ExtResource("4_rn8bv")
+mouse_level_2_texture = ExtResource("8_lg2dv")
+
+[node name="sombraFundo" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l3k1")
+
+[node name="fundo" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(596.42, 540)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -270.0
+offset_top = -270.0
+offset_right = 270.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_onee1")
+expand_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="fundo"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.0
+offset_top = -100.0
+offset_right = 206.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="level1" type="TextureRect" parent="fundo/GridContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_xli5r")
+script = ExtResource("6_gwc87")
+
+[node name="nomeLevel" type="Label" parent="fundo/GridContainer/level1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.5
+offset_top = -23.0
+offset_right = 53.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Porão Funebre"
+label_settings = SubResource("LabelSettings_yb8lr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="level2" type="TextureRect" parent="fundo/GridContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("4_rn8bv")
+script = ExtResource("9_7ej1c")
+
+[node name="nomeLevel" type="Label" parent="fundo/GridContainer/level2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.5
+offset_top = -23.0
+offset_right = 53.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jardim de Murakam"
+label_settings = SubResource("LabelSettings_yb8lr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnSair" type="Button" parent="fundo"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_5v74e")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_yb8lr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2l3k1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2l3k1")
+text = "X"
+
+[connection signal="mouse_entered" from="fundo/GridContainer/level1" to="." method="_on_level_1_mouse_entered"]
+[connection signal="mouse_exited" from="fundo/GridContainer/level1" to="." method="_on_level_1_mouse_exited"]
+[connection signal="mouse_entered" from="fundo/GridContainer/level2" to="." method="_on_level_2_mouse_entered"]
+[connection signal="mouse_exited" from="fundo/GridContainer/level2" to="." method="_on_level_2_mouse_exited"]
+[connection signal="pressed" from="fundo/btnSair" to="." method="_on_btn_sair_pressed"]

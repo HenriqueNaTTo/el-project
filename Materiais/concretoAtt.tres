@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c5ut032nwv08y"]
+
+[ext_resource type="Texture2D" uid="uid://bt0uns0jrt1ft" path="res://texturas/Culto/s2 Concrete Base Grey.png" id="1_7h7q0"]
+[ext_resource type="Texture2D" uid="uid://biaqk5a3wp7e0" path="res://texturas/Culto/cimentoChaoNormal.png" id="2_hwqjv"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_7h7q0")
+metallic_specular = 0.2
+roughness = 0.25
+normal_enabled = true
+normal_texture = ExtResource("2_hwqjv")
+refraction_scale = 1.0
+refraction_texture_channel = 2
+uv1_scale = Vector3(0.05, 0.05, 0.05)
+uv1_triplanar = true
+texture_filter = 2

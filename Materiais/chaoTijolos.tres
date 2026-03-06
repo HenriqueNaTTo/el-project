@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bjq4l74s0u7f7"]
+
+[ext_resource type="Texture2D" uid="uid://cab7edqou3vbe" path="res://texturas/Culto/Tiles_Circle_01_Red_1.png" id="1_8qmnn"]
+[ext_resource type="Texture2D" uid="uid://c4lbtiokexl7a" path="res://texturas/Culto/normalCircular.png" id="2_483au"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_8qmnn")
+metallic_specular = 0.1
+roughness = 0.09
+normal_enabled = true
+normal_texture = ExtResource("2_483au")
+heightmap_scale = 3.689
+texture_filter = 0

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="RiverShaderSettings" load_steps=3 format=3 uid="uid://d2s4ct2qyx4ek"]
+
+[ext_resource type="Texture2D" uid="uid://b85tlq8wcklbo" path="res://addons/waterways_net/Textures/water_normal_bump.png" id="1_kd7c6"]
+[ext_resource type="Script" path="res://addons/waterways_net/Data/RiverShaderSettings.cs" id="2_ay658"]
+
+[resource]
+script = ExtResource("2_ay658")
+MatShaderType = 1
+mat_albedo_color_first = Color(1, 1, 1, 1)
+mat_albedo_color_second = Color(0.284598, 0.398438, 0.398438, 1)
+mat_albedo_depth = 10.0
+mat_albedo_depth_curve = 0.25
+mat_transparency_clarity = 10.0
+mat_transparency_depth_curve = 0.000455581
+mat_transparency_refraction = 0.2
+mat_normal_scale = 1.0
+mat_normal_bump_texture = ExtResource("1_kd7c6")
+mat_flow_speed = 2.0
+mat_flow_base = 0.0
+mat_flow_steepness = 2.0
+mat_flow_distance = 8.0
+mat_flow_pressure = 1.0
+mat_flow_max = 4.0
+mat_foam_color = Color(0.9, 0.9, 0.9, 1)
+mat_foam_amount = 0.984
+mat_foam_steepness = 8.0
+mat_foam_smoothness = 1.0
+mat_uv_scale = Vector3(1, 1, 1)
+mat_roughness = 0.2
+mat_edge_fade = 0.25
+LodLod0Distance = 50.0
+_selectedShader = 1

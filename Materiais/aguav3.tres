@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c171as3sspj6c"]
+
+[ext_resource type="Shader" uid="uid://db2oqaike2bco" path="res://Materiais/aguaRioLento.tres" id="1_03yot"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_03yot")
+shader_parameter/ColorParameter = Color(0, 0.27451, 0.372549, 1)
+shader_parameter/MovementFoam1 = Vector2(0, 0)
+shader_parameter/MovementFoam2 = Vector2(0, 0)
+shader_parameter/MovementFoam3 = Vector2(0, 0)
+shader_parameter/MovementFoam4 = Vector2(0, 0)

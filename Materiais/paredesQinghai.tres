@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://q4uwo2dyayux"]
+
+[ext_resource type="Texture2D" uid="uid://nwi7hw8x6mgk" path="res://modelos/Qunghai/palacioDoBoss_tiled-stones.jpg" id="1_u6hrs"]
+[ext_resource type="Texture2D" uid="uid://vwq5u5sguadk" path="res://modelos/Qunghai/NormalMapParedes.png" id="2_o2ii7"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_u6hrs")
+metallic_specular = 0.2
+roughness = 0.25
+normal_enabled = true
+normal_scale = -2.0
+normal_texture = ExtResource("2_o2ii7")
+refraction_scale = 1.0
+refraction_texture_channel = 2
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_offset = Vector3(0, 0.695, 0)
+uv1_triplanar = true
+texture_filter = 2

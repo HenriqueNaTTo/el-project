@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cxc04252258j0"]
+
+[ext_resource type="Texture2D" uid="uid://bnb1ggmsuvasx" path="res://Modelos/Construcoes/Reino Sagrado/madeira.jpg" id="1_mrir7"]
+[ext_resource type="Texture2D" uid="uid://c5404wnhrmmtp" path="res://Modelos/Construcoes/madeiraNormalMap.png" id="2_mrir7"]
+
+[resource]
+resource_name = "madeira"
+cull_mode = 2
+albedo_color = Color(0.70703125, 0.70703125, 0.70703125, 1)
+albedo_texture = ExtResource("1_mrir7")
+roughness = 0.5
+normal_enabled = true
+normal_scale = 0.5
+normal_texture = ExtResource("2_mrir7")
+uv1_scale = Vector3(0.325, 0.325, 0.325)
+uv1_triplanar = true
+uv1_world_triplanar = true

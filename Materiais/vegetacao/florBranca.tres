@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://8ucrtlhln2k"]
+
+[ext_resource type="Shader" path="res://Materiais/vegetacao/hibiscusv2.gdshader" id="1_c5rbr"]
+[ext_resource type="Texture2D" uid="uid://psb3wdetfc0e" path="res://texturas/vegetacao/texturaFlorBranca.png" id="2_kblnn"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_c5rbr")
+shader_parameter/transmission = Color(0, 0, 0, 1)
+shader_parameter/albedo_color = Color(0.847656, 0.847656, 0.847656, 1)
+shader_parameter/backlight = Color(1, 1, 1, 1)
+shader_parameter/backlight_intensity = 1.0
+shader_parameter/fade_start_distance = 180.0
+shader_parameter/fade_end_distance = 220.0
+shader_parameter/wind_strength = 0.3
+shader_parameter/wind_speed = 2.0
+shader_parameter/wind_direction = Vector2(0.2, 0.1)
+shader_parameter/wind_turbulence = 0.01
+shader_parameter/wind_gust_strength = 0.01
+shader_parameter/wind_gust_frequency = 0.02
+shader_parameter/texture_albedo = ExtResource("2_kblnn")
+shader_parameter/texture_backlight = ExtResource("2_kblnn")

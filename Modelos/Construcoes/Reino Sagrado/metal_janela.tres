@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dshi764ru5b8j"]
+
+[ext_resource type="Texture2D" uid="uid://be16nxymmpjqi" path="res://Modelos/Itens/Espadas/metal_BaseColor.png" id="1_v8h0e"]
+[ext_resource type="Texture2D" uid="uid://x00a4oyc2q4w" path="res://Modelos/Itens/Espadas/metal_Displacement.png" id="2_vw0oo"]
+[ext_resource type="Texture2D" uid="uid://coskveck4r23j" path="res://Modelos/Itens/Espadas/metal_Metallic.png" id="3_5uy7v"]
+[ext_resource type="Texture2D" uid="uid://syyisbmixav5" path="res://Modelos/Itens/Espadas/metal_Normal.png" id="4_h7emd"]
+[ext_resource type="Texture2D" uid="uid://bxxpyyoneemsf" path="res://Modelos/Itens/Espadas/metal_Roughness.png" id="5_uk1hc"]
+
+[resource]
+cull_mode = 2
+albedo_color = Color(0.98828125, 0.7180481, 0, 1)
+albedo_texture = ExtResource("1_v8h0e")
+metallic = 1.0
+metallic_texture = ExtResource("3_5uy7v")
+roughness_texture = ExtResource("5_uk1hc")
+normal_enabled = true
+normal_texture = ExtResource("4_h7emd")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_vw0oo")

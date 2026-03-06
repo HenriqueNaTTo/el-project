@@ -1,0 +1,156 @@
+[gd_scene load_steps=12 format=3 uid="uid://b6vfoxcdwnbkr"]
+
+[ext_resource type="Texture2D" uid="uid://b0iqgdj75pl7j" path="res://Interface/fundoInteracao.png" id="1_ena4b"]
+[ext_resource type="Script" uid="uid://b34le3hnwnvpc" path="res://Interface/scripts/item_inventario_consumivel.gd" id="2_ena4b"]
+[ext_resource type="Resource" uid="uid://dvleiryfm8v70" path="res://Scenes/Recursos/pocao_de_vida.tres" id="3_27x4h"]
+[ext_resource type="Texture2D" uid="uid://bi568kwy7rb6g" path="res://Interface/FundoBtnInteracao.png" id="3_mlxlg"]
+[ext_resource type="Texture2D" uid="uid://ckaq2n0hvlwq1" path="res://Materiais/shaders/sky/icon.png" id="4_5e66b"]
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="5_tdxud"]
+[ext_resource type="Texture2D" uid="uid://x7veo88jak2c" path="res://Interface/Hasar.png" id="7_mlxlg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jprtl"]
+font = ExtResource("5_tdxud")
+font_size = 11
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pi4au"]
+font = ExtResource("5_tdxud")
+font_size = 12
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_migt5"]
+font = ExtResource("5_tdxud")
+font_size = 12
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5e66b"]
+font = ExtResource("5_tdxud")
+font_size = 32
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[node name="itemConsumivel" type="TextureRect"]
+custom_minimum_size = Vector2(0, 40)
+offset_right = 186.0
+offset_bottom = 47.0
+texture = ExtResource("1_ena4b")
+expand_mode = 1
+script = ExtResource("2_ena4b")
+item_data = ExtResource("3_27x4h")
+valor = 600
+
+[node name="icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+grow_vertical = 2
+texture = ExtResource("3_mlxlg")
+expand_mode = 1
+
+[node name="iconTexture" type="TextureRect" parent="icon"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18333334
+anchor_top = 0.175
+anchor_right = 0.81666666
+anchor_bottom = 0.80833334
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_5e66b")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="nomeItem" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 55.655
+offset_top = -11.5
+offset_right = 174.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "Poção de vida"
+label_settings = SubResource("LabelSettings_jprtl")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="textStatus" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -14.925
+offset_bottom = -2.9249878
+grow_horizontal = 0
+grow_vertical = 2
+text = "Recupera"
+label_settings = SubResource("LabelSettings_pi4au")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quantStatus" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -37.339996
+offset_top = -3.5
+offset_right = -22.339996
+offset_bottom = 16.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "20"
+label_settings = SubResource("LabelSettings_migt5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="containerValor" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -9.300003
+offset_top = -15.04
+offset_right = 124.700134
+offset_bottom = 34.96
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+alignment = 1
+
+[node name="textureMoeda" type="TextureRect" parent="containerValor"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("7_mlxlg")
+expand_mode = 1
+
+[node name="valorItem" type="Label" parent="containerValor"]
+layout_mode = 2
+text = "600"
+label_settings = SubResource("LabelSettings_5e66b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

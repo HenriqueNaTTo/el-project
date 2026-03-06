@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c4pp3e2l0cmj5"]
+
+[ext_resource type="Texture2D" uid="uid://bwoeibdiaq2uw" path="res://Personagens/Protagonista/armaduras/culto/Anciao/mantoTexturasMaterial_mantoAnciao.png" id="1_lh2or"]
+
+[resource]
+resource_name = "mantoAnciao"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_lh2or")
+texture_filter = 2

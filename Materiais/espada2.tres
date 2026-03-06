@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ba5scwlda8rki"]
+
+[ext_resource type="Texture2D" uid="uid://qlevoq5obo84" path="res://Modelos/armas/espadas/espadaSegundoDicipulo_normalMapDamasco.png" id="2_svpqy"]
+
+[resource]
+resource_name = "espada2"
+cull_mode = 2
+metallic = 0.68
+metallic_specular = 0.15
+roughness = 0.19
+normal_enabled = true
+normal_scale = 0.2
+normal_texture = ExtResource("2_svpqy")
+texture_filter = 2

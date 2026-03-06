@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://d1u8el3x6vgr2"]
+
+[ext_resource type="Texture2D" uid="uid://ptilalcgsja6" path="res://Modelos/Salas/pilares_Bricks_02_Grey_3.png" id="1_lk5jg"]
+[ext_resource type="Texture2D" uid="uid://d3dts4407kh1k" path="res://Modelos/mapaAbismo/props diversos/ruinasHightMap.png" id="2_7t3u2"]
+[ext_resource type="Texture2D" uid="uid://dwdmqyv500kf0" path="res://Modelos/mapaAbismo/props diversos/ruinasNormalMap.png" id="3_j6ave"]
+[ext_resource type="Texture2D" uid="uid://d1vcvwbmj2bwy" path="res://Modelos/mapaAbismo/props diversos/ruinasSpecularMap.png" id="4_2ndva"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_lk5jg")
+roughness_texture = ExtResource("4_2ndva")
+normal_enabled = true
+normal_texture = ExtResource("3_j6ave")
+heightmap_enabled = true
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("2_7t3u2")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+texture_filter = 2

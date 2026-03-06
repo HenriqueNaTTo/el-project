@@ -1,0 +1,165 @@
+[gd_scene load_steps=14 format=3 uid="uid://dhkk58p8d4rct"]
+
+[ext_resource type="Texture2D" uid="uid://wyc1od2avnnw" path="res://Personagens/Protagonista/AnimacoesCombate/bolaDeFogo.png" id="1_28kjb"]
+[ext_resource type="Texture2D" uid="uid://cy86vnetk2mkr" path="res://Personagens/Protagonista/AnimacoesCombate/SpecularMap.png" id="1_wdr77"]
+[ext_resource type="Texture2D" uid="uid://bjaf2oixj1p6b" path="res://Personagens/Protagonista/AnimacoesCombate/bolaDeFogoParticula.png" id="3_lmdg2"]
+[ext_resource type="AudioStream" uid="uid://u4v10ueebvtf" path="res://Sons/musicas/Cinematic Whoosh Fireball - Sound Effect [HD] [AHRf27GPhQc].mp3" id="4_jxows"]
+[ext_resource type="AudioStream" uid="uid://xgwyva54abfi" path="res://Sons/musicas/Campfire Sound Effect [DiKlWFFF06c].mp3" id="5_y2pl8"]
+
+[sub_resource type="Shader" id="Shader_wdr77"]
+code = "shader_type spatial;
+
+// --- Parâmetros ---
+
+// As duas texturas de água para transicionar.
+uniform sampler2D water_texture_a : source_color, filter_nearest;
+uniform sampler2D water_texture_b : source_color, filter_nearest;
+
+// Texturas de ruído/normal map para distorção e padrão de transição
+uniform sampler2D distortion_noise_1;
+uniform sampler2D distortion_noise_2;
+uniform sampler2D dissolve_noise;
+
+// Textura de Emissão (brilho)
+uniform sampler2D emission_texture : source_color;
+// Força do brilho (requer WorldEnvironment com Glow ativado)
+uniform float emission_strength : hint_range(0.0, 100.0) = 2.0;
+
+// Intensidade da distorção da água
+uniform float distortion_strength : hint_range(0.0, 0.1) = 0.05;
+// Velocidade da distorção (as \"ondas\" se movendo)
+uniform float distortion_speed : hint_range(0.0, 1.0) = 0.1;
+
+// NOVO: Velocidade que as próprias texturas de água rolam
+uniform float water_scroll_speed : hint_range(0.0, 0.5) = 0.05;
+
+// Velocidade da transição de A para B (o \"dissolver\" geral)
+uniform float transition_speed : hint_range(0.1, 2.0) = 0.2;
+// Suavidade da borda do \"dissolve\"
+uniform float transition_softness : hint_range(0.0, 1.0) = 0.2;
+
+
+void fragment() {
+	// 1. Calcular o offset de distorção
+	vec2 distortion_uv1 = UV + vec2(TIME * distortion_speed, TIME * distortion_speed * 0.7);
+	vec2 distortion_uv2 = UV + vec2(-TIME * distortion_speed * 0.5, TIME * distortion_speed * 1.2);
+
+	vec2 distortion_offset1 = texture(distortion_noise_1, distortion_uv1).rg * 2.0 - 1.0;
+	vec2 distortion_offset2 = texture(distortion_noise_2, distortion_uv2).rg * 2.0 - 1.0;
+
+	vec2 total_distortion = (distortion_offset1 + distortion_offset2) * 0.5 * distortion_strength;
+
+	// NOVO: Calcular o offset de scroll para as texturas de água base
+	vec2 scroll_offset = vec2(TIME * water_scroll_speed, TIME * water_scroll_speed * 0.5); // Scroll em X e Y
+
+	// 2. Aplicar a distorção E o scroll aos UVs das texturas de água
+	vec2 final_water_uv = UV + total_distortion + scroll_offset; // Combinando scroll e distorção
+
+	// 3. Ler as cores das texturas de água distorcidas e com scroll
+	vec3 color_a = texture(water_texture_a, final_water_uv).rgb;
+	vec3 color_b = texture(water_texture_b, final_water_uv).rgb;
+
+	// 4. Calcular o fator de transição (dissolve)
+	// O ruído para o dissolve também pode ser distorcido e com scroll para um efeito mais \"líquido\"
+	// Usamos final_water_uv aqui para que o dissolve siga o movimento geral da água
+	float dissolve_noise_value = texture(dissolve_noise, final_water_uv).r;
+
+	// O limite da transição animado de 0.0 a 1.0 e vice-versa
+	float threshold = (sin(TIME * transition_speed) + 1.0) / 2.0;
+
+	// Usa smoothstep para criar uma borda suave
+	float blend_factor = smoothstep(threshold - transition_softness, threshold + transition_softness, dissolve_noise_value);
+
+	// 5. Misturar as duas texturas de água
+	vec3 final_color = mix(color_a, color_b, blend_factor);
+
+	ALBEDO = final_color;
+
+	// 6. Aplicar Emissão (Brilho)
+	// Lemos a textura de emissão usando os mesmos UVs distorcidos e com scroll
+	// Isso faz com que a \"espuma\" ou \"brilho\" se movam com as ondas.
+	float emission_mask = texture(emission_texture, final_water_uv).r;
+	
+	// O brilho será a cor final da água, multiplicada pela máscara de emissão e pela força.
+	EMISSION = final_color * emission_mask * emission_strength;
+}"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t0q8p"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lmdg2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2pl8"]
+render_priority = 0
+shader = SubResource("Shader_wdr77")
+shader_parameter/water_texture_a = ExtResource("1_28kjb")
+shader_parameter/water_texture_b = ExtResource("1_28kjb")
+shader_parameter/distortion_noise_1 = SubResource("NoiseTexture2D_lmdg2")
+shader_parameter/distortion_noise_2 = SubResource("NoiseTexture2D_lmdg2")
+shader_parameter/dissolve_noise = SubResource("NoiseTexture2D_t0q8p")
+shader_parameter/emission_texture = ExtResource("1_wdr77")
+shader_parameter/emission_strength = 100.0
+shader_parameter/distortion_strength = 0.02700000128249999
+shader_parameter/distortion_speed = 0.2450000116375
+shader_parameter/water_scroll_speed = 0.050000002375
+shader_parameter/transition_speed = 0.2
+shader_parameter/transition_softness = 0.54000002565
+
+[sub_resource type="SphereMesh" id="SphereMesh_3uuuu"]
+material = SubResource("ShaderMaterial_y2pl8")
+radius = 0.02
+height = 0.04
+radial_segments = 12
+rings = 6
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y2pl8"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape = 2
+emission_sphere_radius = 0.02
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, 0.3, 0)
+turbulence_noise_speed = Vector3(1, 1, 1)
+turbulence_noise_speed_random = 1.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6f7r"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_lmdg2")
+emission_enabled = true
+emission_energy_multiplier = 15.0
+emission_texture = ExtResource("3_lmdg2")
+texture_filter = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_yxr35"]
+material = SubResource("StandardMaterial3D_k6f7r")
+size = Vector2(0.1, 0.1)
+
+[node name="bolaDeFogo" type="MeshInstance3D"]
+transform = Transform3D(15, 8.032657e-06, 4.190951e-06, -8.032657e-06, 15, -1.3969857e-06, -4.190952e-06, 1.3969834e-06, 15, 0, 0, 0)
+mesh = SubResource("SphereMesh_3uuuu")
+skeleton = NodePath("../..")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.9999999, -1.965511e-13, -5.684342e-14, 2.0135284e-13, 0.9999999, 0, 5.684342e-14, -1.4210855e-14, 0.9999999, 6.2797494e-07, -0.00016666972, 1.0921321e-07)
+amount = 22
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_y2pl8")
+draw_pass_1 = SubResource("QuadMesh_yxr35")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_jxows")
+attenuation_model = 2
+volume_db = -2.0
+unit_size = 2.0
+autoplay = true
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_y2pl8")
+attenuation_model = 2
+volume_db = -2.0
+unit_size = 2.0
+autoplay = true

@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bo2eumpebuknc"]
+
+[ext_resource type="Texture2D" uid="uid://bayhitk8y62rd" path="res://Imagens/Texturas Terreno/rockSeamless.jpg" id="1_r0ees"]
+[ext_resource type="Texture2D" uid="uid://c0g4h3wxsw38a" path="res://Imagens/Texturas Terreno/rock_packed_normal_roughness.png" id="2_ilnp6"]
+
+[resource]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.929412, 0.929412, 0.929412, 1)
+albedo_texture = ExtResource("1_r0ees")
+metallic_specular = 0.2
+roughness = 0.4
+normal_enabled = true
+normal_texture = ExtResource("2_ilnp6")
+texture_filter = 4

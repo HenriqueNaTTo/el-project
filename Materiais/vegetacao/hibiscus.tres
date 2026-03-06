@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c8fwvhyj7u8rm"]
+
+[ext_resource type="Texture2D" uid="uid://bif12hgc12nu3" path="res://modelos/vegetacao/hibiscus_texturaFlorHibiscus.png" id="1_l5lbk"]
+
+[resource]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_l5lbk")
+texture_filter = 4

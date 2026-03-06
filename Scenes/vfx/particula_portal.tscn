@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://k2f6ohkgslsk"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2a1mt"]
+emission_shape = 1
+emission_sphere_radius = 27.16
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lx512"]
+cull_mode = 2
+emission_enabled = true
+emission = Color(0.53409004, 0, 1, 1)
+emission_energy_multiplier = 200.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_7bbg6"]
+material = SubResource("StandardMaterial3D_lx512")
+radius = 0.02
+height = 0.03
+radial_segments = 6
+rings = 4
+
+[node name="particulaPortal" type="GPUParticles3D"]
+amount = 350
+trail_lifetime = 11.4
+process_material = SubResource("ParticleProcessMaterial_2a1mt")
+draw_pass_1 = SubResource("SphereMesh_7bbg6")

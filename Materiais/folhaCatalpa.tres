@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cykh3kx13unru"]
+
+[ext_resource type="Texture2D" uid="uid://hppgnoehxosa" path="res://texturas/arvorePixel_folhaCapalta.png" id="1_f8m4q"]
+
+[resource]
+resource_name = "folhaCatalpa"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_f8m4q")

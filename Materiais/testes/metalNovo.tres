@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://qmsoa2i520yo"]
+
+[ext_resource type="Texture2D" uid="uid://sg7blv6s5riu" path="res://Modelos/Salas/bau_Metal_01_Grey_Rust_6.png" id="1_2y5ss"]
+[ext_resource type="Texture2D" uid="uid://chh6ddmkoieho" path="res://Texturas/texturas/metal e outros/metalNormal.png" id="2_m6ssi"]
+
+[resource]
+resource_name = "METAL"
+cull_mode = 2
+albedo_texture = ExtResource("1_2y5ss")
+metallic = 0.86
+roughness = 0.2
+normal_enabled = true
+normal_scale = 0.2
+normal_texture = ExtResource("2_m6ssi")
+texture_filter = 2

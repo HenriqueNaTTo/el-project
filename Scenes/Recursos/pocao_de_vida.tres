@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dvleiryfm8v70"]
+
+[ext_resource type="Texture2D" uid="uid://2rc538jv5lju" path="res://Imagens/icon.svg" id="1_nl6b0"]
+[ext_resource type="Script" uid="uid://d1ibcy028nu4q" path="res://Scenes/Recursos/scripts/item_data.gd" id="2_u4uwr"]
+
+[resource]
+script = ExtResource("2_u4uwr")
+nome = "Poção de Vida"
+descricao = "Poção pequena de vida. Recupera 20 pontos da vida total."
+status = 20
+icone = ExtResource("1_nl6b0")
+tipo_item = 2
+metadata/_custom_type_script = "uid://d1ibcy028nu4q"

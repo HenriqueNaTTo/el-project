@@ -1,0 +1,14 @@
+[gd_resource type="NoiseTexture2D" load_steps=3 format=3 uid="uid://bbmw47inliafi"]
+
+[sub_resource type="Gradient" id="Gradient_avutl"]
+offsets = PackedFloat32Array(0.47717842, 0.53526974)
+colors = PackedColorArray(0.3764706, 0.44313726, 0.61960787, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_suhv5"]
+noise_type = 2
+
+[resource]
+noise = SubResource("FastNoiseLite_suhv5")
+color_ramp = SubResource("Gradient_avutl")
+seamless = true
+in_3d_space = true

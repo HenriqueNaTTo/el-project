@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://damksgk3pk13n"
+path="res://.godot/imported/Walen - Medieval Village (freetouse.com).mp3-65501c6a2d6faa5de16e17e35be451ef.mp3str"
+
+[deps]
+
+source_file="res://Sons/musicas/Walen - Medieval Village (freetouse.com).mp3"
+dest_files=["res://.godot/imported/Walen - Medieval Village (freetouse.com).mp3-65501c6a2d6faa5de16e17e35be451ef.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

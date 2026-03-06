@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dnnt7xw73ea0q"]
+
+[ext_resource type="Shader" uid="uid://bm7cp0p6wf8ev" path="res://Materiais/shaders/folhasVersao2.gdshader" id="1_byexr"]
+[ext_resource type="Texture2D" uid="uid://dwjun76tjpvdt" path="res://Scenes/vegetacao/arvores_ramoDeFolhas.png" id="2_tycep"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_byexr")
+shader_parameter/texture_albedo = ExtResource("2_tycep")
+shader_parameter/transmission = Color(1, 1, 1, 1)
+shader_parameter/albedo_color = Color(0.6392157, 0.6392157, 1, 1)
+shader_parameter/backlight = Color(1, 1, 1, 1)
+shader_parameter/texture_backlight = ExtResource("2_tycep")
+shader_parameter/backlight_intensity = 10.0
+shader_parameter/fade_start_distance = 200.0000092625
+shader_parameter/fade_end_distance = 250.0000114
+shader_parameter/wind_strength = 0.050000002375
+shader_parameter/wind_speed = 4.0
+shader_parameter/wind_direction = Vector2(0.1, 0.05)
+shader_parameter/wind_turbulence = 0.01
+shader_parameter/wind_gust_strength = 0.3
+shader_parameter/wind_gust_frequency = 0.2

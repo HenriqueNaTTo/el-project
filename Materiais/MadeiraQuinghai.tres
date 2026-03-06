@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c0j62hs7bhhlh"]
+
+[ext_resource type="Texture2D" uid="uid://d27b2fve84f2j" path="res://modelos/Qunghai/palacioDoBoss_wooden-flooring-textured-backgro.jpg" id="1_b28pm"]
+[ext_resource type="Texture2D" uid="uid://ck7d3mo3jk1cs" path="res://modelos/Qunghai/NormalMapMadeira2.png" id="2_c4epy"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_b28pm")
+roughness = 0.45
+normal_enabled = true
+normal_texture = ExtResource("2_c4epy")
+uv1_scale = Vector3(0.7, 0.7, 0.7)
+texture_filter = 0

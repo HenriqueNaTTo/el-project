@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dh28v7nlrbylq"]
+
+[ext_resource type="Shader" path="res://Materiais/vegetacao/folhaArvore.gdshader" id="1_4vpt7"]
+[ext_resource type="Texture2D" uid="uid://cwuyu8cyjdb0e" path="res://texturas/vegetacao/folhaTeste.png" id="2_h1aa5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_4vpt7")
+shader_parameter/transmission = Color(0, 0, 0, 1)
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/backlight = Color(0, 0, 0, 1)
+shader_parameter/sway_speed = 2.0
+shader_parameter/sway_strength = 0.09
+shader_parameter/sway_phase_len = 8.0
+shader_parameter/texture_albedo = ExtResource("2_h1aa5")
+shader_parameter/texture_backlight = ExtResource("2_h1aa5")

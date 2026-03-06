@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ca48o65nhmh8i"]
+
+[ext_resource type="Texture2D" uid="uid://c2fndaa0okjtq" path="res://Modelos/Construcoes/casaBasica_Fundo.png" id="1_qhk67"]
+[ext_resource type="Texture2D" uid="uid://b7rkqbu2qhytr" path="res://Modelos/Construcoes/casaBasica_Pixel_specular.png" id="2_16i7t"]
+
+[resource]
+resource_name = "metal"
+cull_mode = 2
+albedo_color = Color(0.4296875, 0.4296875, 0.4296875, 1)
+albedo_texture = ExtResource("1_qhk67")
+metallic = 1.0
+roughness = 0.25
+normal_enabled = true
+normal_scale = 0.5
+normal_texture = ExtResource("2_16i7t")
+uv1_scale = Vector3(0.41, 0.41, 0.41)
+uv1_triplanar = true

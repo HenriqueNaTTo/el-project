@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://btx6cbjx6ciwu"]
+
+[ext_resource type="Shader" uid="uid://b5ob0wl2i00xr" path="res://Modelos/mapaAbismo/Materiais/portalViscoso.gdshader" id="1_v4lyd"]
+[ext_resource type="Texture2D" uid="uid://ig1wseyurjtr" path="res://Modelos/mapaAbismo/ruinas/SpecularMap.png" id="2_iqysl"]
+[ext_resource type="Texture2D" uid="uid://qqrfid4wg2ep" path="res://Modelos/mapaAbismo/ruinas/NormalMap.png" id="3_7uynt"]
+
+[resource]
+resource_name = "vidro"
+render_priority = 0
+shader = ExtResource("1_v4lyd")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 0.0
+shader_parameter/roughness = 0.2770000131575
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.499999988824
+shader_parameter/metallic = 0.999999977648
+shader_parameter/texture_emission = ExtResource("2_iqysl")
+shader_parameter/emission = Color(0.30588245, 0, 1, 1)
+shader_parameter/emission_energy = 1.999999955296
+shader_parameter/texture_normal = ExtResource("3_7uynt")
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_scale = Vector3(0.7, 0.7, 0.5)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(0, 0, 0)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/flow_speed = 0.20000000624012
+shader_parameter/viscosity = 2.0
+shader_parameter/wave_amplitude = 0.5
+shader_parameter/wave_frequency = 7.318000300105
+shader_parameter/surface_tension = 1.2
+shader_parameter/flow_direction = Vector2(1, 0.3)

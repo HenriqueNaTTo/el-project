@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://7rqbhqu82ep3"]
+
+[ext_resource type="Texture2D" uid="uid://ddch0f5qfoso8" path="res://Modelos/Construcoes/casaBasica_Pixel.png" id="1_kwd1w"]
+[ext_resource type="Texture2D" uid="uid://dr3aln5cxeatb" path="res://Modelos/Construcoes/NormalMap (1).png" id="2_qsy4j"]
+
+[resource]
+resource_name = "vidro.001"
+cull_mode = 2
+albedo_texture = ExtResource("1_kwd1w")
+roughness = 0.8
+normal_enabled = true
+normal_texture = ExtResource("2_qsy4j")
+uv1_scale = Vector3(0.5, 0.5, 0.5)

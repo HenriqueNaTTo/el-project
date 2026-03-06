@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://0d1kohy86au"]
+
+[ext_resource type="Script" uid="uid://d2evrkbef1g6s" path="res://Scenes/scripts/WorldItem.gd" id="1_5djta"]
+[ext_resource type="Resource" uid="uid://cuh15rpmm74kc" path="res://Scenes/Recursos/espada_basica.tres" id="2_y38gg"]
+[ext_resource type="ArrayMesh" uid="uid://bblr3uwsh27on" path="res://Modelos/armas/espadas/espadaMesh.res" id="3_1agnr"]
+[ext_resource type="Texture2D" uid="uid://sg7blv6s5riu" path="res://Modelos/Salas/bau_Metal_01_Grey_Rust_6.png" id="4_1agnr"]
+[ext_resource type="Material" uid="uid://ytn0m3n5mgx2" path="res://Modelos/mapaAbismo/Materiais/madeira.tres" id="5_8wetg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cw0u"]
+resource_name = "METAL"
+cull_mode = 2
+albedo_texture = ExtResource("4_1agnr")
+metallic = 0.4
+roughness = 0.2
+uv1_scale = Vector3(4.505, 4.505, 4.505)
+uv1_triplanar = true
+texture_filter = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y38gg"]
+radius = 0.16
+height = 0.635
+
+[node name="EspadaMetalBasica" type="Area3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_5djta")
+item_data = ExtResource("2_y38gg")
+
+[node name="Cube" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_1agnr")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_6cw0u")
+surface_material_override/1 = ExtResource("5_8wetg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24749994, 0)
+shape = SubResource("CapsuleShape3D_y38gg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

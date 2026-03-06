@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://du2fglcmsdwmy"]
+
+[ext_resource type="Texture2D" uid="uid://hg4yckexabie" path="res://Modelos/propsDiversos/placasFundoTrono.png" id="1_cwqhw"]
+[ext_resource type="Texture2D" uid="uid://7isnb3r4d437" path="res://Modelos/propsDiversos/fundoTrono normal map.png" id="2_2ug1c"]
+
+[resource]
+resource_name = "placasInteriores"
+cull_mode = 2
+albedo_texture = ExtResource("1_cwqhw")
+metallic_specular = 0.26
+roughness = 0.6
+normal_enabled = true
+normal_texture = ExtResource("2_2ug1c")
+texture_filter = 2

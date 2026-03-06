@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn7wiufwdsvkq"]
+
+[ext_resource type="Script" uid="uid://6n5uwko32suh" path="res://Scenes/interface/loading_screen.gd" id="1_3sjnu"]
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="2_c3d7h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lsbsm"]
+font = ExtResource("2_c3d7h")
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syl2w"]
+content_margin_left = 30.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6055a"]
+font = ExtResource("2_c3d7h")
+font_size = 20
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3sjnu")
+
+[node name="imgFundo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="loading" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = -88.0
+offset_right = -62.0
+offset_bottom = -57.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Carregando..."
+label_settings = SubResource("LabelSettings_lsbsm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -104.0
+offset_right = -448.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="fraseLabel" type="Label" parent="TextureRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_syl2w")
+text = "O Elixir da rejuvenecencia pode ser utilizado para recuperar toda a vida."
+label_settings = SubResource("LabelSettings_6055a")
+vertical_alignment = 1
+autowrap_mode = 2

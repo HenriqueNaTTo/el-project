@@ -1,0 +1,140 @@
+[gd_scene load_steps=10 format=3 uid="uid://bjtogb76q1las"]
+
+[ext_resource type="Script" uid="uid://c10xad8wjt84y" path="res://Interface/scripts/interface_alquimista.gd" id="1_i88on"]
+[ext_resource type="LabelSettings" uid="uid://cclpkv2yllb1b" path="res://Scenes/interface/label_padrao.tres" id="1_jy227"]
+[ext_resource type="PackedScene" uid="uid://b6vfoxcdwnbkr" path="res://Scenes/interface/itemConsumivel.tscn" id="2_4pega"]
+[ext_resource type="Resource" uid="uid://crvjioghqo1nw" path="res://Scenes/Recursos/pocao_de_vida_grande.tres" id="3_lk23r"]
+[ext_resource type="Texture2D" uid="uid://x7veo88jak2c" path="res://Interface/Hasar.png" id="5_lk23r"]
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="6_i88on"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6i2h3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.08627451, 0.08235294, 0.12941177, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_73qsn"]
+font = ExtResource("6_i88on")
+font_size = 32
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i88on"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_detail = 5
+
+[node name="interfaceAlquimista" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 27.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i88on")
+
+[node name="TextureRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.17274305
+anchor_right = 0.828125
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6i2h3")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -334.64502
+offset_top = 48.98
+offset_right = -154.64496
+offset_bottom = 80.98003
+grow_horizontal = 2
+text = "Itens a venda"
+label_settings = ExtResource("1_jy227")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="containerItens" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.203125
+anchor_top = 0.19250426
+anchor_right = 0.40104166
+anchor_bottom = 0.9675926
+grow_vertical = 2
+theme_override_constants/separation = 18
+metadata/_edit_use_anchors_ = true
+
+[node name="itemConsumivel" parent="containerItens" instance=ExtResource("2_4pega")]
+layout_mode = 2
+
+[node name="itemConsumivel2" parent="containerItens" instance=ExtResource("2_4pega")]
+layout_mode = 2
+item_data = ExtResource("3_lk23r")
+valor = 1500
+
+[node name="containerValor" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -368.385
+offset_top = 34.42
+offset_right = -234.38501
+offset_bottom = 84.420006
+grow_horizontal = 0
+alignment = 1
+
+[node name="textureMoeda" type="TextureRect" parent="containerValor"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("5_lk23r")
+expand_mode = 1
+
+[node name="dinheiroPlayer" type="Label" parent="containerValor"]
+layout_mode = 2
+text = "600"
+label_settings = SubResource("LabelSettings_73qsn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnSair" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.945
+offset_top = -13.23
+offset_right = -180.945
+offset_bottom = 32.77
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+theme_override_colors/font_outline_color = Color(0.23921569, 0.22745098, 0.36862746, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_i88on")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/normal = SubResource("StyleBoxFlat_i88on")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i88on")
+theme_override_styles/hover = SubResource("StyleBoxFlat_i88on")
+text = "X"
+
+[connection signal="pressed" from="btnSair" to="." method="_on_btn_sair_pressed"]

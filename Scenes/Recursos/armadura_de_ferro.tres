@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://c68wdp0r5fnbc"]
+
+[ext_resource type="PackedScene" uid="uid://d3oxmbcnl8605" path="res://Personagens/Protagonista/armaduras/armadura_de_ferro.tscn" id="1_ojqyj"]
+[ext_resource type="Texture2D" uid="uid://cp8e15sk6tk8x" path="res://Texturas/texturas/pWaterfall.png" id="2_lvsmr"]
+[ext_resource type="Script" uid="uid://d1ibcy028nu4q" path="res://Scenes/Recursos/scripts/item_data.gd" id="3_jtl0o"]
+
+[resource]
+script = ExtResource("3_jtl0o")
+nome = "Armadura de Ferro"
+descricao = "Armadura de ferro utilizada pelos guardas do porão do castelo."
+status = 1
+defesa = 5
+icone = ExtResource("2_lvsmr")
+cena_3d = ExtResource("1_ojqyj")
+tipo_item = 1
+metadata/_custom_type_script = "uid://d1ibcy028nu4q"

@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c8t0afohbaimu"]
+
+[ext_resource type="Shader" path="res://Materiais/grassShader.gdshader" id="1_ufatq"]
+[ext_resource type="Texture2D" uid="uid://bc143o3knbsok" path="res://texturas/vegetacao/gramav4.png" id="2_jom2j"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ufatq")
+shader_parameter/albedo = Color(0.741355, 0.804688, 0, 1)
+shader_parameter/distance_fade_min = 960.0
+shader_parameter/distance_fade_max = 480.0
+shader_parameter/point_size = 0.1
+shader_parameter/wind_speed = 8.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/backlight = Color(0, 1, 0.0437975, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("2_jom2j")
+shader_parameter/grass_texture = ExtResource("2_jom2j")
+shader_parameter/texture_backlight = ExtResource("2_jom2j")

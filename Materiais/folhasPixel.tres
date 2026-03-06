@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://87228jdvl51y"]
+
+[ext_resource type="Texture2D" uid="uid://d3ptln147hxlh" path="res://texturas/arvorePixel_folhas.png" id="1_ace4h"]
+
+[resource]
+resource_name = "folhasPixel"
+transparency = 4
+cull_mode = 2
+albedo_color = Color(0.591055, 0.682739, 1, 1)
+albedo_texture = ExtResource("1_ace4h")
+texture_filter = 2

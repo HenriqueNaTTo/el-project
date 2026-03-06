@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://d0ll2jdy87ox"]
+
+[ext_resource type="Texture2D" uid="uid://djnq6tyn0sfeu" path="res://texturas/Culto/s2 Concrete Lines 5 Grey Hor.png" id="1_lf2m2"]
+[ext_resource type="Texture2D" uid="uid://deyaxb4csdhdb" path="res://texturas/Culto/cimentoNormal.png" id="2_v2ss7"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_lf2m2")
+metallic_specular = 0.74
+roughness = 0.65
+normal_enabled = true
+normal_texture = ExtResource("2_v2ss7")
+texture_filter = 0

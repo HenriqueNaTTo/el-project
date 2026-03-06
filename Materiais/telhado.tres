@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bygf2tis5sxnm"]
+
+[ext_resource type="Texture2D" uid="uid://ib40rwslg8os" path="res://modelos/Qunghai/portaMapa2_Roof_Tiles_01_Grey_1.png" id="1_4tgvj"]
+
+[resource]
+resource_name = "telhado"
+cull_mode = 2
+albedo_texture = ExtResource("1_4tgvj")
+roughness = 0.287402
+texture_filter = 2

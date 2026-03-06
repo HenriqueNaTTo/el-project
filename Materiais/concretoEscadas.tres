@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://heojq4jged12"]
+
+[ext_resource type="Texture2D" uid="uid://p2tvhg6lrn36" path="res://texturas/Culto/s2 Concrete Lines 2 Grey.png" id="1_6r7d1"]
+[ext_resource type="Texture2D" uid="uid://b2af8sok35gw5" path="res://texturas/Culto/cimentoEscadaNormal.png" id="2_2p40y"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_6r7d1")
+metallic_specular = 0.2
+roughness = 0.25
+normal_enabled = true
+normal_texture = ExtResource("2_2p40y")
+uv1_scale = Vector3(1.5, 1.5, 1.5)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 11.7127
+texture_filter = 0

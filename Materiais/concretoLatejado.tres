@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dcy01jajqp6qb"]
+
+[ext_resource type="Texture2D" uid="uid://bsvlwo5sp4na4" path="res://texturas/Culto/s2 Concrete Squares 3 Grey.png" id="1_c77wv"]
+[ext_resource type="Texture2D" uid="uid://dtca6y2eg1t8j" path="res://texturas/Culto/normalParedes.png" id="2_wk1up"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_c77wv")
+metallic_specular = 0.25
+roughness = 0.2
+normal_enabled = true
+normal_texture = ExtResource("2_wk1up")
+texture_filter = 0

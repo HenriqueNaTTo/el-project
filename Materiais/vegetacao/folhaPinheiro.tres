@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dwinc00vwu8s0"]
+
+[ext_resource type="Shader" uid="uid://c2lq0tiakdlmu" path="res://Materiais/vegetacao/folhaArvore.gdshader" id="1_wfhrh"]
+[ext_resource type="Texture2D" uid="uid://dwjun76tjpvdt" path="res://Scenes/vegetacao/arvores_ramoDeFolhas.png" id="2_w4xjd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wfhrh")
+shader_parameter/texture_albedo = ExtResource("2_w4xjd")
+shader_parameter/transmission = Color(0, 0, 0, 1)
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/backlight = Color(0, 0, 0, 1)
+shader_parameter/texture_backlight = ExtResource("2_w4xjd")
+shader_parameter/sway_speed = 1.0
+shader_parameter/sway_strength = 0.05
+shader_parameter/sway_phase_len = 8.0

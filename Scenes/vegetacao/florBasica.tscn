@@ -1,0 +1,204 @@
+[gd_scene format=4 uid="uid://ke7j2hnwj43k"]
+
+[ext_resource type="Texture2D" uid="uid://31wtu5ije1vb" path="res://Modelos/FlorBasica_texturaCaboDaFlor.png" id="1_helwr"]
+[ext_resource type="Texture2D" uid="uid://c5o6enadnbebw" path="res://Modelos/texturaTesteFlor.png" id="3_dmig8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b7ysv"]
+resource_name = "Material.002"
+cull_mode = 2
+albedo_texture = ExtResource("1_helwr")
+texture_filter = 2
+
+[sub_resource type="Shader" id="Shader_helwr"]
+code = "shader_type spatial;
+
+// render_mode: depth_draw_opaque e cull_disabled são essenciais para grama
+render_mode depth_draw_opaque, cull_disabled, specular_schlick_ggx;
+
+// --- Texturas ---
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap_anisotropic, repeat_disable;
+uniform vec4 albedo_color : source_color = vec4(1.0);
+uniform vec4 transmission : source_color = vec4(0.5, 0.5, 0.5, 1.0);
+
+// --- Configuração do Vento Suave ---
+group_uniforms Vento_Suave;
+uniform sampler2D noise_tex : filter_linear, repeat_enable; // Use um Noise do tipo Perlin/Simplex
+uniform vec2 wind_direction = vec2(1.0, 0.0);
+uniform float wind_speed : hint_range(0.0, 2.0) = 0.5;
+uniform float wind_strength : hint_range(0.0, 2.0) = 0.5;
+uniform float turbulence_scale : hint_range(0.1, 10.0) = 1.0; // Tamanho das ondas
+
+// --- Fade de Distância (Mantido) ---
+group_uniforms Distancia;
+uniform float fade_start_distance : hint_range(5.0, 500.0) = 40.0;
+uniform float fade_end_distance : hint_range(10.0, 500.0) = 60.0;
+
+void vertex() {
+	// --- Lógica de Distância (Fade) ---
+	float dist = distance(CAMERA_POSITION_WORLD, NODE_POSITION_WORLD);
+	float scale_factor = 1.0;
+	if (dist > fade_start_distance) {
+		scale_factor = 1.0 - smoothstep(fade_start_distance, fade_end_distance, dist);
+	}
+	
+	if (scale_factor <= 0.01) {
+		VERTEX = vec3(0.0);
+	} else {
+		// --- Lógica de Vento \"Soft\" ---
+		
+		// 1. Identificar altura (0 na base, 1 no topo)
+		// Assumindo UV padrão onde Y=1 é base e Y=0 é topo. Se invertido, use (UV.y)
+		float height = 1.0 - UV.y;
+		
+		// Suavização da curva de dobra (Quadrática)
+		// Isso faz a base ficar bem fixa e a ponta muito móvel
+		float bend_intensity = height * height; 
+
+		// 2. Amostragem do Ruído (Noise)
+		vec2 wind_dir_norm = normalize(wind_direction);
+		float time_offset = TIME * wind_speed;
+		
+		// Posição no mundo para variar o vento
+		vec2 world_pos = NODE_POSITION_WORLD.xz;
+		
+		// Amostra principal (Ondas grandes de vento)
+		vec2 noise_uv = (world_pos / (10.0 * turbulence_scale)) + (wind_dir_norm * time_offset * 0.05);
+		float noise_val = texture(noise_tex, noise_uv).r; // 0.0 a 1.0
+		
+		// Amostra secundária (Turbulência detalhada) - corre mais rápido em outra direção
+		vec2 turbulence_uv = (world_pos / (2.0 * turbulence_scale)) + vec2(time_offset * 0.1);
+		float turbulence_val = texture(noise_tex, turbulence_uv).r;
+
+		// Combinar os ruídos para um movimento orgânico (não repetitivo)
+		float combined_wind = mix(noise_val, turbulence_val, 0.3);
+		
+		// Converter [0,1] para [-1, 1] mas com tendência à direção do vento
+		// O vento empurra mais para frente (0.2 a 1.2) do que para trás
+		float wind_force = (combined_wind * 2.0 - 0.5) * wind_strength;
+
+		// 3. Aplicação do Movimento
+		
+		// Movimento Principal (Direção do Vento)
+		VERTEX.x += wind_dir_norm.x * wind_force * bend_intensity;
+		VERTEX.z += wind_dir_norm.y * wind_force * bend_intensity;
+		
+		// Movimento Lateral (Balanço perpendicular)
+		// Usa seno do tempo para criar um balanço suave esquerda/direita
+		float side_sway = sin(TIME * wind_speed + world_pos.x) * (wind_strength * 0.3);
+		VERTEX.x += wind_dir_norm.y * side_sway * bend_intensity; // Perpendicular X
+		VERTEX.z -= wind_dir_norm.x * side_sway * bend_intensity; // Perpendicular Z
+
+		// 4. Compensação de Altura (O Segredo da Suavidade)
+		// Se a grama dobra pro lado, ela tem que descer um pouco.
+		// Sem isso, ela parece esticar.
+		float displacement = length(vec2(wind_force, side_sway)) * bend_intensity;
+		VERTEX.y -= displacement * 0.3; // 0.3 é um fator mágico de compensação
+
+		// Aplica o fade de distância no final
+		VERTEX *= scale_factor;
+	}
+}
+
+void fragment() {
+	vec4 albedo_tex = texture(texture_albedo, UV);
+	ALBEDO = albedo_color.rgb * albedo_tex.rgb;
+	
+	// Ajustes visuais para parecer vegetação
+	METALLIC = 0.0;
+	ROUGHNESS = 0.8; 
+	SPECULAR = 0.1; // Vegetação geralmente tem pouco brilho especular direto
+	
+	// ALPHA SCISSOR para recorte perfeito
+	ALPHA = albedo_tex.a;
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
+	
+	// Luz de fundo (Translucência)
+	// Isso faz a grama brilhar quando o sol está atrás dela
+	vec3 backlight_color = transmission.rgb * (1.0 - albedo_tex.rgb);
+	BACKLIGHT = backlight_color * 1.5;
+	
+	// Normal Map falso para dar volume (opcional, ajuda no visual)
+	NORMAL = mix(NORMAL, vec3(0.0, 1.0, 0.0), 0.5);
+}"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t6hls"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p6krm"]
+noise = SubResource("FastNoiseLite_t6hls")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yeoyd"]
+render_priority = 0
+shader = SubResource("Shader_helwr")
+shader_parameter/texture_albedo = ExtResource("3_dmig8")
+shader_parameter/albedo_color = Color(0.65625, 0.65625, 0.65625, 1)
+shader_parameter/transmission = Color(1, 1, 1, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_p6krm")
+shader_parameter/wind_direction = Vector2(0.1, 0.05)
+shader_parameter/wind_speed = 1.0000000475
+shader_parameter/wind_strength = 0.014000000665
+shader_parameter/turbulence_scale = 1.0
+shader_parameter/fade_start_distance = 300.0000140125
+shader_parameter/fade_end_distance = 400.000018525
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_jus7h"]
+_surfaces = [{
+"aabb": AABB(-0.010913832, -0.00015626103, -0.005356605, 0.012688416, 0.08272933, 0.013302882),
+"format": 34896613377,
+"index_count": 126,
+"index_data": PackedByteArray("AAABAAIAAAACAAMAAQAEAAIAAwACAAQAAwAEAAUAAAADAAUABAAGAAUABgAAAAUAAQAHAAQABwAGAAQACAABAAAAAQAIAAcAAAAGAAkACgAGAAcACwAGAAoACwAKAAcACwAJAAYACwAHAAkADAAJAAcACAAMAAcACQANAAAACAAAAA0ADQAJAA4ADgAJAAwADQAPAAgAEAAMAAgADwAQAAgAEQAPAA0ADQAOABEAEAARAA4AEgAPABEAEgATAA8AEgARABMAEwAQAA8AEwARABAAFAAMABAADAAVAA4AFAAVAAwADgAWABAAFgAUABAADgAVABYAFAAWABUA"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 23,
+"vertex_data": PackedByteArray("oJsUQyxVAAC/mqw18HoAAOauAADwegAA6L+5AGFSAAAQvdA18HoAABC90DVhUgAAxskLcY5OAADZ1mB8D28AAIOtfrTudAAAHciUf31LAACP6kd07VgAAP//Go4AAAAAEcat+YhcAAA3nWS3fEoAAJymLMjfQAAAjlDTuxWBAABOpozHHXIAAC9ZfcceXAAAAAB01P//AADsa/DGz34AAOKvoP7fggAA7Kf//3JKAAAVlKD+O2sAAA==")
+}, {
+"aabb": AABB(-0.02957835, 0.0813611, -0.027960645, 0.05562015, 0.015489712, 0.05562015),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray("CAABAAIACAADAAEABAAIAAIABAACAAUAAAAIAAQAAAAGAAgABgADAAgABgAHAAMACQAKAAsACQAMAAoADQAJAAsADQALAA4ADwAJAA0ADwAQAAkAEAAMAAkAEAARAAwA"),
+"lods": [0.015274153, PackedByteArray("AAABAAIAAAADAAEABAAAAAIABAACAAUABgADAAAABgAHAAMA")],
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("nya0dlbOAACU27R2rSMAAP//PKn/fwAA/388qQAAAAD/fzyp//8AAPvm///Y2gAAAAA8qf9/AAAAILR29DsAAP9/AAD/fwAA/38YOP9/AAAdr72OgFAAANrB/bP/fwAA/3+8qCQ+AAD/f7yo2sEAAPu0iq+9rgAAA1K9jk2oAAAkPryo/38AAJtOvY79XAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_n86an"]
+resource_name = "FlorBasica_Plane_008"
+_surfaces = [{
+"aabb": AABB(-0.010913832, -0.00015626103, -0.005356605, 0.012688416, 0.08272933, 0.013302882),
+"attribute_data": PackedByteArray("Oskes/TEfKolxSCIlXCT4q5h//9adMvWQ7Z2hCe866FHvEarnLUtzzG6UauBtvvZJbxa2oC/tKu1vvb5HOUD0M/gLPaA4BTQQcXL+5TEzKrfyGyzG7tnqxy3ZM+WtY2EGXSt1pNh/P8xfVOzedrHngzY4Z7s1Yl7rL73+fG7IP4kvFzazu/Ylh7uSaBK6vGWi9x8yKbVWs3w14bFxaxh1uGsi8+MtRnOuXbs48lwYOIjfCneAOoYkwjdKYQV5h+C9uAcrh3mKdCG4TrQEeV+rVXnVYnm5tyXO+SElCrpIoz16qqA8fHAee6Vx4prkriJzqCWadrjXIUv3y6BI+RfgBTgz4ShtZuE1bjlWRu5BXzUyQazecQ7iOrIxohElZyKKn57s8GRjonWdNXWEbsQopC1lYQIuf97lOL2/OTexPX848/PE9Q+n7vRgcJwzhmfeNUfwzzvRP4p6DGw9esKrm/F6vuzyEmzs8n2/XvTnp5U0C6bHNQoe9C1Ic+6tuzZxq5w2Vh8Wd7dcKbiuXTi1hba7c2m1VvNitx9yKDeXOC51azNG9pAzpV+1vGVdxbmkn2Y4ULvsX2n8tN+Ae42gnvQY3sB0IqK1sxVif//0fJf9XHiY/qY4w=="),
+"format": 34896613399,
+"index_count": 126,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAFQAWABcAGAAZABoAGwAcAB0AHgAfACAAIQAiACMAJAAlACYAJwAoACkAKgArACwALQAuAC8AMAAxADIAMAAzADEANAA1ADYANwA4ADkAOgA7ADwAPQA+AD8APQBAAD4AQQBCAEMARABFAEYARwBIAEkARwBKAEgASwBMAE0ATgBPAFAAUQBSAFMAUQBUAFIAVQBWAFcAWABZAFoAWwBcAF0AXgBfAGAAYQBiAGMAZABlAGYAZwBoAGkAagBrAGwAbQBuAG8AcABxAHIAcwB0AHUA"),
+"material": SubResource("StandardMaterial3D_b7ysv"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(2.6297152, 2.9119983, 0, 0),
+"vertex_count": 118,
+"vertex_data": PackedByteArray("oJsUQyxVzv+/mqw18Hom/eauAADweiEZTqaMxx1yJO8Rxq35iFxj5oOtfrTudEf1oJsUQyxVGP/GyQtxjk7Q9R3IlH99S+XwN51kt3xKFPMdyJR/fUsO8pymLMjfQKr1nKYsyN9AAPUdyJR/fUuI7xHGrfmIXDz0EL3QNfB6c/7GyQtxjk4e+xC90DVhUjb/g61+tO50VeO/mqw18HqS/aCbFEMsVaz/HciUf31LRfE3nWS3fErJ8aCbFEMsVW//g61+tO50mvYRxq35iFxQ8dnWYHwPb0H0FZSg/jtr9vnir6D+34Ig5k6mjMcdco/yEcat+YhcJvTsp///ckqT2pymLMjfQAH1N51kt3xKrvqOUNO7FYG++YOtfrTudNPwTqaMxx1ypJovWX3HHlwt3ZymLMjfQN70L1l9xx5c1OuOUNO7FYE/yTedZLd8Srvy7Gvwxs9+C/dOpozHHXLP745Q07sVgRjwAAB01P//7cSOUNO7FYHO4i9ZfcceXLPd6L+5AGFSIQAQvdA18Hpr/hC90DVhUjX/5q4AAPB6agn//xqOAAB03NnWYHwPb3SdHciUf31LwBD//xqOAAAK2R3IlH99S1L3xskLcY5O6vS/mqw18Hpq7hC90DXwenDu5q4AAPB67gPir6D+34Kequyn//9ySjfaEcat+YhcLuIVlKD+O2vusaCbFEMsVWf/6L+5AGFSH/AQvdA1YVJp/qCbFEMsVcT/5q4AAPB6duTov7kAYVJV7L+arDXwejPu2dZgfA9vJvIQvdA18HqZ7oOtfrTudOTzxskLcY5OPfWgmxRDLFVv/xC90DVhUmr+2dZgfA9vrvfGyQtxjk7Q+RC90DXwesX9nKYsyN9AufgVlKD+O2tW206mjMcdcu3G7Kf//3JKAuARxq35iFxz+B3IlH99S4bt2dZgfA9vp/WDrX607nS48KCbFEMsVZn+N51kt3xK/Pzir6D+34Im6hHGrfmIXDf8TqaMxx1yjuM3nWS3fErU8pymLMjfQJ31L1l9xx5c9OeOUNO7FYHd8k6mjMcdcqfwg61+tO502/Psa/DGz35pwy9ZfcceXCzdTqaMxx1yjJsAAHTU///opS9ZfcceXCfd7Gvwxs9+osMAAHTU///q2Oxr8MbPfj3rjlDTuxWBHzeP6kd07VjM2MbJC3GOTiUU2dZgfA9vldD//xqOAABg7MbJC3GOTkznj+pHdO1YQdX//xqOAACW9I/qR3TtWH7c2dZgfA9vqeCOKNOA9Vi+f8FJIUXugEOWKr8dbsdy9XYD/lipbATEXZL6vJMWJNV/ePpsavv5LHPe8jWRyuybnQHHVIAOAMAk1g3zqlMAf6U4cMB5CFmGf8ooKYE//hmRNCbIg+D+wKj1csN2kMVOfPigOYDp5i8mVR9hBOzrDQcWxzaA7NwBnA7zDZEG2c3EYlytZCvzQPbPrciUQcMkvgTuN5WS8nxTIUK7hn4k6YBMm7CYvoBFluzZuubg/A4usNKw7UbOgLiHsJpDEgC/JFAAfaWNOlHURNrUjhinBAGw6dSfAtI4RtPdwEzjtA5M2VoxhyCiOnf4jRYtDrdlfff1dY25vLRozLc/x8z+zqgKBotq/gFVWaAo7YDoOzFOTjcLSOFaTYf1oFJ/JqJNd5dyKneFBl5c4v6/qPoBWFltoKqB2wmXp2IAqSRp1vVM1/kSN+3vwBM/4AJLVMPihZ/Ihbe+oNGAJ3Kjd6Yq3IMeOBNoCZRGlVXAaYozhCiWUCScgCf7b3Sj/pVfUNtk5YKAR5aWcit3v7VogAzDP749rNaUw6P/s73Abb+OtZaA6XhLps2fjpRrQHj9d47XSpeeoTHrnqVwNrTlD5OGKxW/i9pHnqaxtqIHDcj5EKYa")
+}, {
+"aabb": AABB(-0.02957835, 0.0813611, -0.027960645, 0.05562015, 0.015489712, 0.05562015),
+"attribute_data": PackedByteArray("eCMM2ZTbrSP///9//38AAP9////75tjaAAD/f8cj8ir/f/9//3//fx2vgFDawf9//38kPv9/2sH7tL2uA1JNqCQ+/3+bTv1c"),
+"format": 34896613399,
+"index_count": 48,
+"index_data": PackedByteArray("CAABAAIACAADAAEABAAIAAIABAACAAUAAAAIAAQAAAAGAAgABgADAAgABgAHAAMACQAKAAsACQAMAAoADQAJAAsADQALAA4ADwAJAA0ADwAQAAkAEAAMAAkAEAARAAwA"),
+"lods": [0.015274153, PackedByteArray("AAABAAIAAAADAAEABAAAAAIABAACAAUABgADAAAABgAHAAMA")],
+"material": SubResource("ShaderMaterial_yeoyd"),
+"name": "Material",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("nya0dlbOUsiU27R2rSM9uf//PKn/f9jE/388qQAAXLj/fzyp//9oy/vm///Y2m/OAAA8qf9/HMAAILR29DuZuP9/AAD/f5fB/38YOP9/ncAdr72OgFD5t9rB/bP/f+zC/3+8qCQ+xrX/f7yo2sGty/u0iq+9ruzMA1K9jk2oSMskPryo/3+hwJtOvY79XCa1Ku2deGL26pSv8XKa7v8jf1f1AoyK7uid1er1cjzkXVgp/c2DGf/KgXTyFJ6A8NqdZvtVg9f6Dodr866cAefAcSvkHXKu4vhn")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_jus7h")
+
+[node name="FlorBasica" type="MeshInstance3D" unique_id=1973453438]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("ArrayMesh_n86an")
+skeleton = NodePath("")
+surface_material_override/1 = SubResource("ShaderMaterial_yeoyd")

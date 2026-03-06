@@ -1,0 +1,88 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cw6dhqar1u3tn"]
+
+[ext_resource type="Texture2D" uid="uid://vtxflx5sa4pm" path="res://texturas/folhaPinheiro.png" id="1_46tel"]
+
+[sub_resource type="Shader" id="Shader_0wy64"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable.mono's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, depth_prepass_alpha;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+
+uniform sampler2D grass_texture : filter_nearest, source_color;
+
+uniform float distance_fade_min : hint_range(0.0, 4096.0, 0.01);
+uniform float distance_fade_max : hint_range(0.0, 4096.0, 0.01);
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+uniform float wind_speed;
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec4 backlight : source_color;
+uniform sampler2D texture_backlight : hint_default_black, filter_linear_mipmap, repeat_enable;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	NORMAL = vec3(0.0, 1.0, 0.0);
+	VERTEX.x += sin(NODE_POSITION_WORLD.x + TIME * wind_speed + UV.y) * ( 1.0 - UV.y) * 0.2;
+	VERTEX.z += cos(NODE_POSITION_WORLD.z + TIME * 0.45 + UV.y) * ( 1.0 - UV.y) * 0.15;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(grass_texture, base_uv);
+
+	// Vertex Color Use as Albedo: Enabled
+	albedo_tex *= COLOR;
+
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	ALPHA *= albedo.a * albedo_tex.a;
+
+	// Distance Fade: Pixel Alpha
+	ALPHA *= clamp(smoothstep(distance_fade_min, distance_fade_max, length(VERTEX)), 0.0, 1.0);
+
+	// Backlight: Enabled
+	vec3 backlight_tex = texture(texture_backlight, base_uv).rgb;
+	BACKLIGHT = (backlight.rgb + backlight_tex);
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_0wy64")
+shader_parameter/albedo = Color(1, 0.798755, 0.723124, 1)
+shader_parameter/distance_fade_min = 960.0
+shader_parameter/distance_fade_max = 480.0
+shader_parameter/point_size = 0.1
+shader_parameter/wind_speed = 2.0
+shader_parameter/roughness = 0.767
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.19
+shader_parameter/metallic = 0.0
+shader_parameter/backlight = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/grass_texture = ExtResource("1_46tel")

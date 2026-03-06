@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://nwfbt2r4xv6u"]
+
+[sub_resource type="Gradient" id="Gradient_ta2wp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oopn0"]
+
+[resource]
+noise = SubResource("FastNoiseLite_oopn0")
+color_ramp = SubResource("Gradient_ta2wp")
+seamless = true
+in_3d_space = true

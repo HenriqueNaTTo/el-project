@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cdnm753kn5j86"]
+
+[ext_resource type="Shader" path="res://Materiais/grassShader.gdshader" id="1_0f68y"]
+[ext_resource type="Texture2D" uid="uid://bhva0p6owptv8" path="res://texturas/vegetacao/Wood_Bark_01_Moss_1.png" id="2_o0ud4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_0f68y")
+shader_parameter/transmission = Color(0, 0, 0, 1)
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/backlight = Color(0.308594, 0.308594, 0.308594, 1)
+shader_parameter/backlight_intensity = 1.0
+shader_parameter/texture_albedo = ExtResource("2_o0ud4")
+shader_parameter/texture_backlight = ExtResource("2_o0ud4")

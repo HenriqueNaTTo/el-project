@@ -1,0 +1,43 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://g8dngqb8jxfc"]
+
+[ext_resource type="Shader" uid="uid://dcjyu1hg1hqrl" path="res://Materiais/shaders/vidro2.gdshader" id="1_its7b"]
+
+[sub_resource type="Gradient" id="Gradient_av0sp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8mn7a"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_no5fd"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_8mn7a")
+color_ramp = SubResource("Gradient_av0sp")
+seamless = true
+in_3d_space = true
+as_normal_map = true
+
+[sub_resource type="Gradient" id="Gradient_xupq5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_48xic"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7817f"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_48xic")
+color_ramp = SubResource("Gradient_xupq5")
+seamless = true
+in_3d_space = true
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_its7b")
+shader_parameter/albedo_color = Color(1, 1, 0.76862746, 0.20392157)
+shader_parameter/base_roughness = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/specular = 1.0
+shader_parameter/normal_texture = SubResource("NoiseTexture2D_no5fd")
+shader_parameter/normal_strength = 0.8590000408025
+shader_parameter/refraction_strength = 0.0
+shader_parameter/chromatic_aberration = 0.0
+shader_parameter/smudge_texture = SubResource("NoiseTexture2D_7817f")
+shader_parameter/dirt_color = Color(0.3, 0.25, 0.2, 1)
+shader_parameter/dirt_strength = 0.5

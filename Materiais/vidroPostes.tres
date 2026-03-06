@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b4qp6jfts5gfw"]
+
+[resource]
+transparency = 1
+cull_mode = 2
+depth_draw_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.6901961)
+metallic = 1.0
+roughness = 0.21
+emission = Color(1, 0.880702, 0.480601, 1)
+emission_energy_multiplier = 5.0
+texture_filter = 2

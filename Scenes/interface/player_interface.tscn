@@ -1,0 +1,260 @@
+[gd_scene load_steps=17 format=3 uid="uid://cvqvd4ouoldp0"]
+
+[ext_resource type="Script" uid="uid://bsoyrfmd5apbn" path="res://Scripts/player_interface.gd" id="1_qkmx1"]
+[ext_resource type="Texture2D" uid="uid://dcuf1fw30ud2t" path="res://Interface/progressVida.png" id="1_w8lqc"]
+[ext_resource type="Texture2D" uid="uid://5y0a5cbwud1h" path="res://Interface/bordaVidaTeste.png" id="2_pf6t8"]
+[ext_resource type="Texture2D" uid="uid://eimru8t07fho" path="res://Interface/progressMana.png" id="3_qkmx1"]
+[ext_resource type="PackedScene" uid="uid://dgj0m06cs3068" path="res://Scenes/interface/interaction_interface.tscn" id="5_4qhga"]
+[ext_resource type="Texture2D" uid="uid://bi568kwy7rb6g" path="res://Interface/FundoBtnInteracao.png" id="6_dvp2k"]
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="7_2g1o8"]
+[ext_resource type="Texture2D" uid="uid://bbknvf0odqr30" path="res://Interface/habilidades/BolaDeFogo2.png" id="7_2l3k1"]
+[ext_resource type="Texture2D" uid="uid://bc5173wwi588p" path="res://Interface/habilidades/BolaDeFogo.png" id="7_ywppu"]
+[ext_resource type="PackedScene" uid="uid://cs7dvhdye1kc3" path="res://Scenes/interface/interface_inventario.tscn" id="9_ywppu"]
+[ext_resource type="PackedScene" uid="uid://s45jw170gqbr" path="res://Scenes/interface/selecionar_level.tscn" id="12_2l3k1"]
+[ext_resource type="PackedScene" uid="uid://bpc04w8qxqb4j" path="res://Scenes/interface/proximo_nivel.tscn" id="13_3orgy"]
+[ext_resource type="PackedScene" uid="uid://b6vfoxcdwnbkr" path="res://Scenes/interface/itemConsumivel.tscn" id="13_ebhba"]
+[ext_resource type="PackedScene" uid="uid://6gigx4cpfu37" path="res://Scenes/interface/fundo_morte.tscn" id="14_ebhba"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ywppu"]
+font = ExtResource("7_2g1o8")
+font_size = 20
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2l3k1"]
+line_spacing = 0.0
+font = ExtResource("7_2g1o8")
+font_size = 15
+shadow_size = 3
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[node name="playerInterface" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_qkmx1")
+
+[node name="playerStats" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="barraVida" type="TextureProgressBar" parent="playerStats"]
+texture_filter = 5
+layout_mode = 0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = 429.0
+offset_bottom = 64.0
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("1_w8lqc")
+
+[node name="rectVida" type="TextureRect" parent="playerStats"]
+texture_filter = 5
+layout_mode = 0
+offset_left = 35.0
+offset_top = 25.0
+offset_right = 429.0
+offset_bottom = 64.0
+texture = ExtResource("2_pf6t8")
+expand_mode = 1
+
+[node name="barraMana" type="TextureProgressBar" parent="playerStats"]
+visible = false
+texture_filter = 5
+layout_mode = 0
+offset_left = 35.0
+offset_top = 64.9
+offset_right = 429.0
+offset_bottom = 103.90005
+scale = Vector2(0.7, 0.7)
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("3_qkmx1")
+
+[node name="rectMana" type="TextureRect" parent="playerStats"]
+visible = false
+texture_filter = 5
+layout_mode = 0
+offset_left = 35.0
+offset_top = 64.9
+offset_right = 429.0
+offset_bottom = 103.90005
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_pf6t8")
+expand_mode = 1
+
+[node name="interactionInterface" parent="." instance=ExtResource("5_4qhga")]
+layout_mode = 1
+anchors_preset = 7
+offset_top = -118.0
+offset_bottom = -63.0
+
+[node name="textoInteracao" parent="interactionInterface/interface" index="0"]
+offset_left = -114.0
+offset_right = 98.0
+text = "teste"
+autowrap_mode = 2
+
+[node name="selecionarLevel" parent="." instance=ExtResource("12_2l3k1")]
+visible = false
+layout_mode = 1
+
+[node name="itemIconE" type="TextureRect" parent="."]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8324219
+anchor_top = 0.81790125
+anchor_right = 0.8879774
+anchor_bottom = 0.9166667
+offset_right = -32.0
+offset_bottom = -32.0
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("6_dvp2k")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="itemIconE"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.701904
+offset_top = -20.118835
+offset_right = 20.964724
+offset_bottom = 20.9068
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2l3k1")
+
+[node name="btnInteracao2" type="Label" parent="itemIconE"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "E"
+label_settings = SubResource("LabelSettings_ywppu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quantHabilidade" type="Label" parent="itemIconE"]
+modulate = Color(1, 1, 1, 0.56078434)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.5
+offset_top = -8.0
+offset_right = 5.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+label_settings = SubResource("LabelSettings_2l3k1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="itemIconQ" type="TextureRect" parent="."]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.905717
+anchor_top = 0.81790125
+anchor_right = 0.96127254
+anchor_bottom = 0.9166667
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("6_dvp2k")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect3" type="TextureRect" parent="itemIconQ"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.217953
+offset_top = -11.217957
+offset_right = 11.217953
+offset_bottom = 11.217957
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_ywppu")
+expand_mode = 1
+
+[node name="btnInteracao" type="Label" parent="itemIconQ"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Q"
+label_settings = SubResource("LabelSettings_ywppu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quantHabilidade" type="Label" parent="itemIconQ"]
+modulate = Color(1, 1, 1, 0.56078434)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.5
+offset_top = -8.0
+offset_right = 5.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+label_settings = SubResource("LabelSettings_2l3k1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="proximoNivel" parent="." instance=ExtResource("13_3orgy")]
+visible = false
+layout_mode = 1
+
+[node name="interfaceInventario" parent="." instance=ExtResource("9_ywppu")]
+visible = false
+layout_mode = 1
+cena_slot_consumivel = ExtResource("13_ebhba")
+
+[node name="fundoMorte" parent="." instance=ExtResource("14_ebhba")]
+visible = false
+layout_mode = 1
+
+[editable path="interactionInterface"]
+[editable path="selecionarLevel"]
+[editable path="proximoNivel"]
+[editable path="interfaceInventario"]
+[editable path="fundoMorte"]

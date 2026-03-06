@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=3 uid="uid://6gigx4cpfu37"]
+
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="1_n0kum"]
+[ext_resource type="Texture2D" uid="uid://b0iqgdj75pl7j" path="res://Interface/fundoInteracao.png" id="2_0be2s"]
+
+[sub_resource type="Gradient" id="Gradient_ywppu"]
+offsets = PackedFloat32Array(0.4280443, 0.6273063)
+colors = PackedColorArray(0.3764706, 0, 0, 0.2784314, 0.58984375, 0.0070403805, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2os84"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yb8lr"]
+noise = SubResource("FastNoiseLite_2os84")
+color_ramp = SubResource("Gradient_ywppu")
+
+[sub_resource type="LabelSettings" id="LabelSettings_2l3k1"]
+font = ExtResource("1_n0kum")
+font_size = 120
+shadow_size = 15
+shadow_color = Color(0.6640625, 0.018838637, 0, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yb8lr"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_0be2s")
+modulate_color = Color(1, 0.06098801, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2l3k1"]
+content_margin_left = 40.0
+content_margin_top = 30.0
+content_margin_right = 40.0
+content_margin_bottom = 30.0
+texture = ExtResource("2_0be2s")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.6039216, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3orgy"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 20.0
+texture = ExtResource("2_0be2s")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.6039216, 1, 1, 1)
+
+[node name="fundoMorte" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fundo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_yb8lr")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -303.5
+offset_top = 176.52
+offset_right = 303.5
+offset_bottom = 296.52002
+grow_horizontal = 2
+text = "Voce perdeu"
+label_settings = SubResource("LabelSettings_2l3k1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="botoes" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -36.16501
+offset_right = 294.52502
+offset_bottom = 239.83496
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="btnIniciar" type="Button" parent="botoes"]
+texture_filter = 5
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_n0kum")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_yb8lr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2l3k1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2l3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_yb8lr")
+theme_override_styles/focus = SubResource("StyleBoxTexture_yb8lr")
+text = "Começar jogo"
+
+[node name="btnSair" type="Button" parent="botoes"]
+texture_filter = 5
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_n0kum")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_yb8lr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3orgy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3orgy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_yb8lr")
+theme_override_styles/focus = SubResource("StyleBoxTexture_yb8lr")
+text = "Sair do jogo"

@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://clnb3iwrimu8a"]
+
+[ext_resource type="Texture2D" uid="uid://dknhq3yh4ukja" path="res://Modelos/Itens/Espadas/cabo_BaseColor.png" id="1_gm2mx"]
+[ext_resource type="Texture2D" uid="uid://b1sbx25jn1qgm" path="res://Modelos/Itens/Espadas/cabo_Displacement.png" id="2_npg6p"]
+[ext_resource type="Texture2D" uid="uid://d2ttkgkfbrloc" path="res://Modelos/Itens/Espadas/cabo_Metallic.png" id="3_7eoff"]
+[ext_resource type="Texture2D" uid="uid://djv2tvowht5jj" path="res://Modelos/Itens/Espadas/cabo_Normal.png" id="4_6hx6y"]
+[ext_resource type="Texture2D" uid="uid://ban1hig2q06v8" path="res://Modelos/Itens/Espadas/cabo_Roughness.png" id="5_xoji4"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_gm2mx")
+metallic = 1.0
+metallic_texture = ExtResource("3_7eoff")
+roughness_texture = ExtResource("5_xoji4")
+normal_enabled = true
+normal_texture = ExtResource("4_6hx6y")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_npg6p")

@@ -1,0 +1,23 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cjal2ymgr1niv"]
+
+[ext_resource type="Texture2D" uid="uid://culi8gxs1yyf7" path="res://Modelos/Construcoes/Reino Sagrado/parede2.jpg" id="1_o74w0"]
+[ext_resource type="Texture2D" uid="uid://dsn2lol765p8c" path="res://Modelos/Construcoes/Reino Sagrado/AmbientOcclusionMap (2).png" id="2_00rle"]
+[ext_resource type="Texture2D" uid="uid://ddxkf5f65evc7" path="res://Modelos/Construcoes/NormalMap.png" id="2_o74w0"]
+
+[resource]
+resource_name = "paredes"
+cull_mode = 2
+albedo_texture = ExtResource("1_o74w0")
+roughness = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_o74w0")
+heightmap_enabled = true
+heightmap_scale = 1.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("2_00rle")
+heightmap_flip_texture = true
+uv1_scale = Vector3(0.64, 0.64, 0.64)
+uv1_offset = Vector3(-0.045, -0.36, 0)
+uv1_triplanar_sharpness = 150.0

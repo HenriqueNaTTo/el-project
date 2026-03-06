@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b5u0y7y7814j7"]
+
+[ext_resource type="Material" uid="uid://it5ey4rbrqeb" path="res://Materiais/vegetacao/gramav2.tres" id="1_sccvv"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7dlr7"]
+material = ExtResource("1_sccvv")
+size = Vector2(0.5, 0.5)
+center_offset = Vector3(0, 1, 0)
+orientation = 0
+
+[node name="Node3D" type="MeshInstance3D" unique_id=1977126423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.74233127, 0)
+mesh = SubResource("PlaneMesh_7dlr7")
+
+[node name="Node3D" type="MeshInstance3D" parent="." unique_id=1080172460]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 0, 0, 0)
+mesh = SubResource("PlaneMesh_7dlr7")

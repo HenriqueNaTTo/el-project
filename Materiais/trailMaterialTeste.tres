@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cf8nnel1hmvv6"]
+
+[ext_resource type="Texture2D" uid="uid://eh2cot5fgwga" path="res://texturas/Culto/256_Carpet 02.png" id="1_lfwme"]
+
+[resource]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0, 0.054821, 1)
+emission_enabled = true
+emission = Color(1, 0.0395307, 0, 1)
+emission_texture = ExtResource("1_lfwme")

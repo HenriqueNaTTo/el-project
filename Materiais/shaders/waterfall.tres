@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dqynn53bk677x"]
+
+[ext_resource type="Shader" uid="uid://cwco5bgj6ju27" path="res://Materiais/WaterfallShaderv2.tres" id="1_dryc6"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_dryc6")
+shader_parameter/ColorParameter = Color(0, 0.402344, 0.402344, 1)

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cng14mkklc438"]
+
+[ext_resource type="Texture2D" uid="uid://cxl0to0vxowb6" path="res://Modelos/Arvores-EL_pixel_art_small (2).png" id="1_lwsbx"]
+
+[resource]
+albedo_color = Color(1, 0.74509805, 0.41568628, 1)
+albedo_texture = ExtResource("1_lwsbx")
+uv1_scale = Vector3(0.425, 0.425, 0.425)
+uv1_triplanar = true

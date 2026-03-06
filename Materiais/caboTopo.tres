@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dw8w1ml6qlxsk"]
+
+[ext_resource type="Texture2D" uid="uid://c628nuge6bork" path="res://modelos/armas/espadas/espadaSegundoDicipulo_espada2.png" id="1_osh3t"]
+
+[resource]
+resource_name = "caboTopo"
+cull_mode = 2
+albedo_texture = ExtResource("1_osh3t")
+metallic = 0.3
+roughness = 0.1
+texture_filter = 2

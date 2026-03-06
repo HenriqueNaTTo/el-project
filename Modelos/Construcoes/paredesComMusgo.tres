@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://s4sqoucopl7s"]
+
+[ext_resource type="Shader" uid="uid://bcg2mi7suin10" path="res://Materiais/shaders/telhado_sujo_sem_triplanar.tres" id="1_7jht7"]
+[ext_resource type="Texture2D" uid="uid://culi8gxs1yyf7" path="res://Modelos/Construcoes/Reino Sagrado/parede2.jpg" id="2_pd4y0"]
+[ext_resource type="Texture2D" uid="uid://dsn2lol765p8c" path="res://Modelos/Construcoes/Reino Sagrado/AmbientOcclusionMap (2).png" id="3_7jht7"]
+[ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="3_70dfc"]
+[ext_resource type="Texture2D" uid="uid://c0g4h3wxsw38a" path="res://Imagens/Texturas Terreno/rock_packed_normal_roughness.png" id="3_pd4y0"]
+[ext_resource type="Texture2D" uid="uid://pvccbv7wlh0s" path="res://Imagens/Texturas Terreno/rock_packed_albedo_height.png" id="4_7jht7"]
+[ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="6_3001t"]
+
+[sub_resource type="Gradient" id="Gradient_84j0j"]
+offsets = PackedFloat32Array(0.30666667, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l85hs"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fiav"]
+noise = SubResource("FastNoiseLite_l85hs")
+color_ramp = SubResource("Gradient_84j0j")
+seamless = true
+in_3d_space = true
+
+[resource]
+resource_name = "paredes"
+render_priority = 0
+shader = ExtResource("1_7jht7")
+shader_parameter/base_color_tint = Color(1, 1, 1, 1)
+shader_parameter/base_albedo = ExtResource("2_pd4y0")
+shader_parameter/base_normal = ExtResource("3_pd4y0")
+shader_parameter/base_roughness = ExtResource("4_7jht7")
+shader_parameter/base_height = ExtResource("3_7jht7")
+shader_parameter/base_uv_scale = 0.7
+shader_parameter/base_depth_scale = 0.01600000076
+shader_parameter/base_pom_min_layers = 16
+shader_parameter/base_pom_max_layers = 32
+shader_parameter/overlay_color_tint = Color(1, 1, 1, 1)
+shader_parameter/overlay_albedo = ExtResource("3_70dfc")
+shader_parameter/overlay_normal = ExtResource("6_3001t")
+shader_parameter/overlay_roughness = ExtResource("4_7jht7")
+shader_parameter/overlay_height = ExtResource("4_7jht7")
+shader_parameter/overlay_uv_scale = 0.6
+shader_parameter/overlay_depth_scale = 0.01600000076
+shader_parameter/overlay_pom_min_layers = 16
+shader_parameter/overlay_pom_max_layers = 32
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_2fiav")
+shader_parameter/noise_scale = 0.275
+shader_parameter/blend_sharpness = 0.5
+shader_parameter/height_blend_contrast = 1.0
+shader_parameter/use_contact = false
+shader_parameter/contact_distance = 0.5
+shader_parameter/contact_intensity = 1.0
+shader_parameter/use_top = true
+shader_parameter/top_threshold = 0.0400000493999999
+shader_parameter/top_softness = 0.4970000236075

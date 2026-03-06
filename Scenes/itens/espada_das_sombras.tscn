@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbn3ii65abthg"]
+
+[ext_resource type="Script" uid="uid://d2evrkbef1g6s" path="res://Scenes/scripts/WorldItem.gd" id="1_yixpy"]
+[ext_resource type="Resource" uid="uid://dypdwfn8rcnud" path="res://Scenes/Recursos/espada_das_sombras.tres" id="2_r65a6"]
+[ext_resource type="PackedScene" uid="uid://dfsotr6yv6qhh" path="res://Modelos/armas/espadas/espada_das_sombras.tscn" id="3_r65a6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y38gg"]
+radius = 0.16
+height = 0.635
+
+[node name="EspadaMetalBasica" type="Area3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+script = ExtResource("1_yixpy")
+item_data = ExtResource("2_r65a6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24749994, 0)
+shape = SubResource("CapsuleShape3D_y38gg")
+
+[node name="espadaDasSombras2" parent="." instance=ExtResource("3_r65a6")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,139 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://sc0nemi8vvld"]
+
+[ext_resource type="Texture2D" uid="uid://t2swlbnwsmvh" path="res://Modelos/ramoPequeno.png" id="1_khyk1"]
+
+[sub_resource type="Shader" id="Shader_khyk1"]
+code = "shader_type spatial;
+
+// REMOVIDO: world_vertex_coords (causava o bug)
+// ADICIONADO: depth_draw_opaque (para sombras corretas)
+render_mode depth_draw_opaque, cull_disabled, specular_schlick_ggx;
+
+// --- Configuração Visual ---
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap_anisotropic, repeat_disable;
+uniform vec4 albedo_color : source_color = vec4(1.0);
+uniform vec4 transmission : source_color = vec4(0.5, 0.6, 0.1, 1.0); // Luz amarelada passando
+uniform float alpha_scissor_threshold : hint_range(0.0, 1.0) = 0.5;
+
+// --- Configuração do Vento ---
+group_uniforms Vento;
+uniform float wind_speed : hint_range(0.0, 5.0) = 1.0;
+uniform float wind_strength : hint_range(0.0, 2.0) = 0.15; // Balanço do galho
+uniform float leaf_flutter : hint_range(0.0, 1.0) = 0.1;   // Vibração da folha
+
+// --- Rigidez ---
+group_uniforms Rigidez;
+// Se true, a base (Y=0) não mexe.
+uniform bool use_height_based_stiffness = true;
+uniform float height_falloff : hint_range(0.0, 50.0) = 5.0; // Altura onde o vento é máximo
+
+// --- Fade de Distância (Pixel Erosion) ---
+group_uniforms Distancia;
+uniform float fade_start : hint_range(0.0, 500.0) = 40.0;
+uniform float fade_end : hint_range(0.0, 500.0) = 60.0;
+
+// Variável para passar a distância para o fragment shader
+varying float dist_to_camera;
+
+// Função de onda simples
+float get_wind_wave(vec2 position, float time) {
+	return sin(time + position.x * 0.5 + position.y * 0.3) + cos(time * 0.8 + position.x * 0.2) * 0.5;
+}
+
+void vertex() {
+	// Calculamos a posição global manualmente para o ruído do vento ficar contínuo
+	vec3 world_pos = NODE_POSITION_WORLD + VERTEX;
+	dist_to_camera = distance(CAMERA_POSITION_WORLD, world_pos);
+
+	// --- Lógica de Rigidez ---
+	float stiffness = 1.0;
+	if (use_height_based_stiffness) {
+		// Protege a base da árvore (tronco no chão não mexe)
+		stiffness = smoothstep(0.0, height_falloff, VERTEX.y);
+	} else {
+		// Se usar Vertex Color (R) pintado no modelo
+		stiffness = COLOR.r;
+	}
+
+	// --- Vento ---
+	float time = TIME * wind_speed;
+	
+	// 1. Balanço Macro (Galhos)
+	// Usa a posição do NÓ (tronco) para que a árvore balance como um todo
+	float trunk_sway_x = get_wind_wave(NODE_POSITION_WORLD.xz, time);
+	float trunk_sway_z = get_wind_wave(NODE_POSITION_WORLD.zx + vec2(5.0), time * 0.9);
+	
+	// 2. Vibração Micro (Folhas)
+	// Usa a posição do VÉRTICE para cada folha vibrar diferente
+	float leaf_shiver = sin(time * 8.0 + world_pos.x * 10.0 + world_pos.z * 5.0 + world_pos.y) * leaf_flutter;
+
+	// Aplica o movimento
+	vec3 offset = vec3(0.0);
+	// O balanço afeta X e Z
+	offset.x += trunk_sway_x * wind_strength;
+	offset.z += trunk_sway_z * wind_strength;
+	// A vibração afeta também a Normal (para a folha \"tremer\" na direção que aponta)
+	offset += NORMAL * leaf_shiver;
+
+	// Aplica tudo respeitando a rigidez (base fixa)
+	VERTEX += offset * stiffness;
+	
+	// NOTA: Removi o \"VERTEX *= scale_factor\".
+	// Isso evita que a árvore encolha ou deforme. O fade será feito no Fragment.
+}
+
+void fragment() {
+	vec4 albedo_tex = texture(texture_albedo, UV);
+	
+	// --- Lógica de Fade por Distância (Erosão) ---
+	// Em vez de encolher a geometria, nós \"comemos\" o alpha
+	float fade_alpha_reduction = 0.0;
+	if (dist_to_camera > fade_start) {
+		// Calcula quanto devemos reduzir (0.0 a 1.0)
+		fade_alpha_reduction = smoothstep(fade_start, fade_end, dist_to_camera);
+	}
+
+	// Cor Final
+	ALBEDO = albedo_color.rgb * albedo_tex.rgb;
+	
+	// PBR
+	METALLIC = 0.0;
+	ROUGHNESS = 0.8;
+	SPECULAR = 0.2; // Especular baixo ajuda a parecer folha seca/fosca
+	
+	// --- Alpha Scissor Dinâmico ---
+	// O alpha original da textura
+	float final_alpha = albedo_tex.a;
+	
+	// Aumentamos o limiar de corte conforme a distância.
+	// Isso faz as folhas sumirem aos poucos (\"corroídas\")
+	ALPHA = final_alpha;
+	ALPHA_SCISSOR_THRESHOLD = clamp(alpha_scissor_threshold + fade_alpha_reduction, 0.0, 1.0);
+	
+	// Se o threshold chegar a 1.0, descarta tudo (melhora performance longe)
+	if (ALPHA_SCISSOR_THRESHOLD >= 0.99) {
+		discard;
+	}
+
+	// Translucência (Backlight)
+	vec3 backlight_color = transmission.rgb * (1.0 - albedo_tex.rgb);
+	BACKLIGHT = backlight_color + (ALBEDO * 0.1);
+	
+	// Normal map simples para volume
+	NORMAL = mix(NORMAL, vec3(0.0, 1.0, 0.0), 0.3);
+}"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_khyk1")
+shader_parameter/texture_albedo = ExtResource("1_khyk1")
+shader_parameter/albedo_color = Color(0.65625, 0.65625, 0.65625, 1)
+shader_parameter/transmission = Color(1, 1, 1, 1)
+shader_parameter/alpha_scissor_threshold = 0.5
+shader_parameter/wind_speed = 2.50000011875
+shader_parameter/wind_strength = 0.06000000285
+shader_parameter/leaf_flutter = 0.030000001425
+shader_parameter/use_height_based_stiffness = false
+shader_parameter/height_falloff = 0.010000000475
+shader_parameter/fade_start = 500.0
+shader_parameter/fade_end = 500.0

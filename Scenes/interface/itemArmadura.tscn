@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=3 uid="uid://bt8b13b3fch7p"]
+
+[ext_resource type="Texture2D" uid="uid://b0iqgdj75pl7j" path="res://Interface/fundoInteracao.png" id="1_0ew3x"]
+[ext_resource type="Script" uid="uid://ctaqjkbti0o4u" path="res://Interface/scripts/item_inventario.gd" id="2_hm654"]
+[ext_resource type="Texture2D" uid="uid://bi568kwy7rb6g" path="res://Interface/FundoBtnInteracao.png" id="3_wap1q"]
+[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="4_xbe87"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jprtl"]
+font = ExtResource("4_xbe87")
+font_size = 11
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ew3x"]
+font = ExtResource("4_xbe87")
+font_size = 12
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8bc0y"]
+font = ExtResource("4_xbe87")
+font_size = 20
+shadow_size = 5
+shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
+shadow_offset = Vector2(0, 0)
+
+[node name="itemArmadura" type="TextureRect"]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = -1
+offset_right = 186.0
+offset_bottom = 47.0
+texture = ExtResource("1_0ew3x")
+script = ExtResource("2_hm654")
+
+[node name="icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+grow_vertical = 2
+texture = ExtResource("3_wap1q")
+expand_mode = 1
+
+[node name="itemTexture" type="TextureRect" parent="icon"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="nomeItem" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -11.5
+offset_right = -44.0
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Espada basica"
+label_settings = SubResource("LabelSettings_jprtl")
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="textDefesa" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -57.0
+offset_top = -14.925
+offset_bottom = -2.9249878
+grow_horizontal = 0
+grow_vertical = 2
+text = "Desesa"
+label_settings = SubResource("LabelSettings_0ew3x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quantDefesa" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -37.339996
+offset_top = -3.5
+offset_right = -22.339996
+offset_bottom = 16.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "12"
+label_settings = SubResource("LabelSettings_8bc0y")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

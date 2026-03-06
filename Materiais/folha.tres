@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://du7fh56ya80j2"]
+
+[ext_resource type="Texture2D" uid="uid://drcrt1apq1lqt" path="res://modelos/propsDiversos/folhaMissoes_PaginaQuadro.png" id="1_g56di"]
+
+[resource]
+resource_name = "folha"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_g56di")
+texture_filter = 2

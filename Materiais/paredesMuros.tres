@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cc14uav8yr0nu"]
+
+[ext_resource type="Texture2D" uid="uid://cia5m2txiiup7" path="res://texturas/Culto/Painted_Wall_01_Grey_2.png" id="1_61yfn"]
+[ext_resource type="Texture2D" uid="uid://k72htnqj64fl" path="res://texturas/Culto/paredeNormalMap.png" id="2_mkbqd"]
+
+[resource]
+albedo_texture = ExtResource("1_61yfn")
+roughness = 0.68
+normal_enabled = true
+normal_texture = ExtResource("2_mkbqd")
+uv1_scale = Vector3(5, 5, 5)
+uv2_scale = Vector3(5, 5, 5)

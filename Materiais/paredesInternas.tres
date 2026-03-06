@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cqbfqmyp1wjw5"]
+
+[ext_resource type="Texture2D" uid="uid://bi1oj04mswdpe" path="res://modelos/Construcoes/interiores_Brick_VerticalSteps_Grey_1.png" id="1_077o0"]
+[ext_resource type="Texture2D" uid="uid://dvqnm0wljcxj4" path="res://texturas/Culto/ConcretoInterioresNormalMap.png" id="2_mdmcm"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_077o0")
+roughness = 0.31
+normal_enabled = true
+normal_texture = ExtResource("2_mdmcm")
+texture_filter = 2

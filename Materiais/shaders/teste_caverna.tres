@@ -1,0 +1,59 @@
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://o3bprodjki53"]
+
+[ext_resource type="Texture2D" uid="uid://bclsqjoejqnxd" path="res://texturas/terreno/grama/grama.png" id="1_wr8k8"]
+[ext_resource type="Texture2D" uid="uid://bt3lvf2sgbds2" path="res://texturas/terreno/pedra/Rock_Grey_02.png" id="2_t74gi"]
+[ext_resource type="Texture2D" uid="uid://bxeo21u0qsgo" path="res://texturas/Culto/blendCaverna.png" id="3_0b5g5"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_j2lvc"]
+texture = ExtResource("1_wr8k8")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_hnhc4"]
+texture = ExtResource("2_t74gi")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_vcaco"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_dn3b3"]
+texture = ExtResource("3_0b5g5")
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_3;
+uniform sampler2D tex_frg_2;
+uniform sampler2D tex_frg_5;
+
+
+
+void fragment() {
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, UV);
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Texture2D:5
+	vec4 n_out5p0 = texture(tex_frg_5, UV);
+
+
+// Mix:4
+	float n_out4p0 = mix(n_out3p0.x, n_out2p0.x, n_out5p0.x);
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0);
+
+
+}
+"
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_j2lvc")
+nodes/fragment/2/position = Vector2(-260, 240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_hnhc4")
+nodes/fragment/3/position = Vector2(-260, -40)
+nodes/fragment/4/node = SubResource("VisualShaderNodeMix_vcaco")
+nodes/fragment/4/position = Vector2(180, 120)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_dn3b3")
+nodes/fragment/5/position = Vector2(-260, -340)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 0, 2, 0, 4, 1, 3, 0, 4, 0, 5, 0, 4, 2)
