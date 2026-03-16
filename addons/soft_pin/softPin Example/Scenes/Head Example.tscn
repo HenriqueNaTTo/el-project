@@ -1,0 +1,88 @@
+[gd_scene load_steps=11 format=3 uid="uid://ck05ii4ug6gsd"]
+
+[ext_resource type="PackedScene" uid="uid://bx11vwefbtxhb" path="res://addons/soft_pin/softPin Example/Scenes/Head.tscn" id="2_7nret"]
+[ext_resource type="Texture2D" uid="uid://b2rxcdnxngs5i" path="res://addons/soft_pin/softPin Example/softPin Logo-01.png" id="4_c3omi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oqylx"]
+metallic = 1.0
+metallic_specular = 0.46
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ajlgp"]
+material = SubResource("StandardMaterial3D_oqylx")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5tj6j"]
+points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2bdl"]
+sky_top_color = Color(0.2752, 0.4272, 0.64, 1)
+
+[sub_resource type="Sky" id="Sky_v2bla"]
+sky_material = SubResource("ProceduralSkyMaterial_c2bdl")
+
+[sub_resource type="Environment" id="Environment_kncei"]
+background_mode = 2
+sky = SubResource("Sky_v2bla")
+tonemap_mode = 2
+ssao_radius = 0.2
+ssao_intensity = 6.06
+ssao_horizon = 0.14
+ssao_ao_channel_affect = 0.18
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+sdfgi_cascades = 7
+sdfgi_min_cell_size = 5.60313
+sdfgi_cascade0_distance = 358.6
+sdfgi_max_distance = 45900.8
+sdfgi_y_scale = 2
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_6datc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fckjv"]
+size = Vector3(1, 7.51169, 4.74316)
+
+[node name="softPin Scene" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.242, 5.388, 9.836)
+fov = 35.0
+
+[node name="HeadModel" parent="." instance=ExtResource("2_7nret")]
+transform = Transform3D(1, 0, 0, 0, 0.996636, 0.0819559, 0, -0.0819559, 0.996636, 0, 3.04476, 0)
+
+[node name="Environment & Logo" type="Node3D" parent="."]
+
+[node name="softPinLogo" type="Sprite3D" parent="Environment & Logo"]
+transform = Transform3D(0.574191, 0, 0, 0, 0.574191, 0, 0, 0, 0.574191, 0.129399, 9.42245, -8.40883)
+billboard = 1
+texture = ExtResource("4_c3omi")
+
+[node name="Floor" type="MeshInstance3D" parent="Environment & Logo"]
+transform = Transform3D(7600, 0, 0, 0, 7600, 0, 0, 0, 7600, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ajlgp")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Environment & Logo/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment & Logo/Floor/StaticBody3D2"]
+shape = SubResource("ConvexPolygonShape3D_5tj6j")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment & Logo"]
+environment = SubResource("Environment_kncei")
+camera_attributes = SubResource("CameraAttributesPractical_6datc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment & Logo"]
+transform = Transform3D(0.695189, -0.525508, -0.490463, 0.651507, 0.172332, 0.73881, -0.303728, -0.833152, 0.462176, -22.1731, 10.1115, 0)
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_normal_bias = 7.859
+directional_shadow_blend_splits = true
+
+[node name="Fake Wind Node" type="Node3D" parent="."]
+transform = Transform3D(1.77062, 0, 0, 0, 1.77062, 0, 0, 0, 1.77062, -9.16267, 8.586, 6.36282)
+
+[node name="Box" type="StaticBody3D" parent="Fake Wind Node"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fake Wind Node/Box"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.98741, -3.12773)
+shape = SubResource("BoxShape3D_fckjv")

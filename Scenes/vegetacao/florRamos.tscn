@@ -181,6 +181,7 @@ shader_parameter/fade_end = 500.0
 
 [node name="Plane_008" type="MeshInstance3D" unique_id=1656175026]
 transform = Transform3D(0.00011459946, -0.005304533, -0.008476366, 0.0037745389, 0.007872734, -0.004875747, 0.009259574, -0.0031435618, 0.002092438, 0, 0, 0)
+lod_bias = 0.5
 mesh = SubResource("ArrayMesh_rasj3")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_x23vo")

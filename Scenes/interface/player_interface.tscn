@@ -1,36 +1,24 @@
-[gd_scene load_steps=17 format=3 uid="uid://cvqvd4ouoldp0"]
+[gd_scene format=3 uid="uid://cvqvd4ouoldp0"]
 
 [ext_resource type="Script" uid="uid://bsoyrfmd5apbn" path="res://Scripts/player_interface.gd" id="1_qkmx1"]
 [ext_resource type="Texture2D" uid="uid://dcuf1fw30ud2t" path="res://Interface/progressVida.png" id="1_w8lqc"]
 [ext_resource type="Texture2D" uid="uid://5y0a5cbwud1h" path="res://Interface/bordaVidaTeste.png" id="2_pf6t8"]
 [ext_resource type="Texture2D" uid="uid://eimru8t07fho" path="res://Interface/progressMana.png" id="3_qkmx1"]
 [ext_resource type="PackedScene" uid="uid://dgj0m06cs3068" path="res://Scenes/interface/interaction_interface.tscn" id="5_4qhga"]
-[ext_resource type="Texture2D" uid="uid://bi568kwy7rb6g" path="res://Interface/FundoBtnInteracao.png" id="6_dvp2k"]
-[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="7_2g1o8"]
+[ext_resource type="Texture2D" uid="uid://bf55k13aplldw" path="res://Interface/fundoMana.png" id="5_5ei0g"]
+[ext_resource type="Texture2D" uid="uid://dfo1mp007yjc6" path="res://Interface/EspadaInterface.png" id="6_axx6r"]
 [ext_resource type="Texture2D" uid="uid://bbknvf0odqr30" path="res://Interface/habilidades/BolaDeFogo2.png" id="7_2l3k1"]
-[ext_resource type="Texture2D" uid="uid://bc5173wwi588p" path="res://Interface/habilidades/BolaDeFogo.png" id="7_ywppu"]
+[ext_resource type="LabelSettings" uid="uid://bldjewpvl4vgs" path="res://Fontes/labelPadrão.tres" id="8_4n7fr"]
 [ext_resource type="PackedScene" uid="uid://cs7dvhdye1kc3" path="res://Scenes/interface/interface_inventario.tscn" id="9_ywppu"]
 [ext_resource type="PackedScene" uid="uid://s45jw170gqbr" path="res://Scenes/interface/selecionar_level.tscn" id="12_2l3k1"]
 [ext_resource type="PackedScene" uid="uid://bpc04w8qxqb4j" path="res://Scenes/interface/proximo_nivel.tscn" id="13_3orgy"]
 [ext_resource type="PackedScene" uid="uid://b6vfoxcdwnbkr" path="res://Scenes/interface/itemConsumivel.tscn" id="13_ebhba"]
+[ext_resource type="Texture2D" uid="uid://c1be0tn8hjon3" path="res://Interface/trianguloHabilidades.png" id="14_axx6r"]
 [ext_resource type="PackedScene" uid="uid://6gigx4cpfu37" path="res://Scenes/interface/fundo_morte.tscn" id="14_ebhba"]
+[ext_resource type="Texture2D" uid="uid://btv6uunbtyno5" path="res://Interface/QuadradoHabilidade.png" id="15_oqajw"]
+[ext_resource type="Texture2D" uid="uid://ccbb0d5g2w2aq" path="res://Interface/slotHabilidade.png" id="16_yk2m6"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ywppu"]
-font = ExtResource("7_2g1o8")
-font_size = 20
-shadow_size = 5
-shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
-shadow_offset = Vector2(0, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_2l3k1"]
-line_spacing = 0.0
-font = ExtResource("7_2g1o8")
-font_size = 15
-shadow_size = 3
-shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
-shadow_offset = Vector2(0, 0)
-
-[node name="playerInterface" type="Control"]
+[node name="playerInterface" type="Control" unique_id=1865634712]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -41,120 +29,177 @@ grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("1_qkmx1")
 
-[node name="playerStats" type="Control" parent="."]
+[node name="playerStats" type="Control" parent="." unique_id=1886846845]
 anchors_preset = 0
-offset_right = 40.0
+offset_left = 32.095
+offset_right = 72.09497
 offset_bottom = 40.0
 
-[node name="barraVida" type="TextureProgressBar" parent="playerStats"]
-texture_filter = 5
-layout_mode = 0
-offset_left = 35.0
-offset_top = 25.0
-offset_right = 429.0
-offset_bottom = 64.0
+[node name="rectVida" type="TextureRect" parent="playerStats" unique_id=1507485018]
+texture_filter = 4
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 40.0
+texture = ExtResource("2_pf6t8")
+expand_mode = 1
+
+[node name="barraVida" type="TextureProgressBar" parent="playerStats" unique_id=1655749087]
+texture_filter = 4
+layout_mode = 1
+offset_left = 23.0
+offset_top = 23.4
+offset_right = 316.333
+offset_bottom = 36.733
 value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("1_w8lqc")
 
-[node name="rectVida" type="TextureRect" parent="playerStats"]
-texture_filter = 5
-layout_mode = 0
-offset_left = 35.0
-offset_top = 25.0
-offset_right = 429.0
-offset_bottom = 64.0
-texture = ExtResource("2_pf6t8")
+[node name="rectMana" type="TextureRect" parent="playerStats" unique_id=661198101]
+texture_filter = 4
+layout_mode = 1
+offset_left = 20.0
+offset_top = 42.0
+offset_right = 186.0
+offset_bottom = 62.0
+texture = ExtResource("3_qkmx1")
 expand_mode = 1
 
-[node name="barraMana" type="TextureProgressBar" parent="playerStats"]
-visible = false
-texture_filter = 5
-layout_mode = 0
-offset_left = 35.0
-offset_top = 64.9
-offset_right = 429.0
-offset_bottom = 103.90005
-scale = Vector2(0.7, 0.7)
+[node name="barraMana" type="TextureProgressBar" parent="playerStats" unique_id=1351475339]
+texture_filter = 4
+layout_mode = 1
+offset_left = 23.0
+offset_top = 45.4
+offset_right = 183.0
+offset_bottom = 58.733
 value = 100.0
 nine_patch_stretch = true
-texture_progress = ExtResource("3_qkmx1")
+texture_progress = ExtResource("5_5ei0g")
 
-[node name="rectMana" type="TextureRect" parent="playerStats"]
-visible = false
-texture_filter = 5
+[node name="TextureRect" type="TextureRect" parent="playerStats" unique_id=436272165]
+texture_filter = 2
+texture_repeat = 1
 layout_mode = 0
-offset_left = 35.0
-offset_top = 64.9
-offset_right = 429.0
-offset_bottom = 103.90005
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_pf6t8")
+offset_left = -27.0
+offset_top = 4.0
+offset_right = 41.0
+offset_bottom = 78.0
+texture = ExtResource("6_axx6r")
 expand_mode = 1
 
-[node name="interactionInterface" parent="." instance=ExtResource("5_4qhga")]
+[node name="interactionInterface" parent="." unique_id=1467880927 instance=ExtResource("5_4qhga")]
 layout_mode = 1
-anchors_preset = 7
 offset_top = -118.0
 offset_bottom = -63.0
 
-[node name="textoInteracao" parent="interactionInterface/interface" index="0"]
+[node name="textoInteracao" parent="interactionInterface/interface" parent_id_path=PackedInt32Array(1467880927, 1004736446) index="0" unique_id=803664972]
 offset_left = -114.0
 offset_right = 98.0
-text = "teste"
+text = "Interação"
+label_settings = ExtResource("8_4n7fr")
 autowrap_mode = 2
 
-[node name="selecionarLevel" parent="." instance=ExtResource("12_2l3k1")]
+[node name="btnInteracao" parent="interactionInterface/interface" parent_id_path=PackedInt32Array(1467880927, 1004736446) index="2" unique_id=749402619]
+label_settings = ExtResource("8_4n7fr")
+
+[node name="selecionarLevel" parent="." unique_id=1996091797 instance=ExtResource("12_2l3k1")]
 visible = false
 layout_mode = 1
 
-[node name="itemIconE" type="TextureRect" parent="."]
+[node name="proximoNivel" parent="." unique_id=680956148 instance=ExtResource("13_3orgy")]
+visible = false
+layout_mode = 1
+
+[node name="interfaceInventario" parent="." unique_id=822128396 instance=ExtResource("9_ywppu")]
+visible = false
+layout_mode = 1
+cena_slot_consumivel = ExtResource("13_ebhba")
+
+[node name="fundoMorte" parent="." unique_id=380398647 instance=ExtResource("14_ebhba")]
+visible = false
+layout_mode = 1
+
+[node name="habilidades" type="Control" parent="." unique_id=992260830]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="trianguloHabilidades" type="TextureRect" parent="habilidades" unique_id=1201379271]
+layout_mode = 0
+offset_left = 926.0
+offset_top = 454.0
+offset_right = 1093.8148
+offset_bottom = 569.0
+texture = ExtResource("14_axx6r")
+expand_mode = 1
+
+[node name="itemIconE" type="TextureRect" parent="habilidades/trianguloHabilidades" unique_id=230547210]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.8324219
-anchor_top = 0.81790125
-anchor_right = 0.8879774
-anchor_bottom = 0.9166667
-offset_right = -32.0
-offset_bottom = -32.0
-grow_vertical = 2
+anchor_left = 0.7890625
+anchor_top = 0.8148148
+anchor_right = 0.8446181
+anchor_bottom = 0.91358024
+offset_left = -149.41638
+offset_top = -19.703705
+offset_right = -130.73943
+offset_bottom = -3.0617294
+grow_vertical = 0
 scale = Vector2(2, 2)
-texture = ExtResource("6_dvp2k")
-metadata/_edit_use_anchors_ = true
+texture = ExtResource("15_oqajw")
+expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="itemIconE"]
+[node name="TextureRect2" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE" unique_id=1468103178]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.701904
-offset_top = -20.118835
-offset_right = 20.964724
-offset_bottom = 20.9068
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_yk2m6")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE" unique_id=1245828530]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_2l3k1")
 
-[node name="btnInteracao2" type="Label" parent="itemIconE"]
+[node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE" unique_id=1534141698]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 1.140625
+anchor_top = 1.25
+anchor_right = 1.203125
+anchor_bottom = 1.28125
 offset_left = -11.0
 offset_top = -20.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "E"
-label_settings = SubResource("LabelSettings_ywppu")
+label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="quantHabilidade" type="Label" parent="itemIconE"]
+[node name="quantHabilidade" type="Label" parent="habilidades/trianguloHabilidades/itemIconE" unique_id=2077755761]
 modulate = Color(1, 1, 1, 0.56078434)
 layout_mode = 1
 anchors_preset = 8
@@ -169,59 +214,76 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "5"
-label_settings = SubResource("LabelSettings_2l3k1")
+label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="itemIconQ" type="TextureRect" parent="."]
+[node name="itemIconE2" type="TextureRect" parent="habilidades/trianguloHabilidades" unique_id=841841008]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.905717
-anchor_top = 0.81790125
-anchor_right = 0.96127254
-anchor_bottom = 0.9166667
-offset_right = -32.0
-offset_bottom = -32.0
-grow_horizontal = 0
-grow_vertical = 2
+anchor_left = 0.7890625
+anchor_top = 0.8148148
+anchor_right = 0.8446181
+anchor_bottom = 0.91358024
+offset_left = -7.416382
+offset_top = -19.703705
+offset_right = 11.260559
+offset_bottom = -3.0617294
+grow_vertical = 0
 scale = Vector2(2, 2)
-texture = ExtResource("6_dvp2k")
-metadata/_edit_use_anchors_ = true
+texture = ExtResource("15_oqajw")
+expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="itemIconQ"]
+[node name="TextureRect2" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE2" unique_id=1010000878]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -11.217953
-offset_top = -11.217957
-offset_right = 11.217953
-offset_bottom = 11.217957
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_ywppu")
+texture = ExtResource("16_yk2m6")
 expand_mode = 1
 
-[node name="btnInteracao" type="Label" parent="itemIconQ"]
+[node name="TextureRect" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE2" unique_id=969345160]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2l3k1")
+
+[node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE2" unique_id=647013974]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 1.140625
+anchor_top = 1.25
+anchor_right = 1.203125
+anchor_bottom = 1.28125
 offset_left = -11.0
 offset_top = -20.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Q"
-label_settings = SubResource("LabelSettings_ywppu")
+text = "E"
+label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="quantHabilidade" type="Label" parent="itemIconQ"]
+[node name="quantHabilidade" type="Label" parent="habilidades/trianguloHabilidades/itemIconE2" unique_id=2024225396]
 modulate = Color(1, 1, 1, 0.56078434)
 layout_mode = 1
 anchors_preset = 8
@@ -236,22 +298,92 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "5"
-label_settings = SubResource("LabelSettings_2l3k1")
+label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="proximoNivel" parent="." instance=ExtResource("13_3orgy")]
-visible = false
+[node name="itemIconE3" type="TextureRect" parent="habilidades/trianguloHabilidades" unique_id=720592943]
+texture_filter = 5
 layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7890625
+anchor_top = 0.8148148
+anchor_right = 0.8446181
+anchor_bottom = 0.91358024
+offset_left = -77.41638
+offset_top = -107.703705
+offset_right = -58.73944
+offset_bottom = -91.06173
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("15_oqajw")
+expand_mode = 1
 
-[node name="interfaceInventario" parent="." instance=ExtResource("9_ywppu")]
-visible = false
+[node name="TextureRect2" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE3" unique_id=665290672]
 layout_mode = 1
-cena_slot_consumivel = ExtResource("13_ebhba")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_yk2m6")
+expand_mode = 1
 
-[node name="fundoMorte" parent="." instance=ExtResource("14_ebhba")]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE3" unique_id=1720570135]
 layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2l3k1")
+
+[node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE3" unique_id=542832209]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.140625
+anchor_top = 1.25
+anchor_right = 1.203125
+anchor_bottom = 1.28125
+offset_left = -11.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "E"
+label_settings = ExtResource("8_4n7fr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quantHabilidade" type="Label" parent="habilidades/trianguloHabilidades/itemIconE3" unique_id=1936661401]
+modulate = Color(1, 1, 1, 0.56078434)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.5
+offset_top = -8.0
+offset_right = 5.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+label_settings = ExtResource("8_4n7fr")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [editable path="interactionInterface"]
 [editable path="selecionarLevel"]

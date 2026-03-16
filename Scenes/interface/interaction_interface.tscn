@@ -1,19 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgj0m06cs3068"]
+[gd_scene format=3 uid="uid://dgj0m06cs3068"]
 
 [ext_resource type="Texture2D" uid="uid://b0iqgdj75pl7j" path="res://Interface/fundoInteracao.png" id="1_650pj"]
-[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="2_dk1bm"]
+[ext_resource type="FontFile" uid="uid://cxsbrsamiedt6" path="res://Fontes/ferrum/ferrum.otf" id="2_650pj"]
 [ext_resource type="Texture2D" uid="uid://bi568kwy7rb6g" path="res://Interface/FundoBtnInteracao.png" id="3_q6cjg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ywppu"]
-font = ExtResource("2_dk1bm")
+font = ExtResource("2_650pj")
 font_size = 20
 shadow_size = 5
 shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
 shadow_offset = Vector2(0, 0)
 
-[node name="interactionInterface" type="Control"]
+[node name="interactionInterface" type="Control" unique_id=1791919829]
 texture_filter = 5
 layout_mode = 3
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -25,7 +26,7 @@ offset_bottom = -54.924988
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="interface" type="TextureRect" parent="."]
+[node name="interface" type="TextureRect" parent="." unique_id=1004736446]
 texture_filter = 5
 layout_mode = 1
 anchors_preset = 15
@@ -35,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_650pj")
 
-[node name="textoInteracao" type="Label" parent="interface"]
+[node name="textoInteracao" type="Label" parent="interface" unique_id=803664972]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -53,7 +54,7 @@ label_settings = SubResource("LabelSettings_ywppu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="imgBtnInteracao" type="TextureRect" parent="interface"]
+[node name="imgBtnInteracao" type="TextureRect" parent="interface" unique_id=864003012]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -70,7 +71,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("3_q6cjg")
 expand_mode = 3
 
-[node name="btnInteracao" type="Label" parent="interface"]
+[node name="btnInteracao" type="Label" parent="interface" unique_id=749402619]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0

@@ -182,6 +182,7 @@ shader_parameter/fade_end = 500.0
 
 [node name="Plane" type="MeshInstance3D" unique_id=1867398917]
 transform = Transform3D(0.48410088, 0, 0, 0, 0.48410088, 0, 0, 0, 0.48410088, 0, 0, 0)
+lod_bias = 0.01
 mesh = SubResource("ArrayMesh_7tgbv")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_ia8kf")

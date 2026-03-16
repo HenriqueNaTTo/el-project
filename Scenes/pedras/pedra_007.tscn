@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://l5tphs6ykwf5"]
+[gd_scene format=4 uid="uid://l5tphs6ykwf5"]
 
-[ext_resource type="Texture2D" uid="uid://qujp6b6mtyet" path="res://Modelos/mapaAbismo/props diversos/pedras_rockface2.png" id="1_5wrsq"]
+[ext_resource type="Texture2D" uid="uid://bayhitk8y62rd" path="res://Imagens/Texturas Terreno/rockSeamless.jpg" id="1_5wrsq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7umxl"]
 resource_name = "pedra"

@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://bldjewpvl4vgs"]
+
+[ext_resource type="FontFile" uid="uid://p0y2ughur3g2" path="res://Fontes/fantaisieartistique/FantaisieArtistique.otf" id="1_wsh40"]
+
+[resource]
+font = ExtResource("1_wsh40")
+font_size = 12
+shadow_size = 3
+shadow_color = Color(0.14, 0, 0, 1)
+shadow_offset = Vector2(0, 0)

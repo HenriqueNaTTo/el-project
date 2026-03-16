@@ -1,5 +1,7 @@
 [gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://dokk22iinwfgf"]
 
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nlkuy"]
+
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_k5856"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u8ojy"]
@@ -87,7 +89,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-94.75015, 21)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x8ovv"]
-animation = &"attack1"
+animation = &"attack_3"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_or0bk"]
 
@@ -106,7 +108,6 @@ animation = &"attack1"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_y7r67"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dnjml"]
-graph_offset = Vector2(-33, 22)
 nodes/output/position = Vector2(680, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_7edbj")
 nodes/Animation/position = Vector2(220, 80)
@@ -128,16 +129,17 @@ nodes/TimeScale/position = Vector2(620, 60)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kmr48"]
-xfade_time = 0.25
+xfade_time = 0.05
 advance_mode = 2
 advance_condition = &"attack1"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nlkuy"]
-xfade_time = 0.25
+xfade_time = 0.05
 advance_mode = 2
 advance_condition = &"attack2"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_phvee"]
+xfade_time = 0.05
 advance_mode = 2
 advance_condition = &"attack3"
 
@@ -157,21 +159,32 @@ graph_offset = Vector2(245, 7)
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1bx1d"]
-xfade_time = 0.25
+xfade_time = 0.05
 advance_mode = 2
 advance_condition = &"isAttack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6q4kq"]
-xfade_time = 0.25
+xfade_time = 0.05
+advance_mode = 2
+advance_condition = &"basicMove"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0feh1"]
+xfade_time = 0.05
+advance_mode = 2
+advance_condition = &"axeCombo"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xdoki"]
 advance_mode = 2
 advance_condition = &"basicMove"
 
 [resource]
+states/AxeCombo/node = SubResource("AnimationNodeStateMachine_nlkuy")
+states/AxeCombo/position = Vector2(842, 126.6393)
 states/BasicMove/node = SubResource("AnimationNodeStateMachine_s7bg7")
 states/BasicMove/position = Vector2(639, 90)
 states/End/position = Vector2(1062, 90)
 states/Start/position = Vector2(491, 90)
 states/swordCombo/node = SubResource("AnimationNodeStateMachine_npsyx")
-states/swordCombo/position = Vector2(856, 90)
-transitions = ["Start", "BasicMove", SubResource("AnimationNodeStateMachineTransition_je2g2"), "BasicMove", "swordCombo", SubResource("AnimationNodeStateMachineTransition_1bx1d"), "swordCombo", "BasicMove", SubResource("AnimationNodeStateMachineTransition_6q4kq")]
+states/swordCombo/position = Vector2(842, 8)
+transitions = ["Start", "BasicMove", SubResource("AnimationNodeStateMachineTransition_je2g2"), "BasicMove", "swordCombo", SubResource("AnimationNodeStateMachineTransition_1bx1d"), "swordCombo", "BasicMove", SubResource("AnimationNodeStateMachineTransition_6q4kq"), "BasicMove", "AxeCombo", SubResource("AnimationNodeStateMachineTransition_0feh1"), "AxeCombo", "BasicMove", SubResource("AnimationNodeStateMachineTransition_xdoki")]
 graph_offset = Vector2(181, -35.360703)

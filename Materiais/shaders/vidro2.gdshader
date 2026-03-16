@@ -1,6 +1,13 @@
 shader_type spatial;
 render_mode blend_mix, depth_draw_always, cull_disabled;
 
+// --- UV MAPPING ---
+group_uniforms UV_Mapping;
+uniform vec2 base_uv_scale = vec2(1.0, 1.0);
+uniform vec2 base_uv_offset = vec2(0.0, 0.0);
+uniform vec2 smudge_uv_scale = vec2(1.0, 1.0);
+uniform vec2 smudge_uv_offset = vec2(0.0, 0.0);
+
 // --- PROPRIEDADES BÁSICAS ---
 group_uniforms Base_Properties;
 uniform vec4 albedo_color : source_color = vec4(0.8, 0.9, 1.0, 0.15);
@@ -30,21 +37,25 @@ uniform vec4 dirt_color : source_color = vec4(0.3, 0.25, 0.2, 1.0);
 uniform float dirt_strength : hint_range(0.0, 1.0) = 0.5;
 
 void fragment() {
+    // APLICAÇÃO DOS CONTROLES DE UV
+    vec2 base_uv = UV * base_uv_scale + base_uv_offset;
+    vec2 dirt_uv = UV * smudge_uv_scale + smudge_uv_offset;
+
     // 0. LÊ A TEXTURA DE ALBEDO E MISTURA COM A COR BASE
-    vec4 tex_albedo = texture(albedo_texture, UV);
+    vec4 tex_albedo = texture(albedo_texture, base_uv);
     vec3 final_base_color = albedo_color.rgb * tex_albedo.rgb;
     float final_base_alpha = albedo_color.a * tex_albedo.a;
 
     // 1. APLICAÇÃO DO NORMAL MAP
     // Isso deve vir PRIMEIRO, pois afeta o cálculo da refração e do reflexo
-    vec3 normal_map_color = texture(normal_texture, UV).rgb;
+    vec3 normal_map_color = texture(normal_texture, base_uv).rgb;
     NORMAL_MAP = normal_map_color;
     NORMAL_MAP_DEPTH = normal_strength;
     // NOTA: A Godot atualiza automaticamente a variável 'NORMAL' após essa linha
     // para considerar o relevo do mapa.
 
     // 2. LÊ A SUJEIRA
-    float smudge = texture(smudge_texture, UV).r * dirt_strength;
+    float smudge = texture(smudge_texture, dirt_uv).r * dirt_strength;
 
     // 3. CALCULA REFRAÇÃO (Usando a nova NORMAL com relevo)
     // O offset agora segue as curvas do seu normal map
@@ -66,7 +77,7 @@ void fragment() {
 
     // 6. SAÍDA FINAL
     ALBEDO = mix(refracted_background, current_glass_color, current_glass_alpha);
-    ALPHA = 1.0;
+    ALPHA = 0.9;
 
     // 7. PROPRIEDADES FÍSICAS PARA REFLEXO
     // Onde tem sujeira, o reflexo fica embaçado (roughness alto)

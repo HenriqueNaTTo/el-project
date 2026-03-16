@@ -1,0 +1,127 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ciuwo5li825bl"]
+
+[ext_resource type="Texture2D" uid="uid://culi8gxs1yyf7" path="res://Modelos/Construcoes/Reino Sagrado/parede2.jpg" id="1_nf73f"]
+[ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="2_ocwmi"]
+[ext_resource type="Texture2D" uid="uid://ddxkf5f65evc7" path="res://Modelos/Construcoes/NormalMap.png" id="3_ex7n7"]
+[ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="4_o8yet"]
+
+[sub_resource type="Shader" id="Shader_6nieq"]
+code = "shader_type spatial;
+
+// --- CORES (TINT) ---
+group_uniforms colors;
+// source_color garante que o Godot mostre o seletor de cores no Inspector e aplique o sRGB correto
+uniform vec4 tint_base : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 tint_moss : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+group_uniforms;
+
+// --- CONTROLES DE UV ---
+group_uniforms uv_controls;
+uniform vec2 uv_scale_base = vec2(1.0, 1.0);
+uniform vec2 uv_offset_base = vec2(0.0, 0.0);
+
+uniform vec2 uv_scale_moss = vec2(1.0, 1.0);
+uniform vec2 uv_offset_moss = vec2(0.0, 0.0);
+
+uniform vec2 uv_scale_mask = vec2(1.0, 1.0);
+uniform vec2 uv_offset_mask = vec2(0.0, 0.0);
+group_uniforms;
+
+// --- TEXTURAS DE COR (ALBEDO) ---
+group_uniforms albedo;
+uniform sampler2D albedo_base : source_color, filter_linear_mipmap;
+uniform sampler2D albedo_moss : source_color, filter_linear_mipmap;
+group_uniforms;
+
+// --- TEXTURAS DE RELEVO (NORMAL MAP) ---
+group_uniforms normals;
+uniform sampler2D normal_base : hint_normal, filter_linear_mipmap;
+uniform sampler2D normal_moss : hint_normal, filter_linear_mipmap;
+group_uniforms;
+
+// --- TEXTURAS DE RUGOSIDADE (ROUGHNESS) ---
+group_uniforms roughness;
+uniform sampler2D roughness_base : hint_default_white, filter_linear_mipmap;
+uniform sampler2D roughness_moss : hint_default_white, filter_linear_mipmap;
+group_uniforms;
+
+// --- MÁSCARA E CONTROLES DE ALTURA ---
+group_uniforms moss_settings;
+uniform sampler2D moss_mask : hint_default_white, filter_linear_mipmap;
+uniform float moss_amount : hint_range(0.0, 1.0) = 1.0;
+uniform bool grow_from_top = false; 
+uniform float height_offset = 0.0;
+uniform float height_falloff = 1.0;
+group_uniforms;
+
+varying float local_y;
+
+void vertex() {
+    local_y = VERTEX.y;
+}
+
+void fragment() {
+    // --- 0. CÁLCULO DAS UVS INDEPENDENTES ---
+    vec2 uv_base = UV * uv_scale_base + uv_offset_base;
+    vec2 uv_moss = UV * uv_scale_moss + uv_offset_moss;
+    vec2 uv_mask = UV * uv_scale_mask + uv_offset_mask;
+
+    // --- 1. CÁLCULO DA MÁSCARA ---
+    float mask_value = texture(moss_mask, uv_mask).r;
+    
+    // Calcula a distância do offset baseada na direção escolhida (cima ou baixo)
+    float height_distance = grow_from_top ? (height_offset - local_y) : (local_y - height_offset);
+    
+    // Aplica o falloff na distância calculada
+    float height_factor = 1.0 - (height_distance * height_falloff);
+    height_factor = clamp(height_factor, 0.0, 1.0);
+    
+    float final_moss_mask = clamp(mask_value * height_factor * moss_amount, 0.0, 1.0);
+
+    // --- 2. APLICAÇÃO DA COR COM O TINT ---
+    // Multiplicamos a textura pelo tint escolhido no Inspector
+    vec3 color_base = texture(albedo_base, uv_base).rgb * tint_base.rgb;
+    vec3 color_moss = texture(albedo_moss, uv_moss).rgb * tint_moss.rgb;
+    ALBEDO = mix(color_base, color_moss, final_moss_mask);
+
+    // --- 3. APLICAÇÃO DO RELEVO (NORMAL MAP) ---
+    vec3 norm_base = texture(normal_base, uv_base).rgb;
+    vec3 norm_moss = texture(normal_moss, uv_moss).rgb;
+    NORMAL_MAP = mix(norm_base, norm_moss, final_moss_mask);
+
+    // --- 4. APLICAÇÃO DA RUGOSIDADE (ROUGHNESS) ---
+    float rough_base = texture(roughness_base, uv_base).r;
+    float rough_moss = texture(roughness_moss, uv_moss).r;
+    ROUGHNESS = mix(rough_base, rough_moss, final_moss_mask);
+}"
+
+[sub_resource type="Gradient" id="Gradient_74raq"]
+offsets = PackedFloat32Array(0, 0.37777779)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qymp6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_003u0"]
+noise = SubResource("FastNoiseLite_qymp6")
+color_ramp = SubResource("Gradient_74raq")
+
+[resource]
+resource_name = "paredes"
+render_priority = 0
+shader = SubResource("Shader_6nieq")
+shader_parameter/tint_base = Color(1, 1, 1, 1)
+shader_parameter/tint_moss = Color(1, 1, 1, 1)
+shader_parameter/uv_scale_base = Vector2(1, 1)
+shader_parameter/uv_offset_base = Vector2(0, 0)
+shader_parameter/uv_scale_moss = Vector2(0.5, 0.5)
+shader_parameter/uv_offset_moss = Vector2(0, 0)
+shader_parameter/uv_scale_mask = Vector2(1, 1)
+shader_parameter/uv_offset_mask = Vector2(0, 0)
+shader_parameter/albedo_base = ExtResource("1_nf73f")
+shader_parameter/albedo_moss = ExtResource("2_ocwmi")
+shader_parameter/normal_base = ExtResource("3_ex7n7")
+shader_parameter/normal_moss = ExtResource("4_o8yet")
+shader_parameter/moss_mask = SubResource("NoiseTexture2D_003u0")
+shader_parameter/moss_amount = 0.2650000125875
+shader_parameter/grow_from_top = false
+shader_parameter/height_offset = 0.0
+shader_parameter/height_falloff = 1.0

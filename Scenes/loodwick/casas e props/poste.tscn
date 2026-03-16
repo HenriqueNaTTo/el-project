@@ -2,15 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://q4fkimtj6ip8" path="res://Modelos/Construcoes/Props/poste_Fundo.png" id="1_xt73p"]
 [ext_resource type="Texture2D" uid="uid://2klpf2u0u53y" path="res://Modelos/Construcoes/Props/poste_231-italy-old-stone-wall-medieval-castle-texture-seamless-hr.jpg" id="2_pjx4j"]
-[ext_resource type="Shader" uid="uid://bcg2mi7suin10" path="res://Materiais/shaders/telhado_sujo_sem_triplanar.tres" id="3_6qtye"]
-[ext_resource type="Shader" uid="uid://deyqj2umdtirk" path="res://Modelos/Construcoes/paredeComMusgo.gdshader" id="3_u4feq"]
-[ext_resource type="Texture2D" uid="uid://cs7c7qis017a3" path="res://Modelos/Construcoes/pixel_art_small.png" id="4_4cja5"]
 [ext_resource type="Texture2D" uid="uid://culi8gxs1yyf7" path="res://Modelos/Construcoes/Reino Sagrado/parede2.jpg" id="4_mgbvf"]
 [ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="5_biyea"]
-[ext_resource type="Texture2D" uid="uid://dsn2lol765p8c" path="res://Modelos/Construcoes/Reino Sagrado/AmbientOcclusionMap (2).png" id="5_fu6c3"]
-[ext_resource type="Texture2D" uid="uid://c0g4h3wxsw38a" path="res://Imagens/Texturas Terreno/rock_packed_normal_roughness.png" id="6_gyyn7"]
+[ext_resource type="Texture2D" uid="uid://ddxkf5f65evc7" path="res://Modelos/Construcoes/NormalMap.png" id="5_pjx4j"]
 [ext_resource type="Texture2D" uid="uid://dksijkw88ghqx" path="res://Modelos/fogo.png" id="6_xt73p"]
-[ext_resource type="Texture2D" uid="uid://pvccbv7wlh0s" path="res://Imagens/Texturas Terreno/rock_packed_albedo_height.png" id="7_ogr4k"]
 [ext_resource type="Texture2D" uid="uid://c1ots7w6i0i1q" path="res://demo/assets/textures/ground037_nrm_rgh.png" id="9_8ixve"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc3my"]
@@ -114,49 +109,128 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5vyuj")
 
-[sub_resource type="Gradient" id="Gradient_84j0j"]
-offsets = PackedFloat32Array(0.30666667, 1)
+[sub_resource type="Shader" id="Shader_6nieq"]
+code = "shader_type spatial;
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_l85hs"]
+// --- CORES (TINT) ---
+group_uniforms colors;
+// source_color garante que o Godot mostre o seletor de cores no Inspector e aplique o sRGB correto
+uniform vec4 tint_base : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 tint_moss : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+group_uniforms;
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2fiav"]
-noise = SubResource("FastNoiseLite_l85hs")
-color_ramp = SubResource("Gradient_84j0j")
-seamless = true
-in_3d_space = true
+// --- CONTROLES DE UV ---
+group_uniforms uv_controls;
+uniform vec2 uv_scale_base = vec2(1.0, 1.0);
+uniform vec2 uv_offset_base = vec2(0.0, 0.0);
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ktxgx"]
+uniform vec2 uv_scale_moss = vec2(1.0, 1.0);
+uniform vec2 uv_offset_moss = vec2(0.0, 0.0);
+
+uniform vec2 uv_scale_mask = vec2(1.0, 1.0);
+uniform vec2 uv_offset_mask = vec2(0.0, 0.0);
+group_uniforms;
+
+// --- TEXTURAS DE COR (ALBEDO) ---
+group_uniforms albedo;
+uniform sampler2D albedo_base : source_color, filter_linear_mipmap;
+uniform sampler2D albedo_moss : source_color, filter_linear_mipmap;
+group_uniforms;
+
+// --- TEXTURAS DE RELEVO (NORMAL MAP) ---
+group_uniforms normals;
+uniform sampler2D normal_base : hint_normal, filter_linear_mipmap;
+uniform sampler2D normal_moss : hint_normal, filter_linear_mipmap;
+group_uniforms;
+
+// --- TEXTURAS DE RUGOSIDADE (ROUGHNESS) ---
+group_uniforms roughness;
+uniform sampler2D roughness_base : hint_default_white, filter_linear_mipmap;
+uniform sampler2D roughness_moss : hint_default_white, filter_linear_mipmap;
+group_uniforms;
+
+// --- MÁSCARA E CONTROLES DE ALTURA ---
+group_uniforms moss_settings;
+uniform sampler2D moss_mask : hint_default_white, filter_linear_mipmap;
+uniform float moss_amount : hint_range(0.0, 1.0) = 1.0;
+uniform bool grow_from_top = false; 
+uniform float height_offset = 0.0;
+uniform float height_falloff = 1.0;
+group_uniforms;
+
+varying float local_y;
+
+void vertex() {
+    local_y = VERTEX.y;
+}
+
+void fragment() {
+    // --- 0. CÁLCULO DAS UVS INDEPENDENTES ---
+    vec2 uv_base = UV * uv_scale_base + uv_offset_base;
+    vec2 uv_moss = UV * uv_scale_moss + uv_offset_moss;
+    vec2 uv_mask = UV * uv_scale_mask + uv_offset_mask;
+
+    // --- 1. CÁLCULO DA MÁSCARA ---
+    float mask_value = texture(moss_mask, uv_mask).r;
+    
+    // Calcula a distância do offset baseada na direção escolhida (cima ou baixo)
+    float height_distance = grow_from_top ? (height_offset - local_y) : (local_y - height_offset);
+    
+    // Aplica o falloff na distância calculada
+    float height_factor = 1.0 - (height_distance * height_falloff);
+    height_factor = clamp(height_factor, 0.0, 1.0);
+    
+    float final_moss_mask = clamp(mask_value * height_factor * moss_amount, 0.0, 1.0);
+
+    // --- 2. APLICAÇÃO DA COR COM O TINT ---
+    // Multiplicamos a textura pelo tint escolhido no Inspector
+    vec3 color_base = texture(albedo_base, uv_base).rgb * tint_base.rgb;
+    vec3 color_moss = texture(albedo_moss, uv_moss).rgb * tint_moss.rgb;
+    ALBEDO = mix(color_base, color_moss, final_moss_mask);
+
+    // --- 3. APLICAÇÃO DO RELEVO (NORMAL MAP) ---
+    vec3 norm_base = texture(normal_base, uv_base).rgb;
+    vec3 norm_moss = texture(normal_moss, uv_moss).rgb;
+    NORMAL_MAP = mix(norm_base, norm_moss, final_moss_mask);
+
+    // --- 4. APLICAÇÃO DA RUGOSIDADE (ROUGHNESS) ---
+    float rough_base = texture(roughness_base, uv_base).r;
+    float rough_moss = texture(roughness_moss, uv_moss).r;
+    ROUGHNESS = mix(rough_base, rough_moss, final_moss_mask);
+}"
+
+[sub_resource type="Gradient" id="Gradient_74raq"]
+offsets = PackedFloat32Array(0, 0.37777779)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u4feq"]
+noise_type = 2
+frequency = 0.0107
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_003u0"]
+noise = SubResource("FastNoiseLite_u4feq")
+color_ramp = SubResource("Gradient_74raq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cja5"]
 resource_name = "paredes"
 render_priority = 0
-shader = ExtResource("3_6qtye")
-shader_parameter/base_color_tint = Color(1, 1, 1, 1)
-shader_parameter/base_albedo = ExtResource("4_mgbvf")
-shader_parameter/base_normal = ExtResource("6_gyyn7")
-shader_parameter/base_roughness = ExtResource("7_ogr4k")
-shader_parameter/base_height = ExtResource("5_fu6c3")
-shader_parameter/base_uv_scale = 0.7
-shader_parameter/base_depth_scale = 0.01600000076
-shader_parameter/base_pom_min_layers = 16
-shader_parameter/base_pom_max_layers = 32
-shader_parameter/overlay_color_tint = Color(1, 1, 1, 1)
-shader_parameter/overlay_albedo = ExtResource("5_biyea")
-shader_parameter/overlay_normal = ExtResource("9_8ixve")
-shader_parameter/overlay_roughness = ExtResource("7_ogr4k")
-shader_parameter/overlay_height = ExtResource("7_ogr4k")
-shader_parameter/overlay_uv_scale = 0.6
-shader_parameter/overlay_depth_scale = 0.01600000076
-shader_parameter/overlay_pom_min_layers = 16
-shader_parameter/overlay_pom_max_layers = 32
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_2fiav")
-shader_parameter/noise_scale = 0.275
-shader_parameter/blend_sharpness = 0.5
-shader_parameter/height_blend_contrast = 1.0
-shader_parameter/use_contact = false
-shader_parameter/contact_distance = 0.5
-shader_parameter/contact_intensity = 1.0
-shader_parameter/use_top = true
-shader_parameter/top_threshold = 0.0400000493999999
-shader_parameter/top_softness = 0.4970000236075
+shader = SubResource("Shader_6nieq")
+shader_parameter/tint_base = Color(1, 1, 1, 1)
+shader_parameter/tint_moss = Color(1, 1, 1, 1)
+shader_parameter/uv_scale_base = Vector2(1, 1)
+shader_parameter/uv_offset_base = Vector2(0, 0)
+shader_parameter/uv_scale_moss = Vector2(0.5, 0.5)
+shader_parameter/uv_offset_moss = Vector2(0, 0)
+shader_parameter/uv_scale_mask = Vector2(1, 1)
+shader_parameter/uv_offset_mask = Vector2(0, 0)
+shader_parameter/albedo_base = ExtResource("4_mgbvf")
+shader_parameter/albedo_moss = ExtResource("5_biyea")
+shader_parameter/normal_base = ExtResource("5_pjx4j")
+shader_parameter/normal_moss = ExtResource("9_8ixve")
+shader_parameter/moss_mask = SubResource("NoiseTexture2D_003u0")
+shader_parameter/moss_amount = 1.0
+shader_parameter/grow_from_top = false
+shader_parameter/height_offset = 0.82
+shader_parameter/height_falloff = 1.0
 
 [sub_resource type="Gradient" id="Gradient_11h8p"]
 
@@ -177,38 +251,6 @@ metallic = 0.9
 roughness = 0.0
 normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_pjx4j")
-
-[sub_resource type="Gradient" id="Gradient_m4ayk"]
-offsets = PackedFloat32Array(0.30666667, 0.58666664)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_nqqq3"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iwrha"]
-noise = SubResource("FastNoiseLite_nqqq3")
-color_ramp = SubResource("Gradient_m4ayk")
-seamless = true
-in_3d_space = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6qtye"]
-resource_name = "paredes"
-render_priority = 0
-shader = ExtResource("3_u4feq")
-shader_parameter/base_color_tint = Color(1, 1, 1, 1)
-shader_parameter/base_albedo = ExtResource("4_4cja5")
-shader_parameter/base_uv_scale = 0.25
-shader_parameter/overlay_color_tint = Color(1, 1, 1, 1)
-shader_parameter/overlay_albedo = ExtResource("5_biyea")
-shader_parameter/overlay_uv_scale = 0.04
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_iwrha")
-shader_parameter/noise_scale = 0.275
-shader_parameter/blend_sharpness = 0.5
-shader_parameter/height_blend_contrast = 0.1
-shader_parameter/use_contact = false
-shader_parameter/contact_distance = 0.5
-shader_parameter/contact_intensity = 1.0
-shader_parameter/use_top = true
-shader_parameter/top_threshold = 0.23500005866250007
-shader_parameter/top_softness = 0.6850000325375
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fu6c3"]
 size = Vector3(0.62338024, 3.75923, 0.62338024)
@@ -257,11 +299,12 @@ size = Vector2(0.2, 0.2)
 transform = Transform3D(1.2, 0, 3.7252903e-08, 0, 1.2, 0, -3.7252903e-08, 0, 1.2, 0, 0, 0)
 
 [node name="poste" type="MeshInstance3D" parent="." unique_id=990372957]
+lod_bias = 0.01
 mesh = SubResource("ArrayMesh_72wkc")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_ktxgx")
+surface_material_override/0 = SubResource("ShaderMaterial_4cja5")
 surface_material_override/1 = SubResource("StandardMaterial3D_11h8p")
-surface_material_override/2 = SubResource("ShaderMaterial_6qtye")
+surface_material_override/2 = SubResource("ShaderMaterial_4cja5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="poste" unique_id=836168479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8797519, 0)

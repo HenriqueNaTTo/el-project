@@ -66,6 +66,7 @@ radius = 0.39990234
 [node name="ArvoreNormal2" type="Node3D" unique_id=2128898905]
 
 [node name="arvore" type="MeshInstance3D" parent="." unique_id=99279405]
+lod_bias = 0.1
 mesh = SubResource("ArrayMesh_lvs6n")
 skeleton = NodePath("")
 

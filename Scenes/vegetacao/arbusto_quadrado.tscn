@@ -187,7 +187,7 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 
 [node name="arbustoQuadrado" type="MeshInstance3D" parent="." unique_id=970507740]
 transform = Transform3D(-0.31607273, 0.2967237, -0.047289725, -0.04977069, -0.11939115, -0.41647553, -0.2963176, -0.29645246, 0.12039538, 0.1851187, -0.43734133, 1.0896753)
-lod_bias = 0.01
+lod_bias = 0.001
 mesh = SubResource("ArrayMesh_gr5ac")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_qn5jd")

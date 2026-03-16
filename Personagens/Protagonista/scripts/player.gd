@@ -326,12 +326,12 @@ func handle_attack():
 			animation_tree["parameters/swordCombo/conditions/attack1"] = true
 			animation_tree["parameters/swordCombo/conditions/attack2"] = false
 			animation_tree["parameters/swordCombo/conditions/attack3"] = false
-			play_timer(1.0)
+			play_timer(1.2)
 		1:
 			animation_tree["parameters/swordCombo/conditions/attack1"] = false
 			animation_tree["parameters/swordCombo/conditions/attack2"] = true
 			animation_tree["parameters/swordCombo/conditions/attack3"] = false
-			play_timer(1.0)
+			play_timer(0.5)
 		2:
 			animation_tree["parameters/swordCombo/conditions/attack1"] = false
 			animation_tree["parameters/swordCombo/conditions/attack2"] = false

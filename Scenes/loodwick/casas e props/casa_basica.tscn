@@ -210,7 +210,7 @@ transform = Transform3D(1.3, 0, 0, 0, 1.2999997, 0, 0, 0, 1.3, 0, 0, 0)
 
 [node name="casaPrototipo" type="MeshInstance3D" parent="." unique_id=1772184364]
 transform = Transform3D(1.7881398e-08, -0.18733326, -0.23432088, 0, 0.23432085, -0.18733324, 0.30000004, 1.1165933e-08, 1.3966614e-08, -2.0364075, 1.88871, 0.026550293)
-lod_bias = 0.1
+lod_bias = 0.3
 mesh = SubResource("ArrayMesh_xqq50")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("5_dfpcy")

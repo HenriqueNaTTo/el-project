@@ -1,19 +1,8 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://g8dngqb8jxfc"]
 
 [ext_resource type="Shader" uid="uid://dcjyu1hg1hqrl" path="res://Materiais/shaders/vidro2.gdshader" id="1_its7b"]
-
-[sub_resource type="Gradient" id="Gradient_av0sp"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8mn7a"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_no5fd"]
-width = 128
-height = 128
-noise = SubResource("FastNoiseLite_8mn7a")
-color_ramp = SubResource("Gradient_av0sp")
-seamless = true
-in_3d_space = true
-as_normal_map = true
+[ext_resource type="Texture2D" uid="uid://dhdg21g24r2ta" path="res://Modelos/Construcoes/Reino Sagrado/texturaVidro.png" id="2_66gso"]
+[ext_resource type="Texture2D" uid="uid://nqtywgo4byap" path="res://Modelos/Construcoes/Reino Sagrado/NormalMap (1).png" id="3_xmri4"]
 
 [sub_resource type="Gradient" id="Gradient_xupq5"]
 
@@ -30,12 +19,17 @@ in_3d_space = true
 [resource]
 render_priority = 0
 shader = ExtResource("1_its7b")
+shader_parameter/base_uv_scale = Vector2(1, 2)
+shader_parameter/base_uv_offset = Vector2(1.27, 0.515)
+shader_parameter/smudge_uv_scale = Vector2(1, 1)
+shader_parameter/smudge_uv_offset = Vector2(0, 0)
 shader_parameter/albedo_color = Color(1, 1, 0.76862746, 0.20392157)
-shader_parameter/base_roughness = 0.0
+shader_parameter/albedo_texture = ExtResource("2_66gso")
+shader_parameter/base_roughness = 0.2000000095
 shader_parameter/metallic = 0.0
-shader_parameter/specular = 1.0
-shader_parameter/normal_texture = SubResource("NoiseTexture2D_no5fd")
-shader_parameter/normal_strength = 0.8590000408025
+shader_parameter/specular = 0.50000002375
+shader_parameter/normal_texture = ExtResource("3_xmri4")
+shader_parameter/normal_strength = 2.0
 shader_parameter/refraction_strength = 0.0
 shader_parameter/chromatic_aberration = 0.0
 shader_parameter/smudge_texture = SubResource("NoiseTexture2D_7817f")

@@ -202,6 +202,7 @@ height = 2.9208984
 transform = Transform3D(0.99999976, 0, -1.6940659e-21, 0, 0.99999976, 0, 1.6940659e-21, 0, 0.99999976, 0, 0, 0)
 
 [node name="Tree" type="MeshInstance3D" parent="." unique_id=1680805111]
+lod_bias = 0.01
 mesh = SubResource("ArrayMesh_mt5us")
 skeleton = NodePath("")
 

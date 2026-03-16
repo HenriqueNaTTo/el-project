@@ -188,20 +188,14 @@ void sky() {
 }"
 
 [sub_resource type="Gradient" id="Gradient_lh804"]
-offsets = PackedFloat32Array(0, 0.54545456, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.13846153, 0.13846153, 0.13846153, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6myqb"]
-frequency = 0.0271
+frequency = 0.0541
 
 [sub_resource type="NoiseTexture3D" id="NoiseTexture3D_yyakl"]
-width = 128
-height = 128
-depth = 128
 noise = SubResource("FastNoiseLite_6myqb")
 color_ramp = SubResource("Gradient_lh804")
 seamless = true
-seamless_blend_skirt = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4wsao"]
 shader = SubResource("Shader_dufjq")
@@ -222,10 +216,10 @@ shader_parameter/noise_texture = SubResource("NoiseTexture3D_yyakl")
 shader_parameter/cloud_color_day = Color(1, 1, 1, 1)
 shader_parameter/cloud_color_night = Color(0.1, 0.1, 0.15, 1)
 shader_parameter/cloud_scale = 9.999999747e-05
-shader_parameter/density_threshold = 0.0910000043225
-shader_parameter/cloud_density_multiplier = 0.082000003895
+shader_parameter/density_threshold = 0.4850000230375
+shader_parameter/cloud_density_multiplier = 0.17200000817
 shader_parameter/time_speed = 80.0
-shader_parameter/ray_steps = 80
+shader_parameter/ray_steps = 32
 shader_parameter/planet_radius = 60500.0
 shader_parameter/clouds_bottom = 1500.0
 shader_parameter/clouds_top = 3500.0

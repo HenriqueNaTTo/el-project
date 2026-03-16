@@ -32,7 +32,7 @@ project/assembly_name="ELProject"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg", "res://addons/PathMesh3D/plugin.cfg", "res://addons/UniParticles3D/plugin.cfg", "res://addons/csg_mesher/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/mesh_path_3d/plugin.cfg", "res://addons/multimesh_scatter/plugin.cfg", "res://addons/object_strings/plugin.cfg", "res://addons/path_mesh_instance_3d/plugin.cfg", "res://addons/proto_shape/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/scenetomeshconverter/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways_net/plugin.cfg", "res://addons/yamms/plugin.cfg")
+enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg", "res://addons/PathMesh3D/plugin.cfg", "res://addons/UniParticles3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_mesher/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/godot-deformablemesh-0.30/godot-deformablemesh-0.30/addons/deformablemesh/plugin.cfg", "res://addons/mesh_path_3d/plugin.cfg", "res://addons/multimesh_scatter/plugin.cfg", "res://addons/nap_map_generator/plugin.cfg", "res://addons/object_strings/plugin.cfg", "res://addons/path_mesh_instance_3d/plugin.cfg", "res://addons/proto_shape/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/scenetomeshconverter/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/soft_pin/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways_net/plugin.cfg", "res://addons/yamms/plugin.cfg")
 
 [importer_defaults]
 
@@ -130,17 +130,16 @@ debug={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="player"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=3
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
-lights_and_shadows/positional_shadow/soft_shadow_filter_quality=4
-global_illumination/voxel_gi/quality=1
-textures/decals/filter=2
 environment/volumetric_fog/volume_size=128
 environment/volumetric_fog/volume_depth=128
 occlusion_culling/use_occlusion_culling=true

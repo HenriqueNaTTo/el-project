@@ -64,6 +64,7 @@ height = 5.2678223
 radius = 0.7939453
 
 [node name="arvoreGrande" type="MeshInstance3D" unique_id=511779100]
+lod_bias = 0.05
 mesh = SubResource("ArrayMesh_oje0f")
 skeleton = NodePath("")
 

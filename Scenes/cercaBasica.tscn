@@ -60,6 +60,7 @@ size = Vector3(0.34896547, 2.658261, 2.5927286)
 
 [node name="Cube_004" type="MeshInstance3D" parent="." unique_id=1284179990]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+lod_bias = 0.001
 mesh = SubResource("ArrayMesh_hrixb")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_evts6")
