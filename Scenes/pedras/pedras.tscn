@@ -50,7 +50,6 @@ code = "shader_type spatial;
 
 // --- CORES (TINT) ---
 group_uniforms colors;
-// source_color garante que o Godot mostre o seletor de cores no Inspector e aplique o sRGB correto
 uniform vec4 tint_base : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform vec4 tint_moss : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 group_uniforms;
@@ -94,10 +93,12 @@ uniform float height_offset = 0.0;
 uniform float height_falloff = 1.0;
 group_uniforms;
 
-varying float local_y;
+// Variável renomeada para refletir que agora é a altura no mundo
+varying float world_y;
 
 void vertex() {
-    local_y = VERTEX.y;
+    // Multiplica o vértice local pela Matriz do Modelo para descobrir a posição real dele no mundo
+    world_y = (MODEL_MATRIX * vec4(VERTEX, 1.0)).y;
 }
 
 void fragment() {
@@ -109,8 +110,8 @@ void fragment() {
     // --- 1. CÁLCULO DA MÁSCARA ---
     float mask_value = texture(moss_mask, uv_mask).r;
     
-    // Calcula a distância do offset baseada na direção escolhida (cima ou baixo)
-    float height_distance = grow_from_top ? (height_offset - local_y) : (local_y - height_offset);
+    // Agora o cálculo usa o world_y, ignorando a rotação/posição do objeto
+    float height_distance = grow_from_top ? (height_offset - world_y) : (world_y - height_offset);
     
     // Aplica o falloff na distância calculada
     float height_factor = 1.0 - (height_distance * height_falloff);
@@ -119,7 +120,6 @@ void fragment() {
     float final_moss_mask = clamp(mask_value * height_factor * moss_amount, 0.0, 1.0);
 
     // --- 2. APLICAÇÃO DA COR COM O TINT ---
-    // Multiplicamos a textura pelo tint escolhido no Inspector
     vec3 color_base = texture(albedo_base, uv_base).rgb * tint_base.rgb;
     vec3 color_moss = texture(albedo_moss, uv_moss).rgb * tint_moss.rgb;
     ALBEDO = mix(color_base, color_moss, final_moss_mask);
@@ -161,9 +161,9 @@ shader_parameter/albedo_moss = ExtResource("2_nm0bl")
 shader_parameter/normal_base = ExtResource("3_wpcrv")
 shader_parameter/normal_moss = ExtResource("4_h4hl7")
 shader_parameter/moss_mask = SubResource("NoiseTexture2D_003u0")
-shader_parameter/moss_amount = 0.6770000321575
-shader_parameter/grow_from_top = false
-shader_parameter/height_offset = 0.0
+shader_parameter/moss_amount = 0.50800002413
+shader_parameter/grow_from_top = true
+shader_parameter/height_offset = 1.45
 shader_parameter/height_falloff = 1.0
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_q4ppd"]

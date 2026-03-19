@@ -25,6 +25,7 @@ InventoryManager="*res://Globais/InventoryManager.gd"
 SceneControler="*res://Globais/sceneControler.gd"
 MeshPath3D_utils="*uid://cg1icb6wl8ipf"
 CsgToolkitAutoload="*uid://hd33psee8sc6"
+CollisionPresetRuntime="*uid://u810pt6u5apa"
 
 [dotnet]
 
@@ -32,7 +33,7 @@ project/assembly_name="ELProject"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg", "res://addons/PathMesh3D/plugin.cfg", "res://addons/UniParticles3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/csg_mesher/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/godot-deformablemesh-0.30/godot-deformablemesh-0.30/addons/deformablemesh/plugin.cfg", "res://addons/mesh_path_3d/plugin.cfg", "res://addons/multimesh_scatter/plugin.cfg", "res://addons/nap_map_generator/plugin.cfg", "res://addons/object_strings/plugin.cfg", "res://addons/path_mesh_instance_3d/plugin.cfg", "res://addons/proto_shape/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/scenetomeshconverter/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/soft_pin/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways_net/plugin.cfg", "res://addons/yamms/plugin.cfg")
+enabled=PackedStringArray("res://addons/LineRenderer/plugin.cfg", "res://addons/PathMesh3D/plugin.cfg", "res://addons/ScatterShot/plugin.cfg", "res://addons/UniParticles3D/plugin.cfg", "res://addons/asset_placer/plugin.cfg", "res://addons/collision_presets/plugin.cfg", "res://addons/csg_mesher/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/godot-deformablemesh-0.30/godot-deformablemesh-0.30/addons/deformablemesh/plugin.cfg", "res://addons/mesh_path_3d/plugin.cfg", "res://addons/multimesh_scatter/plugin.cfg", "res://addons/nap_map_generator/plugin.cfg", "res://addons/nexus_vertex_painter/plugin.cfg", "res://addons/object_strings/plugin.cfg", "res://addons/path_mesh_instance_3d/plugin.cfg", "res://addons/proto_shape/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/soft_pin/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways_net/plugin.cfg", "res://addons/yamms/plugin.cfg")
 
 [importer_defaults]
 

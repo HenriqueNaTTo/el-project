@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://nc4o68dw0q6p"]
+
+[ext_resource type="Script" uid="uid://csv6sfj0cg5a6" path="res://addons/csg_generator_3d/scene/spatial_editor_widget.gd" id="1_snt4a"]
+[ext_resource type="Texture2D" uid="uid://dbsra53jrbclr" path="res://addons/csg_generator_3d/assets/CSGGeneratorIcon.svg" id="2_h10in"]
+
+[node name="SpatialEditorWidget" type="Control" unique_id=1469478630]
+custom_minimum_size = Vector2(144, 32)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1008.0
+offset_bottom = -616.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_snt4a")
+
+[node name="MenuButton" type="MenuButton" parent="." unique_id=1808021996]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CSG Generator"
+icon = ExtResource("2_h10in")
+
+[connection signal="about_to_popup" from="MenuButton" to="." method="menu_button_about_to_popup"]
