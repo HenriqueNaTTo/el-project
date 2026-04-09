@@ -1,0 +1,9 @@
+[gd_resource type="PlaneMesh" format=3 uid="uid://b5j6yrocib1q7"]
+
+[ext_resource type="Material" uid="uid://ckntkb7tfpyy5" path="res://Materiais/shaders/mar_shaderMaterial.tres" id="1_ddlrh"]
+
+[resource]
+material = ExtResource("1_ddlrh")
+size = Vector2(10000, 10000)
+subdivide_width = 2000
+subdivide_depth = 2000

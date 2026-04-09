@@ -1,0 +1,149 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c1128gyr08vgq"]
+
+[ext_resource type="Texture2D" uid="uid://bayhitk8y62rd" path="res://Imagens/Texturas Terreno/rockSeamless.jpg" id="1_mcu7p"]
+[ext_resource type="Texture2D" uid="uid://cp87rbej2gy11" path="res://Imagens/gramav138.png" id="2_q0a1g"]
+[ext_resource type="Texture2D" uid="uid://brygn7juyeiet" path="res://Imagens/Texturas Terreno/rockFaceNormal.png" id="3_5xisx"]
+[ext_resource type="Texture2D" uid="uid://bt2mu5fru504b" path="res://Imagens/Texturas Terreno/NormalMap (2).png" id="4_plgd5"]
+[ext_resource type="Texture2D" uid="uid://dda3n38may2am" path="res://Imagens/Texturas Terreno/terraSpecularMap.png" id="5_8g1vh"]
+[ext_resource type="Texture2D" uid="uid://db1ndgp8kj3po" path="res://Imagens/Texturas Terreno/SgramapecularMap.png" id="6_np2u1"]
+
+[sub_resource type="Shader" id="Shader_6nieq"]
+code = "shader_type spatial;
+render_mode cull_disabled;
+
+// --- CORES (TINT) ---
+group_uniforms colors;
+uniform vec4 tint_base : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 tint_moss : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+group_uniforms;
+
+// --- CONTROLES DE UV ---
+group_uniforms uv_controls;
+uniform vec2 uv_scale_base = vec2(1.0, 1.0);
+uniform vec2 uv_offset_base = vec2(0.0, 0.0);
+uniform vec2 uv_scale_moss = vec2(1.0, 1.0);
+uniform vec2 uv_offset_moss = vec2(0.0, 0.0);
+uniform vec2 uv_scale_mask = vec2(1.0, 1.0);
+uniform vec2 uv_offset_mask = vec2(0.0, 0.0);
+group_uniforms;
+
+// --- TEXTURAS DE COR (ALBEDO) ---
+group_uniforms albedo;
+uniform bool use_texture_base = true;
+uniform bool use_texture_moss = true;
+uniform sampler2D albedo_base : source_color, filter_linear_mipmap;
+uniform sampler2D albedo_moss : source_color, filter_linear_mipmap;
+group_uniforms;
+
+// --- TEXTURAS DE RELEVO (NORMAL MAP) ---
+group_uniforms normals;
+uniform sampler2D normal_base : hint_normal, filter_linear_mipmap;
+uniform sampler2D normal_moss : hint_normal, filter_linear_mipmap;
+group_uniforms;
+
+// --- TEXTURAS DE RUGOSIDADE (ROUGHNESS) ---
+group_uniforms roughness;
+uniform sampler2D roughness_base : hint_default_white, filter_linear_mipmap;
+uniform float roughness_base_multiplier : hint_range(0.0, 1.0) = 1.0;
+uniform sampler2D roughness_moss : hint_default_white, filter_linear_mipmap;
+uniform float roughness_moss_multiplier : hint_range(0.0, 1.0) = 1.0;
+group_uniforms;
+
+// --- ESPECULAR ---
+group_uniforms specular;
+uniform float specular_base : hint_range(0.0, 1.0) = 0.5;
+uniform float specular_moss : hint_range(0.0, 1.0) = 0.5;
+group_uniforms;
+
+// --- MÁSCARA E CONTROLES DE ALTURA ---
+group_uniforms moss_settings;
+uniform sampler2D moss_mask : hint_default_white, filter_linear_mipmap;
+uniform float moss_amount : hint_range(0.0, 1.0) = 1.0;
+uniform bool grow_from_top = false;
+uniform float height_offset = 0.0;
+uniform float height_falloff = 1.0;
+group_uniforms;
+
+varying float local_y;
+
+void vertex() {
+    local_y = VERTEX.y;
+}
+
+void fragment() {
+
+    // --- 0. CÁLCULO DAS UVS INDEPENDENTES ---
+    vec2 uv_base = UV * uv_scale_base + uv_offset_base;
+    vec2 uv_moss = UV * uv_scale_moss + uv_offset_moss;
+    vec2 uv_mask = UV * uv_scale_mask + uv_offset_mask;
+
+    // --- 1. CÁLCULO DA MÁSCARA ---
+    float mask_value = texture(moss_mask, uv_mask).r;
+    float height_distance = grow_from_top ? (height_offset - local_y) : (local_y - height_offset);
+    float height_factor = clamp(1.0 - (height_distance * height_falloff), 0.0, 1.0);
+    float final_moss_mask = clamp(mask_value * height_factor * moss_amount, 0.0, 1.0);
+
+    // --- 2. ALBEDO ---
+    vec3 color_base = use_texture_base
+        ? texture(albedo_base, uv_base).rgb * tint_base.rgb
+        : tint_base.rgb;
+    vec3 color_moss = use_texture_moss
+        ? texture(albedo_moss, uv_moss).rgb * tint_moss.rgb
+        : tint_moss.rgb;
+    ALBEDO = mix(color_base, color_moss, final_moss_mask);
+
+    // --- 3. NORMAL MAP ---
+    vec3 norm_base = texture(normal_base, uv_base).rgb;
+    vec3 norm_moss = texture(normal_moss, uv_moss).rgb;
+    NORMAL_MAP = mix(norm_base, norm_moss, final_moss_mask);
+
+    // --- 4. ROUGHNESS ---
+    float rough_base = texture(roughness_base, uv_base).r * roughness_base_multiplier;
+    float rough_moss = texture(roughness_moss, uv_moss).r * roughness_moss_multiplier;
+    ROUGHNESS = mix(rough_base, rough_moss, final_moss_mask);
+
+    // --- 5. SPECULAR ---
+    SPECULAR = mix(specular_base, specular_moss, final_moss_mask);
+}"
+
+[sub_resource type="Gradient" id="Gradient_74raq"]
+offsets = PackedFloat32Array(0, 0.27979276)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u4feq"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_003u0"]
+noise = SubResource("FastNoiseLite_u4feq")
+color_ramp = SubResource("Gradient_74raq")
+seamless = true
+in_3d_space = true
+
+[resource]
+resource_name = "paredes"
+render_priority = 0
+shader = SubResource("Shader_6nieq")
+shader_parameter/tint_base = Color(1, 1, 1, 1)
+shader_parameter/tint_moss = Color(0.2509804, 0.58431375, 0, 1)
+shader_parameter/uv_scale_base = Vector2(0.5, 0.5)
+shader_parameter/uv_offset_base = Vector2(0, 0)
+shader_parameter/uv_scale_moss = Vector2(4, 4)
+shader_parameter/uv_offset_moss = Vector2(0, 0)
+shader_parameter/uv_scale_mask = Vector2(1, 1)
+shader_parameter/uv_offset_mask = Vector2(0, 0)
+shader_parameter/use_texture_base = true
+shader_parameter/use_texture_moss = true
+shader_parameter/albedo_base = ExtResource("1_mcu7p")
+shader_parameter/albedo_moss = ExtResource("2_q0a1g")
+shader_parameter/normal_base = ExtResource("3_5xisx")
+shader_parameter/normal_moss = ExtResource("4_plgd5")
+shader_parameter/roughness_base = ExtResource("5_8g1vh")
+shader_parameter/roughness_base_multiplier = 1.0
+shader_parameter/roughness_moss = ExtResource("6_np2u1")
+shader_parameter/roughness_moss_multiplier = 1.0
+shader_parameter/specular_base = 0.5
+shader_parameter/specular_moss = 0.2000000095
+shader_parameter/moss_mask = SubResource("NoiseTexture2D_003u0")
+shader_parameter/moss_amount = 0.0
+shader_parameter/grow_from_top = true
+shader_parameter/height_offset = 0.87
+shader_parameter/height_falloff = 33.1

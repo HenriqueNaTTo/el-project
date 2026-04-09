@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://qerefcn6ct4k"]
+
+[ext_resource type="PackedScene" uid="uid://en0cdsowgevl" path="res://Modelos/mar_lagos/marCortado.glb" id="1_m5chp"]
+
+[node name="mar" type="Node3D" unique_id=777379469]
+
+[node name="marCortado" parent="." unique_id=1076171620 instance=ExtResource("1_m5chp")]
+
+[node name="Grid" parent="marCortado" index="0" unique_id=100432351]
+lod_bias = 50.0
+
+[editable path="marCortado"]

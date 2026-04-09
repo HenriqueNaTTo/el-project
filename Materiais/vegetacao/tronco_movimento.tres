@@ -120,8 +120,8 @@ void fragment() {
 [resource]
 render_priority = 0
 shader = SubResource("Shader_jm5f2")
-shader_parameter/wind_speed = 0.800000038
-shader_parameter/wind_strength = 0.0010000000475
+shader_parameter/wind_speed = 1.0
+shader_parameter/wind_strength = 0.0
 shader_parameter/wind_direction = Vector2(1, 0.5)
 shader_parameter/albedo_color = Color(0.53515625, 0.37628174, 0, 1)
 shader_parameter/texture_albedo = ExtResource("1_6wo7e")

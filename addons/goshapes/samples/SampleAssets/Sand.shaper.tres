@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BlockShaper" format=3 uid="uid://crmkyitge0fwa"]
+
+[ext_resource type="Script" uid="uid://di1xm288bmjnp" path="res://addons/goshapes/MeshShaper/Shapers/CapFlatShaper.gd" id="2_dh0ri"]
+[ext_resource type="Material" uid="uid://b770vfl4vul8p" path="res://addons/goshapes/samples/SampleAssets/SandMat.mat.tres" id="2_yuv2d"]
+[ext_resource type="Script" uid="uid://cakgir157ptqi" path="res://addons/goshapes/MeshShaper/BlockShaper.gd" id="3_f6xbb"]
+[ext_resource type="Resource" uid="uid://kgmarqqeputi" path="res://addons/goshapes/samples/SampleAssets/CliffWall.shaper.tres" id="4_cpndl"]
+
+[sub_resource type="Resource" id="Resource_03q4f"]
+script = ExtResource("2_dh0ri")
+material = ExtResource("2_yuv2d")
+
+[resource]
+resource_name = "Sand.shaper.tres:BlockShaper"
+script = ExtResource("3_f6xbb")
+cap_shaper = SubResource("Resource_03q4f")
+wall_shaper = ExtResource("4_cpndl")
+collider_type = 4

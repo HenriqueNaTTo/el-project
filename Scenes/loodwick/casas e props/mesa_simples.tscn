@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://bi7ds4exi3fbe"]
 
-[ext_resource type="Texture2D" uid="uid://b7ba60orxpjfc" path="res://Modelos/Construcoes/casaBasica_Arvores-EL_pixel_art_small (2).png" id="1_0k6i5"]
-[ext_resource type="Texture2D" uid="uid://c5404wnhrmmtp" path="res://Modelos/Construcoes/madeiraNormalMap.png" id="2_iqd41"]
+[ext_resource type="Material" uid="uid://cxc04252258j0" path="res://Modelos/Construcoes/madeira.tres" id="1_xd7un"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkcwr"]
 resource_name = "madeira"
@@ -42,18 +41,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_w4e66")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0k6i5"]
-resource_name = "madeira"
-cull_mode = 2
-albedo_color = Color(0.70703125, 0.70703125, 0.70703125, 1)
-albedo_texture = ExtResource("1_0k6i5")
-roughness = 0.5
-normal_enabled = true
-normal_scale = 0.5
-normal_texture = ExtResource("2_iqd41")
-uv1_scale = Vector3(0.1, 0.1, 0.1)
-uv1_triplanar = true
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xd7un"]
 points = PackedVector3Array(-3.9827914, -0.36719033, -4.8123584, -4.0298367, -0.66385454, -0.55231714, -4.070161, -0.39779696, -4.404876, -4.0376773, -0.38199353, -4.61506, -5.3202147, 0.017092884, -2.7435408, -5.070428, 0.029895663, -3.0342543, -3.9794312, 0.055701256, -3.0350595, 4.125756, 0.23554021, -2.1266804, 3.7146716, -0.15934533, -3.780768, -1.6876659, -0.30687726, -4.5103707, -1.6451013, -0.32038018, -4.2953553, -3.988392, -0.67165625, -0.3469658, -5.3459773, -0.2585668, 1.6831975, -4.0656805, -0.6469509, -0.76733255, -1.7111886, -0.6159442, -0.03692484, -5.325815, 0.034796715, -2.6412675, -5.1589174, 0.066203535, -2.7813897, -5.1230736, 0.05060017, -2.9086275, -4.0578394, 0.08810824, -2.8723888, 3.9129329, 0.3099563, -1.8069758, 4.923281, 0.350165, -1.5428371, 6.0120378, -0.09853214, -3.4763644, 3.6721072, -0.17674908, -3.5802484, -4.201215, -0.23806235, 2.2396607, -4.604458, -0.28687292, 1.9449205, -5.118593, -0.27937132, 1.9578052, -5.167878, -0.2585668, 2.0190082, -5.164518, -0.17504871, 0.8102517, -5.164518, -0.015214086, -1.5388107, 5.790254, -0.3790929, 0.53081226, 6.0153985, -0.40249798, 0.9994974, 0.48536634, -0.15034336, 2.6511693, -4.6851068, 0.08350724, -2.7636733, -4.211296, 0.09951073, -2.7548149, 2.4130926, 0.28155017, -1.8464355, 1.8720746, 0.2664469, -1.8858953, 3.9498973, 0.31945837, -1.5863235, 4.923281, 0.26224595, -0.23986053, 5.1316237, 0.32185888, -1.2472918, 6.052362, -0.104233384, -3.2702074, 6.0915666, -0.12443775, -3.0463338, -4.1586504, -0.23066077, 2.1889267, 3.9991822, -0.031717658, 3.2398438, 4.9255214, 0.014192283, 3.4145942, -2.1155517, -0.18024984, 2.5078259, -2.1849992, -0.013213694, 0.046826363, -1.1768913, 0.17932802, -2.2523072, 6.0971665, -0.36899072, 0.58959913, 5.2010713, 0.009891331, 3.00067, -3.1516626, 0.12701666, -2.56718, 1.8653541, 0.18562937, -0.6980767, 3.9610982, 0.07450533, 2.039946, 5.114822, 0.026894987, 3.0691204, 2.9552302, -0.038819194, 3.1480398, -0.093735695, -0.11483568, 2.660833, 0.9076514, -0.012213469, 1.6912508, 3.41896, -0.022215605, 3.1601195)
@@ -109,7 +96,7 @@ transform = Transform3D(0.9659258, 1.905223, 0.12940955, -0.25881907, 7.1103888,
 lod_bias = 0.1
 mesh = SubResource("ArrayMesh_m3xpp")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_0k6i5")
+surface_material_override/0 = ExtResource("1_xd7un")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MESA" unique_id=1614162955]
 
@@ -123,7 +110,7 @@ transform = Transform3D(0.9999998, 0, 0, 0, 0.9999998, 0, 0, 0, 1.3, -0.16917402
 lod_bias = 0.1
 mesh = SubResource("ArrayMesh_ju3kb")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_0k6i5")
+surface_material_override/0 = ExtResource("1_xd7un")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="banco_simples/BANCO" unique_id=1642481733]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0017385483, -0.7770972, 0)
@@ -138,7 +125,7 @@ transform = Transform3D(0.99999976, 0, 0, 0, 0.99999976, 0, 0, 0, 1.3, -0.169174
 lod_bias = 0.1
 mesh = SubResource("ArrayMesh_ju3kb")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("StandardMaterial3D_0k6i5")
+surface_material_override/0 = ExtResource("1_xd7un")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="banco_simples2/BANCO" unique_id=1798480685]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0017385483, -0.7770972, 0)

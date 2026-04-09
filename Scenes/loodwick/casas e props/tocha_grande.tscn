@@ -215,10 +215,11 @@ surface_material_override/2 = SubResource("ShaderMaterial_x4q1d")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="tochaGrande/StaticBody3D" unique_id=1609680023]
 shape = SubResource("ConvexPolygonShape3D_5468x")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=125730993]
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1705937750]
 transform = Transform3D(6.666666, 0, 0, 0, 6.666666, 0, 0, 0, 6.666666, 0, 13.991144, 0)
 light_color = Color(1, 0.7902114, 0.3515625, 1)
 light_energy = 4.0
+shadow_blur = 10.0
 omni_range = 10.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=213499282]
@@ -229,6 +230,7 @@ draw_pass_1 = SubResource("QuadMesh_fte2g")
 
 [node name="GPUParticles3D2" type="GPUParticles3D" parent="." unique_id=1104386319]
 transform = Transform3D(0.99999976, 0, -3.5527128e-15, 0, 0.99999976, 0, 3.5527128e-15, 0, 0.99999976, 0, 14.230117, 0)
+cast_shadow = 0
 amount = 30
 lifetime = 1.5
 process_material = SubResource("ParticleProcessMaterial_fbbd8")

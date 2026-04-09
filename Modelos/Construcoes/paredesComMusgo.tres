@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://s4sqoucopl7s"]
 
-[ext_resource type="Shader" uid="uid://bcg2mi7suin10" path="res://Materiais/shaders/telhado_sujo_sem_triplanar.tres" id="1_7jht7"]
+[ext_resource type="Shader" uid="uid://bxafgnq35diw5" path="res://Materiais/shaders/musgoComHight.gdshader" id="1_7jht7"]
 [ext_resource type="Texture2D" uid="uid://culi8gxs1yyf7" path="res://Modelos/Construcoes/Reino Sagrado/parede2.jpg" id="2_pd4y0"]
 [ext_resource type="Texture2D" uid="uid://dsn2lol765p8c" path="res://Modelos/Construcoes/Reino Sagrado/AmbientOcclusionMap (2).png" id="3_7jht7"]
 [ext_resource type="Texture2D" uid="uid://ddprscrpsofah" path="res://demo/assets/textures/ground037_alb_ht.png" id="3_70dfc"]

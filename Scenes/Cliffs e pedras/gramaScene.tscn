@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d0vcg8lyrvkip"]
+
+[ext_resource type="PlaneMesh" uid="uid://cw26qgp8snsgp" path="res://Scenes/Cliffs e pedras/meshGrama.tres" id="1_lc67k"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" unique_id=210282056]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.10336304, 0)
+cast_shadow = 0
+mesh = ExtResource("1_lc67k")

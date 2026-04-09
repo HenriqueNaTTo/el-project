@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cnpycymfnj3s5"]
+
+[ext_resource type="PlaneMesh" uid="uid://cjh1rp667l0dc" path="res://Scenes/mesh_mar.tres" id="1_14bxk"]
+
+[node name="mar" type="MeshInstance3D" unique_id=340716097]
+lod_bias = 0.1
+mesh = ExtResource("1_14bxk")
