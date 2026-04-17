@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://en0cdsowgevl"
-path="res://.godot/imported/marCortado.glb-945a7c66e8aab0d583024ca35a167038.scn"
+uid="uid://ncxr1h4kuftd"
+path="res://.godot/imported/cercaMadeira.glb-f917fb28409faeb42d65724711490ce5.scn"
 
 [deps]
 
-source_file="res://Modelos/mar_lagos/marCortado.glb"
-dest_files=["res://.godot/imported/marCortado.glb-945a7c66e8aab0d583024ca35a167038.scn"]
+source_file="res://Modelos/Construcoes/Props/cercaMadeira.glb"
+dest_files=["res://.godot/imported/cercaMadeira.glb-f917fb28409faeb42d65724711490ce5.scn"]
 
 [params]
 

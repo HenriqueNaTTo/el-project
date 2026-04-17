@@ -1,0 +1,24 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dwsvq1dxrxtlo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7ofiy"]
+load_path = "res://.godot/imported/madeira2 (1).png-5f4c67d830cd1d5aa23f0bfcfc7c29a6.bptc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o3ugn"]
+load_path = "res://.godot/imported/madeira2Hight.png-9adf50f2ca185205b6b24f97a18db521.bptc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_obiiy"]
+load_path = "res://.godot/imported/madeira2Normal.png-49970f0f187b9ffcfced57bcca4b902f.bptc.ctex"
+
+[resource]
+resource_name = "madeira"
+cull_mode = 2
+albedo_color = Color(0.5859375, 0.5859375, 0.5859375, 1)
+albedo_texture = SubResource("CompressedTexture2D_7ofiy")
+roughness = 0.8
+normal_enabled = true
+normal_texture = SubResource("CompressedTexture2D_obiiy")
+heightmap_enabled = true
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = SubResource("CompressedTexture2D_o3ugn")

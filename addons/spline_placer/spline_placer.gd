@@ -89,6 +89,24 @@ class SceneEntry:
 		instances_parent = value
 		_rebuild()
 
+## --- Exclusão ---
+
+## Áreas de exclusão: instâncias não serão colocadas dentro dessas áreas
+@export var exclusion_areas: Array[Area3D] = []:
+	set(value):
+		exclusion_areas = value
+		_rebuild()
+
+## Margem extra aplicada ao redor de cada shape de exclusão
+@export var exclusion_margin: float = 0.0:
+	set(value):
+		exclusion_margin = value
+		_rebuild()
+
+## --- Rebuild manual ---
+
+@export_tool_button("🔄 Rebuild") var rebuild_button := rebuild
+
 const INSTANCE_GROUP := "_spline_placer_instance"
 
 var _instances: Array[Node3D] = []
@@ -129,7 +147,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-# Garante que scene_weights e scene_scale_overrides acompanhem o tamanho de scenes
 func _sync_weights() -> void:
 	while scene_weights.size() < scenes.size():
 		scene_weights.append(1.0)
@@ -152,7 +169,6 @@ func _rebuild() -> void:
 		update_configuration_warnings()
 		return
 
-	# Filtra cenas válidas
 	var valid := false
 	for s in scenes:
 		if s != null:
@@ -169,7 +185,6 @@ func _rebuild() -> void:
 	_connect_curve_signal()
 	_sync_weights()
 
-	# Configura RNG
 	if random_seed != 0:
 		_rng.seed = random_seed
 	else:
@@ -208,7 +223,6 @@ func _pick_scene_index() -> int:
 		return -1
 
 	match selection_mode:
-		# Weighted Random
 		0:
 			var total_weight := 0.0
 			for i in valid_indices:
@@ -227,20 +241,62 @@ func _pick_scene_index() -> int:
 					return i
 			return valid_indices[-1]
 
-		# Sequential
 		1:
 			var idx := valid_indices[_seq_index % valid_indices.size()]
 			_seq_index += 1
 			return idx
 
-		# Random Uniform
 		2:
 			return valid_indices[_rng.randi() % valid_indices.size()]
 
 	return valid_indices[0]
 
 
+func _is_position_excluded(world_pos: Vector3) -> bool:
+	for area in exclusion_areas:
+		if not is_instance_valid(area):
+			continue
+		for child in area.get_children():
+			if not child is CollisionShape3D:
+				continue
+			var cs := child as CollisionShape3D
+			if cs.disabled or cs.shape == null:
+				continue
+
+			var local_pos: Vector3 = cs.global_transform.affine_inverse() * world_pos
+			var shape := cs.shape
+
+			if shape is BoxShape3D:
+				var half := (shape as BoxShape3D).size * 0.5 + Vector3.ONE * exclusion_margin
+				if (abs(local_pos.x) <= half.x and
+					abs(local_pos.y) <= half.y and
+					abs(local_pos.z) <= half.z):
+					return true
+
+			elif shape is SphereShape3D:
+				var radius := (shape as SphereShape3D).radius + exclusion_margin
+				if local_pos.length_squared() <= radius * radius:
+					return true
+
+			elif shape is CylinderShape3D:
+				var cyl := shape as CylinderShape3D
+				var half_h := cyl.height * 0.5 + exclusion_margin
+				var r := cyl.radius + exclusion_margin
+				if abs(local_pos.y) <= half_h:
+					var flat := Vector2(local_pos.x, local_pos.z)
+					if flat.length_squared() <= r * r:
+						return true
+
+	return false
+
+
 func _place_instance_at_offset(offset: float, total_length: float, parent: Node3D) -> void:
+	var baked_pos := curve.sample_baked(offset)
+	var world_pos: Vector3 = global_transform * (baked_pos + position_offset)
+
+	if _is_position_excluded(world_pos):
+		return
+
 	var scene_idx := _pick_scene_index()
 	if scene_idx < 0:
 		return
@@ -253,7 +309,6 @@ func _place_instance_at_offset(offset: float, total_length: float, parent: Node3
 
 	instance.add_to_group(INSTANCE_GROUP)
 
-	var baked_pos := curve.sample_baked(offset)
 	var tangent := _get_tangent(offset, total_length)
 
 	instance.position = baked_pos + position_offset
@@ -266,7 +321,6 @@ func _place_instance_at_offset(offset: float, total_length: float, parent: Node3
 		instance.rotate_object_local(Vector3.UP,      deg_to_rad(rotation_offset.y))
 		instance.rotate_object_local(Vector3.FORWARD, deg_to_rad(rotation_offset.z))
 
-	# Escala: override por cena tem prioridade, senão usa global
 	var override := scene_scale_overrides[scene_idx] if scene_idx < scene_scale_overrides.size() else Vector3.ZERO
 	instance.scale = override if override != Vector3.ZERO else instance_scale
 
@@ -333,7 +387,6 @@ func get_instances_of_scene(scene: PackedScene) -> Array[Node3D]:
 	var idx := scenes.find(scene)
 	if idx < 0:
 		return result
-	# Compara pela cena original usando metadado
 	for inst in _instances:
 		if is_instance_valid(inst) and inst.get_meta("_spline_scene_idx", -1) == idx:
 			result.append(inst)

@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dwvmhlsdwwnog"]
+
+[ext_resource type="Texture2D" uid="uid://nvp43gl3v61q" path="res://Modelos/Construcoes/ponteSeamless.jpg" id="1_6xa7a"]
+[ext_resource type="Texture2D" uid="uid://cbg5qq7rceov6" path="res://Modelos/Construcoes/texturaPedra3-heightmap.png" id="2_y4r7n"]
+[ext_resource type="Texture2D" uid="uid://c7h0oviuqa6xa" path="res://Modelos/Construcoes/texturaPedra3-metallicmap.png" id="3_6byes"]
+[ext_resource type="Texture2D" uid="uid://cm7ql1vvue0bd" path="res://Modelos/Construcoes/texturaPedra3-normalmap.png" id="4_87hcj"]
+
+[resource]
+resource_name = "sofa"
+cull_mode = 2
+albedo_texture = ExtResource("1_6xa7a")
+metallic_texture = ExtResource("3_6byes")
+normal_enabled = true
+normal_texture = ExtResource("4_87hcj")
+heightmap_enabled = true
+heightmap_scale = 1.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("2_y4r7n")
+uv1_scale = Vector3(4.32, 4.32, 4.32)

@@ -6,7 +6,6 @@
 [resource]
 transparency = 1
 cull_mode = 2
-albedo_color = Color(1, 1, 1, 0.60784316)
 albedo_texture = ExtResource("1_i8o4c")
 roughness = 0.2
 normal_enabled = true

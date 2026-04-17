@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://s45jw170gqbr" path="res://Scenes/interface/selecionar_level.tscn" id="12_2l3k1"]
 [ext_resource type="PackedScene" uid="uid://bpc04w8qxqb4j" path="res://Scenes/interface/proximo_nivel.tscn" id="13_3orgy"]
 [ext_resource type="PackedScene" uid="uid://b6vfoxcdwnbkr" path="res://Scenes/interface/itemConsumivel.tscn" id="13_ebhba"]
-[ext_resource type="Texture2D" uid="uid://c1be0tn8hjon3" path="res://Interface/trianguloHabilidades.png" id="14_axx6r"]
 [ext_resource type="PackedScene" uid="uid://6gigx4cpfu37" path="res://Scenes/interface/fundo_morte.tscn" id="14_ebhba"]
 [ext_resource type="Texture2D" uid="uid://btv6uunbtyno5" path="res://Interface/QuadradoHabilidade.png" id="15_oqajw"]
 [ext_resource type="Texture2D" uid="uid://ccbb0d5g2w2aq" path="res://Interface/slotHabilidade.png" id="16_yk2m6"]
@@ -38,20 +37,20 @@ offset_bottom = 40.0
 [node name="rectVida" type="TextureRect" parent="playerStats" unique_id=1507485018]
 texture_filter = 4
 layout_mode = 1
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 320.0
-offset_bottom = 40.0
+offset_left = -8.095001
+offset_top = 24.0
+offset_right = 291.905
+offset_bottom = 44.0
 texture = ExtResource("2_pf6t8")
 expand_mode = 1
 
 [node name="barraVida" type="TextureProgressBar" parent="playerStats" unique_id=1655749087]
 texture_filter = 4
 layout_mode = 1
-offset_left = 23.0
-offset_top = 23.4
-offset_right = 316.333
-offset_bottom = 36.733
+offset_left = -5.095001
+offset_top = 27.4
+offset_right = 288.238
+offset_bottom = 40.733
 value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("1_w8lqc")
@@ -59,25 +58,26 @@ texture_progress = ExtResource("1_w8lqc")
 [node name="rectMana" type="TextureRect" parent="playerStats" unique_id=661198101]
 texture_filter = 4
 layout_mode = 1
-offset_left = 20.0
-offset_top = 42.0
-offset_right = 186.0
-offset_bottom = 62.0
+offset_left = -8.095001
+offset_top = 46.0
+offset_right = 157.905
+offset_bottom = 66.0
 texture = ExtResource("3_qkmx1")
 expand_mode = 1
 
 [node name="barraMana" type="TextureProgressBar" parent="playerStats" unique_id=1351475339]
 texture_filter = 4
 layout_mode = 1
-offset_left = 23.0
-offset_top = 45.4
-offset_right = 183.0
-offset_bottom = 58.733
+offset_left = -5.095001
+offset_top = 49.4
+offset_right = 154.905
+offset_bottom = 62.733
 value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("5_5ei0g")
 
 [node name="TextureRect" type="TextureRect" parent="playerStats" unique_id=436272165]
+visible = false
 texture_filter = 2
 texture_repeat = 1
 layout_mode = 0
@@ -90,18 +90,8 @@ expand_mode = 1
 
 [node name="interactionInterface" parent="." unique_id=1467880927 instance=ExtResource("5_4qhga")]
 layout_mode = 1
-offset_top = -118.0
-offset_bottom = -63.0
-
-[node name="textoInteracao" parent="interactionInterface/interface" parent_id_path=PackedInt32Array(1467880927, 1004736446) index="0" unique_id=803664972]
-offset_left = -114.0
-offset_right = 98.0
-text = "Interação"
-label_settings = ExtResource("8_4n7fr")
-autowrap_mode = 2
-
-[node name="btnInteracao" parent="interactionInterface/interface" parent_id_path=PackedInt32Array(1467880927, 1004736446) index="2" unique_id=749402619]
-label_settings = ExtResource("8_4n7fr")
+offset_top = -88.69501
+offset_bottom = -33.695007
 
 [node name="selecionarLevel" parent="." unique_id=1996091797 instance=ExtResource("12_2l3k1")]
 visible = false
@@ -121,17 +111,30 @@ visible = false
 layout_mode = 1
 
 [node name="habilidades" type="Control" parent="." unique_id=992260830]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 22.995
+offset_top = -204.215
+offset_right = 230.995
+offset_bottom = 42.7854
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
 
 [node name="trianguloHabilidades" type="TextureRect" parent="habilidades" unique_id=1201379271]
-layout_mode = 0
-offset_left = 926.0
-offset_top = 454.0
-offset_right = 1093.8148
-offset_bottom = 569.0
-texture = ExtResource("14_axx6r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.90741
+offset_top = -57.5
+offset_right = 83.90741
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
 expand_mode = 1
 
 [node name="itemIconE" type="TextureRect" parent="habilidades/trianguloHabilidades" unique_id=230547210]
@@ -142,11 +145,11 @@ anchor_left = 0.7890625
 anchor_top = 0.8148148
 anchor_right = 0.8446181
 anchor_bottom = 0.91358024
-offset_left = -149.41638
-offset_top = -19.703705
-offset_right = -130.73943
-offset_bottom = -3.0617294
-grow_vertical = 0
+offset_left = -129.50897
+offset_top = -51.703705
+offset_right = -110.832016
+offset_bottom = -35.06173
+grow_vertical = 2
 scale = Vector2(2, 2)
 texture = ExtResource("15_oqajw")
 expand_mode = 1
@@ -184,20 +187,18 @@ texture = ExtResource("7_2l3k1")
 
 [node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE" unique_id=1534141698]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.140625
-anchor_top = 1.25
-anchor_right = 1.203125
-anchor_bottom = 1.28125
-offset_left = -11.0
-offset_top = -20.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "E"
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 5.0
+offset_bottom = 10.0
+grow_vertical = 2
+text = "G"
 label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="quantHabilidade" type="Label" parent="habilidades/trianguloHabilidades/itemIconE" unique_id=2077755761]
 modulate = Color(1, 1, 1, 0.56078434)
@@ -227,10 +228,10 @@ anchor_left = 0.7890625
 anchor_top = 0.8148148
 anchor_right = 0.8446181
 anchor_bottom = 0.91358024
-offset_left = -7.416382
-offset_top = -19.703705
-offset_right = 11.260559
-offset_bottom = -3.0617294
+offset_left = -25.508911
+offset_top = -51.703705
+offset_right = -6.83197
+offset_bottom = -35.06173
 grow_vertical = 0
 scale = Vector2(2, 2)
 texture = ExtResource("15_oqajw")
@@ -269,21 +270,108 @@ texture = ExtResource("7_2l3k1")
 
 [node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE2" unique_id=647013974]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.140625
-anchor_top = 1.25
-anchor_right = 1.203125
-anchor_bottom = 1.28125
-offset_left = -11.0
-offset_top = -20.0
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -5.4999847
+offset_top = -10.0
+offset_right = 5.500023
+offset_bottom = 10.0
 grow_horizontal = 0
-grow_vertical = 0
+grow_vertical = 2
 text = "E"
 label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="quantHabilidade" type="Label" parent="habilidades/trianguloHabilidades/itemIconE2" unique_id=2024225396]
+modulate = Color(1, 1, 1, 0.56078434)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.5
+offset_top = -8.0
+offset_right = 5.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "5"
+label_settings = ExtResource("8_4n7fr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="itemIconE4" type="TextureRect" parent="habilidades/trianguloHabilidades" unique_id=1790890662]
+texture_filter = 5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7890625
+anchor_top = 0.8148148
+anchor_right = 0.8446181
+anchor_bottom = 0.91358024
+offset_left = -77.50897
+offset_top = 4.296295
+offset_right = -58.83203
+offset_bottom = 20.93827
+grow_vertical = 0
+scale = Vector2(2, 2)
+texture = ExtResource("15_oqajw")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE4" unique_id=722165451]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_yk2m6")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="habilidades/trianguloHabilidades/itemIconE4" unique_id=1578847997]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_2l3k1")
+
+[node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE4" unique_id=470084320]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.4999924
+offset_top = -7.6399994
+offset_right = 5.5
+offset_bottom = 12.359993
+grow_horizontal = 2
+grow_vertical = 0
+text = "R"
+label_settings = ExtResource("8_4n7fr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="quantHabilidade" type="Label" parent="habilidades/trianguloHabilidades/itemIconE4" unique_id=749668245]
 modulate = Color(1, 1, 1, 0.56078434)
 layout_mode = 1
 anchors_preset = 8
@@ -352,16 +440,15 @@ texture = ExtResource("7_2l3k1")
 
 [node name="btnInteracao2" type="Label" parent="habilidades/trianguloHabilidades/itemIconE3" unique_id=542832209]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.140625
-anchor_top = 1.25
-anchor_right = 1.203125
-anchor_bottom = 1.28125
-offset_left = -11.0
-offset_top = -20.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "E"
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -5.4999924
+offset_top = -11.4
+offset_right = 5.5000076
+offset_bottom = 8.6
+grow_horizontal = 2
+text = "Q"
 label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -385,7 +472,6 @@ label_settings = ExtResource("8_4n7fr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[editable path="interactionInterface"]
 [editable path="selecionarLevel"]
 [editable path="proximoNivel"]
 [editable path="interfaceInventario"]

@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://boj0g3emojj57"]
+
+[ext_resource type="Texture2D" uid="uid://ddsthb6n5un3o" path="res://Modelos/Construcoes/Reino Sagrado/parede.jpg" id="1_pohvm"]
+[ext_resource type="Texture2D" uid="uid://cgtfinykaeoyk" path="res://Modelos/Construcoes/Reino Sagrado/DisplacementMap.png" id="2_pohvm"]
+[ext_resource type="Texture2D" uid="uid://cc5wnavq748ln" path="res://Modelos/Construcoes/Reino Sagrado/NormalMap.png" id="3_f36k2"]
+
+[resource]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_pohvm")
+normal_enabled = true
+normal_texture = ExtResource("3_f36k2")
+heightmap_enabled = true
+heightmap_scale = 6.0
+heightmap_deep_parallax = true
+heightmap_min_layers = 8
+heightmap_max_layers = 32
+heightmap_texture = ExtResource("2_pohvm")
+uv1_scale = Vector3(1.5, 1.5, 1.5)

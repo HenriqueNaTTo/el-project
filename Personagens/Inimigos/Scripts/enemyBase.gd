@@ -176,7 +176,7 @@ func _physics_process(delta: float) -> void:
 # MÁQUINA DE ESTADOS
 #=============================================================================
 
-func enter_state(new_state: State) -> void:
+func enter_state(new_state: Enemy.State) -> void:
 	if current_state == new_state:
 		return
 	
