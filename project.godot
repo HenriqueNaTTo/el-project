@@ -41,6 +41,16 @@ project/assembly_name="ELProject"
 
 enabled=PackedStringArray("res://addons/GitGodot/plugin.cfg", "res://addons/LineRenderer/plugin.cfg", "res://addons/PathMesh3D/plugin.cfg", "res://addons/ScatterShot/plugin.cfg", "res://addons/UniParticles3D/plugin.cfg", "res://addons/collision_presets/plugin.cfg", "res://addons/csg_generator_3d/plugin.cfg", "res://addons/csg_mesher/plugin.cfg", "res://addons/csg_toolkit/plugin.cfg", "res://addons/curvemesh3d/plugin.cfg", "res://addons/foley_ai/plugin.cfg", "res://addons/godot-deformablemesh-0.30/godot-deformablemesh-0.30/addons/deformablemesh/plugin.cfg", "res://addons/goshapes/plugin.cfg", "res://addons/magnet3d/plugin.cfg", "res://addons/mesh_path_3d/plugin.cfg", "res://addons/multimesh_scatter/plugin.cfg", "res://addons/nap_map_generator/plugin.cfg", "res://addons/nexus_vertex_painter/plugin.cfg", "res://addons/object_strings/plugin.cfg", "res://addons/path_mesh_instance_3d/plugin.cfg", "res://addons/proto_shape/plugin.cfg", "res://addons/proton_scatter/plugin.cfg", "res://addons/scenetomeshconverter/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/soft_pin/plugin.cfg", "res://addons/spline_placer/plugin.cfg", "res://addons/terrain_3d/plugin.cfg", "res://addons/waterways_net/plugin.cfg", "res://addons/yamms/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://Interface/": "gray",
+"res://Materiais/": "orange",
+"res://Modelos/": "teal",
+"res://Scenes/": "blue",
+"res://Scripts/": "red"
+}
+
 [importer_defaults]
 
 texture={

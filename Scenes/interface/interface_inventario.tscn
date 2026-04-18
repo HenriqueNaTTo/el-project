@@ -1,32 +1,47 @@
-[gd_scene load_steps=9 format=3 uid="uid://cs7dvhdye1kc3"]
+[gd_scene format=3 uid="uid://cs7dvhdye1kc3"]
 
-[ext_resource type="LabelSettings" uid="uid://cclpkv2yllb1b" path="res://Scenes/interface/label_padrao.tres" id="1_kaql2"]
 [ext_resource type="Script" uid="uid://chl8wwnrxgphh" path="res://Interface/scripts/interface_inventario.gd" id="1_vnlxa"]
 [ext_resource type="PackedScene" uid="uid://drwhin4nnlurk" path="res://Scenes/interface/itemEspada.tscn" id="2_uby21"]
-[ext_resource type="Texture2D" uid="uid://lm66jf0skl82" path="res://Interface/separacao.png" id="3_vnlxa"]
-[ext_resource type="Texture2D" uid="uid://x7veo88jak2c" path="res://Interface/Hasar.png" id="5_smxre"]
-[ext_resource type="FontFile" uid="uid://dlos601g6v340" path="res://Interface/fontes/KiwiSoda.ttf" id="6_0wsj5"]
+[ext_resource type="Texture2D" uid="uid://dspomhptvnaur" path="res://Interface/fundoTopo.png" id="3_vnlxa"]
+[ext_resource type="FontFile" uid="uid://1ark3s4w7lit" path="res://Fontes/Federant/Federant-Regular.ttf" id="4_smxre"]
+[ext_resource type="Texture2D" uid="uid://6o7h4158ipmj" path="res://Interface/selecionadoTopo.png" id="5_0wsj5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywppu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7828t"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.08627451, 0.08235294, 0.12941177, 1)
+bg_color = Color(0.2, 0.2, 0.2, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="LabelSettings" id="LabelSettings_7828t"]
-font = ExtResource("6_0wsj5")
-font_size = 32
-shadow_size = 5
-shadow_color = Color(0.24705882, 0.23529412, 0.38039216, 1)
-shadow_offset = Vector2(0, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81u5m"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="interfaceInventario" type="Control"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ei2mi"]
+content_margin_top = 30.0
+content_margin_bottom = 30.0
+expand_margin_bottom = 79.0
+
+[sub_resource type="Theme" id="Theme_mnmsq"]
+TabContainer/styles/panel = SubResource("StyleBoxFlat_81u5m")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxTexture_ei2mi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_urjq6"]
+content_margin_top = 30.0
+content_margin_bottom = 30.0
+expand_margin_bottom = 79.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4i8ps"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kdg2i"]
+texture = ExtResource("5_0wsj5")
+expand_margin_bottom = 8.0
+
+[node name="interfaceInventario" type="Control" unique_id=1707661223]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -37,134 +52,71 @@ grow_vertical = 2
 script = ExtResource("1_vnlxa")
 cena_slot = ExtResource("2_uby21")
 
-[node name="TextureRect" type="Panel" parent="."]
+[node name="fundo" type="Panel" parent="." unique_id=1669015581]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ywppu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7828t")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=306265544]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -196.0
-offset_bottom = 231.0
+offset_bottom = 164.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 40
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Espadas"
-label_settings = ExtResource("1_kaql2")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
-clip_contents = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="espadas" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/ScrollContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 30
-
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
-texture_filter = 5
-layout_mode = 2
 texture = ExtResource("3_vnlxa")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2"]
-texture_filter = 5
-layout_mode = 2
-text = "Armaduras"
-label_settings = ExtResource("1_kaql2")
-horizontal_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer2"]
-clip_contents = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="armaduras" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/ScrollContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 30
-
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
-visible = false
-texture_filter = 5
-layout_mode = 2
-texture = ExtResource("3_vnlxa")
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-text = "Consumiveis"
-label_settings = ExtResource("1_kaql2")
-horizontal_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer3"]
-clip_contents = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="consumiveis" type="VBoxContainer" parent="HBoxContainer/VBoxContainer3/ScrollContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 30
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -151.99902
-offset_top = 15.0
-offset_right = -17.999023
-offset_bottom = 65.0
-grow_horizontal = 0
-alignment = 1
-
-[node name="textureMoeda" type="TextureRect" parent="HBoxContainer2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("5_smxre")
 expand_mode = 1
 
-[node name="moedasPlayer" type="Label" parent="HBoxContainer2"]
-unique_name_in_owner = true
+[node name="TabContainer" type="TabContainer" parent="." unique_id=673830063]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_mnmsq")
+theme_override_colors/font_selected_color = Color(1, 0.64634484, 0.23828125, 1)
+theme_override_constants/tab_separation = 30
+theme_override_fonts/font = ExtResource("4_smxre")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/tabbar_background = SubResource("StyleBoxTexture_urjq6")
+theme_override_styles/tab_unselected = SubResource("StyleBoxEmpty_4i8ps")
+theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_4i8ps")
+theme_override_styles/tab_selected = SubResource("StyleBoxTexture_kdg2i")
+theme_override_styles/tab_disabled = SubResource("StyleBoxEmpty_4i8ps")
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_4i8ps")
+tab_alignment = 1
+current_tab = 1
+
+[node name="Mapa" type="TabBar" parent="TabContainer" unique_id=686850962]
+visible = false
 layout_mode = 2
-text = "10000"
-label_settings = SubResource("LabelSettings_7828t")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_fonts/font = ExtResource("4_smxre")
+tab_alignment = 1
+metadata/_tab_index = 0
+
+[node name="Inventário" type="TabBar" parent="TabContainer" unique_id=54227190]
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 1
+
+[node name="Habilidades" type="TabBar" parent="TabContainer" unique_id=1794754393]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 2
+
+[node name="Diário" type="TabBar" parent="TabContainer" unique_id=618830378]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 3
+
+[node name="Outros" type="TabBar" parent="TabContainer" unique_id=759481551]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+metadata/_tab_index = 4
